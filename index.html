@@ -41,7 +41,6 @@ body {
 
 .wrap { max-width: 1080px; margin: 0 auto; }
 
-/* ── Header ── */
 header {
   margin-bottom: 40px; padding-bottom: 24px;
   border-bottom: 2px solid var(--border);
@@ -57,7 +56,6 @@ header h1 {
 header h1 em { font-style: normal; color: var(--accent3); }
 .header-sub { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; padding-bottom: 4px; }
 
-/* ── Block ── */
 .block {
   background: var(--white);
   border: 1.5px solid var(--border);
@@ -77,7 +75,6 @@ header h1 em { font-style: normal; color: var(--accent3); }
 }
 .block-title::after { content:''; flex:1; height:1px; background:var(--border); }
 
-/* ── Textarea ── */
 textarea {
   width: 100%; height: 160px;
   background: var(--bg); border: 1.5px solid var(--border); border-radius: 6px;
@@ -88,7 +85,6 @@ textarea {
 textarea:focus { border-color: var(--accent3); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
 textarea::placeholder { color: var(--muted); }
 
-/* ── Dropzone + header checkbox ── */
 .dropzone {
   position: relative; border: 2px dashed var(--border); border-radius: 6px;
   padding: 16px; text-align: center; margin-top: 12px; cursor: pointer;
@@ -99,17 +95,20 @@ textarea::placeholder { color: var(--muted); }
 .dropzone-icon { font-size: 20px; display: block; margin-bottom: 4px; }
 #file-name { margin-top:8px; font-size:12px; color:var(--accent2); font-weight:600; min-height:16px; }
 
-.header-option {
-  display: flex; align-items: center; gap: 8px; margin: 12px 0 0 4px;
-  font-size: 12px; cursor: pointer;
+/* no-header banner */
+.no-header-banner {
+  display: none;
+  background: rgba(192,112,0,0.08);
+  border: 1.5px solid rgba(192,112,0,0.35);
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 12px;
+  color: var(--warn);
+  margin-bottom: 16px;
+  line-height: 1.6;
 }
-.header-option input[type=checkbox] {
-  accent-color: var(--accent3); width: 16px; height: 16px; cursor: pointer;
-}
+.no-header-banner.visible { display: block; }
 
-/* ══════════════════════════════════════════
-   MAPPING — ОНОВЛЕНИЙ ДИЗАЙН
-══════════════════════════════════════════ */
 .mapping-hint {
   font-size: 13px; color: var(--ink2); margin-bottom: 18px;
   background: var(--bg2); border: 1px solid var(--border);
@@ -118,171 +117,65 @@ textarea::placeholder { color: var(--muted); }
 .mapping-hint strong { color: var(--accent3); }
 .mapping-hint code { background:var(--bg3); padding:1px 5px; border-radius:3px; font-size:11px; color:var(--ink); }
 
-/* Таблиця попереднього перегляду */
-.preview-wrap {
-  margin-bottom: 20px;
-  overflow-x: auto;
-}
+.preview-wrap { margin-bottom: 20px; overflow-x: auto; }
 .preview-wrap::-webkit-scrollbar { height: 5px; }
 .preview-wrap::-webkit-scrollbar-track { background: var(--bg); }
 .preview-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-.preview-table {
-  width: 100%; border-collapse: collapse; font-size: 11px;
-  min-width: 500px;
-}
+.preview-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 500px; }
 .preview-table th {
   background: var(--bg2); border: 1px solid var(--border);
   padding: 6px 10px; text-align: left; color: var(--muted);
-  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
-  white-space: nowrap;
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
 }
-.preview-table td {
-  border: 1px solid var(--border); padding: 6px 10px;
-  color: var(--ink); max-width: 180px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
+.preview-table td { border: 1px solid var(--border); padding: 6px 10px; color: var(--ink); max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .preview-table tr:nth-child(even) td { background: var(--bg); }
-.preview-table th.is-key-th {
-  background: var(--bg2);
-  border-top: 3px solid var(--accent3);
-  color: var(--accent3);
-}
+.preview-table th.is-key-th { background: var(--bg2); border-top: 3px solid var(--accent3); color: var(--accent3); }
 .preview-table td.is-key-td { background: rgba(124,58,237,0.05); font-weight: 600; color: var(--accent3); }
 
-/* Список колонок з радіокнопками */
-.col-select-list {
-  display: flex; flex-direction: column; gap: 8px;
-}
+.col-select-list { display: flex; flex-direction: column; gap: 8px; }
 
 .col-select-item {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 12px;
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: 6px;
-  padding: 10px 14px;
-  cursor: pointer;
-  transition: all 0.15s;
-  position: relative;
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: center; gap: 12px;
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: 6px; padding: 10px 14px; cursor: pointer; transition: all 0.15s; position: relative;
 }
 .col-select-item:hover { border-color: var(--accent3); background: var(--bg2); }
-.col-select-item.is-key {
-  border-color: var(--accent3);
-  background: linear-gradient(135deg, rgba(124,58,237,0.05) 0%, var(--white) 100%);
-  box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
-}
-
-/* Прихована radio */
+.col-select-item.is-key { border-color: var(--accent3); background: linear-gradient(135deg, rgba(124,58,237,0.05) 0%, var(--white) 100%); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
 .col-radio { display: none; }
-
-.col-radio-visual {
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  background: var(--white);
-  flex-shrink: 0;
-  transition: all 0.15s;
-  display: flex; align-items: center; justify-content: center;
-}
-.col-select-item.is-key .col-radio-visual {
-  border-color: var(--accent3);
-  background: var(--accent3);
-}
-.col-radio-visual::after {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: white;
-  opacity: 0;
-  transition: opacity 0.15s;
-}
+.col-radio-visual { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); background: var(--white); flex-shrink: 0; transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
+.col-select-item.is-key .col-radio-visual { border-color: var(--accent3); background: var(--accent3); }
+.col-radio-visual::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: white; opacity: 0; transition: opacity 0.15s; }
 .col-select-item.is-key .col-radio-visual::after { opacity: 1; }
-
 .col-info { min-width: 0; }
-
-.col-label-row {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 3px;
-}
-.col-num-badge {
-  font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-  color: var(--muted); background: var(--bg3);
-  padding: 1px 6px; border-radius: 10px; flex-shrink: 0;
-}
-.col-alias-input {
-  font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600;
-  color: var(--ink); background: transparent; border: none; outline: none;
-  border-bottom: 1.5px dashed var(--border);
-  padding: 0 2px; width: 100%; min-width: 80px;
-  transition: border-color 0.2s;
-}
+.col-label-row { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+.col-num-badge { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); background: var(--bg3); padding: 1px 6px; border-radius: 10px; flex-shrink: 0; }
+.col-alias-input { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; color: var(--ink); background: transparent; border: none; outline: none; border-bottom: 1.5px dashed var(--border); padding: 0 2px; width: 100%; min-width: 80px; transition: border-color 0.2s; }
 .col-alias-input:focus { border-bottom-color: var(--accent3); }
-
-.col-sample {
-  font-size: 10px; color: var(--muted);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  max-width: 100%;
-}
+.col-sample { font-size: 10px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 .col-sample span { color: var(--ink2); }
-
-.col-right {
-  display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0;
-}
-
-.key-badge-v2 {
-  display: none;
-  font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-  color: var(--accent3); background: rgba(124,58,237,0.1);
-  padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(124,58,237,0.25);
-}
+.col-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.key-badge-v2 { display: none; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent3); background: rgba(124,58,237,0.1); padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(124,58,237,0.25); }
 .col-select-item.is-key .key-badge-v2 { display: inline-flex; }
-
-.vis-toggle {
-  display: flex; align-items: center; gap: 4px;
-  font-size: 10px; color: var(--muted); cursor: pointer;
-  user-select: none;
-}
+.vis-toggle { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--muted); cursor: pointer; user-select: none; }
 .vis-toggle input[type=checkbox] { accent-color: var(--accent3); cursor: pointer; width: 13px; height: 13px; }
+.auto-hint { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; color: var(--accent3); font-weight: 600; background: rgba(124,58,237,0.08); padding: 2px 8px; border-radius: 20px; margin-left: 8px; }
 
-/* Авто-підказка */
-.auto-hint {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: 10px; color: var(--accent3); font-weight: 600;
-  background: rgba(124,58,237,0.08); padding: 2px 8px; border-radius: 20px;
-  margin-left: 8px;
-}
-
-/* ── Buttons ── */
 .btn-row { display:flex; gap:10px; flex-wrap:wrap; }
-.btn {
-  font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
-  letter-spacing:0.3px; padding:10px 18px;
-  border:1.5px solid transparent; border-radius:6px;
-  cursor:pointer; transition:all 0.15s;
-  display:inline-flex; align-items:center; gap:7px; white-space:nowrap;
-}
+.btn { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; letter-spacing:0.3px; padding:10px 18px; border:1.5px solid transparent; border-radius:6px; cursor:pointer; transition:all 0.15s; display:inline-flex; align-items:center; gap:7px; white-space:nowrap; }
 .btn:disabled { opacity:0.3; cursor:not-allowed !important; transform:none !important; box-shadow:none !important; }
-
 .btn-primary { background:var(--accent3); color:#fff; border-color:var(--accent3); box-shadow:0 2px 8px rgba(124,58,237,0.3); }
 .btn-primary:not(:disabled):hover { background:var(--ink2); border-color:var(--ink2); transform:translateY(-1px); box-shadow:0 4px 12px rgba(124,58,237,0.35); }
-
 .btn-danger  { background:var(--white); color:var(--accent);  border-color:var(--accent);  box-shadow:3px 3px 0 rgba(214,59,74,0.12); }
 .btn-danger:not(:disabled):hover  { background:var(--accent);  color:#fff; transform:translate(-1px,-1px); }
-
 .btn-success { background:var(--white); color:var(--accent2); border-color:var(--accent2); box-shadow:3px 3px 0 rgba(26,122,70,0.12); }
 .btn-success:not(:disabled):hover { background:var(--accent2); color:#fff; transform:translate(-1px,-1px); }
-
 .btn-warn    { background:var(--white); color:var(--warn);    border-color:var(--warn);    box-shadow:3px 3px 0 rgba(192,112,0,0.12); }
 .btn-warn:not(:disabled):hover    { background:var(--warn);    color:#fff; transform:translate(-1px,-1px); }
 
-/* ── Stats ── */
 .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:16px; }
-.stat-card {
-  border:1.5px solid var(--border); border-radius:8px;
-  padding:16px 18px; background:var(--bg); position:relative; overflow:hidden;
-}
+.stat-card { border:1.5px solid var(--border); border-radius:8px; padding:16px 18px; background:var(--bg); position:relative; overflow:hidden; }
 .stat-card::before { content:''; position:absolute; left:0;top:0;bottom:0; width:3px; border-radius:3px 0 0 3px; }
 .stat-card.c-total::before  { background:var(--accent3); }
 .stat-card.c-unique::before { background:var(--accent2); }
@@ -297,14 +190,8 @@ textarea::placeholder { color: var(--muted); }
 .stat-card.c-invalid .stat-num { color:var(--warn); }
 .stat-lbl { font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); line-height:1.4; }
 
-/* ── Tabs ── */
 .tabs { display:flex; gap:0; border-bottom:1.5px solid var(--border); margin-bottom:18px; }
-.tab-btn {
-  font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
-  padding:8px 16px; border:none; background:none; cursor:pointer;
-  color:var(--muted); border-bottom:2px solid transparent; margin-bottom:-1.5px;
-  transition:all 0.15s; display:flex; align-items:center; gap:6px;
-}
+.tab-btn { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; padding:8px 16px; border:none; background:none; cursor:pointer; color:var(--muted); border-bottom:2px solid transparent; margin-bottom:-1.5px; transition:all 0.15s; display:flex; align-items:center; gap:6px; }
 .tab-btn:hover { color:var(--ink); }
 .tab-btn.active { color:var(--accent3); border-bottom-color:var(--accent3); }
 .tab-btn.tab-warn.active { color:var(--warn); border-bottom-color:var(--warn); }
@@ -314,29 +201,18 @@ textarea::placeholder { color: var(--muted); }
 .tab-panel { display:none; }
 .tab-panel.active { display:block; }
 
-/* ── Search ── */
 .search-row { display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
-.search-input {
-  flex:1; min-width:180px; max-width:320px; padding:8px 13px;
-  font-family:'IBM Plex Mono',monospace; font-size:12px;
-  border:1.5px solid var(--border); border-radius:6px;
-  background:var(--bg); color:var(--ink); outline:none; transition:border-color 0.2s;
-}
+.search-input { flex:1; min-width:180px; max-width:320px; padding:8px 13px; font-family:'IBM Plex Mono',monospace; font-size:12px; border:1.5px solid var(--border); border-radius:6px; background:var(--bg); color:var(--ink); outline:none; transition:border-color 0.2s; }
 .search-input:focus { border-color:var(--accent3); box-shadow:0 0 0 3px rgba(124,58,237,0.1); }
 .search-input::placeholder { color:var(--muted); }
 .count-badge { font-size:11px; color:var(--muted); }
 
-/* ── Dup list ── */
 .dup-list { display:flex; flex-direction:column; gap:7px; max-height:500px; overflow-y:auto; padding-right:4px; }
 .dup-list::-webkit-scrollbar { width:5px; }
 .dup-list::-webkit-scrollbar-track { background:var(--bg); }
 .dup-list::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
 .dup-group { border:1.5px solid var(--border); border-radius:6px; overflow:hidden; animation:fadeUp 0.2s ease both; }
-.dup-header {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:10px 15px; background:var(--bg2); cursor:pointer;
-  transition:background 0.15s; user-select:none; border-bottom:1.5px solid transparent;
-}
+.dup-header { display:flex; align-items:center; justify-content:space-between; padding:10px 15px; background:var(--bg2); cursor:pointer; transition:background 0.15s; user-select:none; border-bottom:1.5px solid transparent; }
 .dup-header:hover { background:var(--bg3); }
 .dup-header.open { border-bottom-color:var(--border); }
 .dup-num-label { font-weight:700; font-size:13px; color:var(--accent); }
@@ -354,7 +230,6 @@ textarea::placeholder { color: var(--muted); }
 .dup-col-name { font-size:9px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
 .dup-col-val { font-size:12px; color:var(--ink); font-weight:500; }
 
-/* ── Invalid table ── */
 .invalid-list-wrap { max-height:480px; overflow-y:auto; }
 .invalid-list-wrap::-webkit-scrollbar { width:5px; }
 .invalid-list-wrap::-webkit-scrollbar-track { background:var(--bg); }
@@ -376,25 +251,9 @@ textarea::placeholder { color: var(--muted); }
 
 #results-block { display:none; }
 
-/* ══════════════════════════════════════════
-   DEBUG PANEL
-══════════════════════════════════════════ */
-#debug-panel {
-  background: var(--dbg-bg);
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 16px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(92,46,178,0.08);
-  font-family: 'IBM Plex Mono', monospace;
-}
-.dbg-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 11px 18px;
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-  cursor: pointer; user-select: none;
-}
+/* DEBUG */
+#debug-panel { background: var(--dbg-bg); border: 1.5px solid var(--border); border-radius: 8px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(92,46,178,0.08); font-family: 'IBM Plex Mono', monospace; }
+.dbg-header { display: flex; align-items: center; justify-content: space-between; padding: 11px 18px; background: var(--bg2); border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; }
 .dbg-header:hover { background: var(--bg3); }
 .dbg-title { display:flex; align-items:center; gap:10px; font-size:12px; font-weight:600; color:var(--ink2); letter-spacing:1px; text-transform:uppercase; }
 .dbg-dot { width:8px; height:8px; border-radius:50%; background:var(--dbg-ok); box-shadow:0 0 6px var(--dbg-ok); animation:pulse 2s infinite; }
@@ -408,11 +267,7 @@ textarea::placeholder { color: var(--muted); }
 .dbg-body::-webkit-scrollbar { width:5px; }
 .dbg-body::-webkit-scrollbar-track { background:var(--bg2); }
 .dbg-body::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
-.dbg-line {
-  display:grid; grid-template-columns:95px 52px 1fr;
-  padding:3px 18px; font-size:11px; line-height:1.6;
-  border-bottom:1px solid transparent; transition:background 0.1s;
-}
+.dbg-line { display:grid; grid-template-columns:95px 52px 1fr; padding:3px 18px; font-size:11px; line-height:1.6; border-bottom:1px solid transparent; transition:background 0.1s; }
 .dbg-line:hover { background:var(--dbg-line); }
 .dbg-ts { color:var(--muted); }
 .dbg-lvl { font-weight:700; font-size:10px; letter-spacing:0.5px; }
@@ -423,35 +278,17 @@ textarea::placeholder { color: var(--muted); }
 .lvl-info { color:var(--dbg-inf); }
 .dbg-line.level-err  { background:rgba(248,113,113,0.06); }
 .dbg-line.level-warn { background:rgba(251,191,36,0.04); }
-.dbg-footer {
-  display:flex; align-items:center; justify-content:space-between; gap:10px;
-  padding:9px 18px; background:var(--bg2);
-  border-top:1px solid var(--border); flex-wrap:wrap;
-}
+.dbg-footer { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 18px; background:var(--bg2); border-top:1px solid var(--border); flex-wrap:wrap; }
 .dbg-filter { display:flex; gap:5px; flex-wrap:wrap; }
-.dbg-filter-btn {
-  font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.5px;
-  padding:3px 10px; border-radius:20px; border:1px solid var(--border);
-  background:var(--white); color:var(--muted); cursor:pointer; transition:all 0.15s;
-}
+.dbg-filter-btn { font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.5px; padding:3px 10px; border-radius:20px; border:1px solid var(--border); background:var(--white); color:var(--muted); cursor:pointer; transition:all 0.15s; }
 .dbg-filter-btn:hover { border-color:var(--dbg-inf); color:var(--dbg-inf); }
 .dbg-filter-btn.active { background:rgba(55,48,163,0.08); border-color:var(--dbg-inf); color:var(--dbg-inf); }
 .dbg-filter-btn.f-ok.active   { background:rgba(22,101,52,0.08);  border-color:var(--dbg-ok);   color:var(--dbg-ok); }
 .dbg-filter-btn.f-err.active  { background:rgba(153,27,27,0.08);  border-color:var(--dbg-err);  color:var(--dbg-err); }
 .dbg-filter-btn.f-warn.active { background:rgba(146,64,14,0.08);  border-color:var(--dbg-warn); color:var(--dbg-warn); }
-.dbg-dl-btn {
-  font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
-  padding:4px 12px; background:var(--white); color:var(--ink2);
-  border:1px solid var(--border); border-radius:4px;
-  cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:6px;
-}
+.dbg-dl-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; padding:4px 12px; background:var(--white); color:var(--ink2); border:1px solid var(--border); border-radius:4px; cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:6px; }
 .dbg-dl-btn:hover { background:var(--bg2); border-color:var(--dbg-ok); color:var(--dbg-ok); }
-.dbg-clear-btn {
-  font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
-  padding:4px 10px; background:transparent; color:var(--muted);
-  border:1px solid var(--border); border-radius:4px;
-  cursor:pointer; transition:all 0.15s;
-}
+.dbg-clear-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; padding:4px 10px; background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:4px; cursor:pointer; transition:all 0.15s; }
 .dbg-clear-btn:hover { border-color:var(--dbg-err); color:var(--dbg-err); }
 </style>
 </head>
@@ -501,25 +338,23 @@ textarea::placeholder { color: var(--muted); }
     Перетягніть файл або натисніть для вибору (.csv / .tsv / .txt)
   </div>
   <div id="file-name"></div>
-  <!-- НОВЕ: прапорець для заголовка -->
-  <label class="header-option">
-    <input type="checkbox" id="has-header" checked> Перший рядок — заголовок
-  </label>
 </div>
 
-<!-- 2. Вибір колонки для порівняння -->
+<!-- 2. Вибір колонки -->
 <div class="block" id="mapping-block" style="display:none;">
   <div class="block-title">🗂 Налаштування колонок</div>
+
+  <!-- Банер: без заголовка -->
+  <div class="no-header-banner" id="no-header-banner">
+    ⚠️ <strong>Заголовок не виявлено.</strong> Перший рядок схожий на дані, тому автоматично додано синтетичний заголовок <code>Колонка 1…N</code>. Всі рядки включені в перевірку.
+  </div>
 
   <div class="mapping-hint">
     👇 <strong>Вкажіть колонку з номерами для порівняння</strong> — клікніть на потрібний рядок.<br>
     Можна перейменувати колонки та вимкнути непотрібні зі звіту.
   </div>
 
-  <!-- Попередній перегляд -->
   <div class="preview-wrap" id="preview-wrap"></div>
-
-  <!-- Список колонок -->
   <div class="col-select-list" id="col-select-list"></div>
 </div>
 
@@ -578,7 +413,7 @@ textarea::placeholder { color: var(--muted); }
   </div>
 </div>
 
-</div><!-- /wrap -->
+</div>
 <script>
 // ══════════════════════════════════════════════════════════
 // DEBUG LOGGER
@@ -669,7 +504,8 @@ function downloadLog() {
 // ══════════════════════════════════════════════════════════
 const S = {
   rows:[], headers:[], sep:'\t',
-  colMap:[],   // [{original,alias,visible,isKey}]
+  colMap:[],
+  syntheticHeader: false,   // ← NEW: чи був доданий синтетичний заголовок
   groups:{}, order:[], dupOrder:[], invalid:[], keyCol:0,
 };
 
@@ -682,7 +518,7 @@ const REASONS = {
 const PREVIEW_ROWS = 5;
 
 // ══════════════════════════════════════════════════════════
-// PARSE (оновлено з урахуванням заголовка)
+// PARSE
 // ══════════════════════════════════════════════════════════
 function detectSep(line) {
   if (line.includes('\t')) return '\t';
@@ -704,50 +540,57 @@ function parseLine(line, sep) {
 
 function norm(v){ return String(v??'').replace(/^'+/,'').trim(); }
 
+/**
+ * Визначає, чи схожий рядок на заголовок (а не на дані).
+ * Якщо перший рядок — це числові номери, то заголовка немає.
+ */
+function looksLikeHeader(cells) {
+  // Якщо хоча б одна клітинка — виключно цифри довжиною 8+, це дані, а не заголовок
+  const dataLikeCells = cells.filter(c => /^\d{8,}$/.test(norm(c)));
+  return dataLikeCells.length === 0;
+}
+
 function loadText(text) {
   try {
     const lines = text.trim().split(/\r?\n/).filter(l=>l.trim());
-    if (lines.length<1){ logWarn('loadText: немає даних'); return; }
-    
-    const hasHeader = document.getElementById('has-header').checked;
+    if (lines.length<1){ logWarn('loadText: порожній файл'); return; }
     S.sep = detectSep(lines[0]);
     const parsed = lines.map(l=>parseLine(l,S.sep));
-    
-    if (hasHeader) {
-      S.headers = parsed[0] || [];
-      S.rows = parsed;                     // рядок 0 – заголовок, далі дані
+
+    // ── КЛЮЧОВЕ ВИПРАВЛЕННЯ ──────────────────────────────
+    // Перевіряємо чи перший рядок — справжній заголовок
+    if (looksLikeHeader(parsed[0])) {
+      // Є заголовок — стандартна поведінка
+      S.headers = parsed[0];
+      S.rows = parsed;
+      S.syntheticHeader = false;
     } else {
-      // заголовка немає – створюємо штучні назви колонок
-      S.headers = parsed[0].map((_, idx) => `Колонка ${idx+1}`);
-      // додаємо штучний заголовок як перший рядок, щоб структура S.rows була однаковою
-      S.rows = [S.headers, ...parsed];      // parsed – це всі рядки (включаючи перший як дані)
+      // Заголовка немає — генеруємо синтетичний і вставляємо першим
+      const colCount = parsed[0].length;
+      S.headers = Array.from({length: colCount}, (_, i) => `Колонка ${i+1}`);
+      S.rows = [S.headers, ...parsed];   // synthetic header + всі рядки як дані
+      S.syntheticHeader = true;
+      logWarn('Заголовок не виявлено — додано синтетичний', { synthHeaders: S.headers });
     }
-    
-    logInfo('Дані завантажено',{ 
-      rows: S.rows.length - 1, 
-      cols: S.headers.length, 
-      sep: S.sep==='\t'?'TAB':S.sep,
-      hasHeader 
-    });
+    // ─────────────────────────────────────────────────────
+
+    logInfo('Дані завантажено',{ rows: S.rows.length-1, cols:S.headers.length, sep:S.sep==='\t'?'TAB':S.sep, syntheticHeader: S.syntheticHeader });
     initColMap();
     renderMapping();
   } catch(e){ logErr('loadText: помилка',e.message); }
 }
 
 // ══════════════════════════════════════════════════════════
-// AUTO-DETECT key column: find column where most values
-// look like long digit strings (10-14 digits)
+// AUTO-DETECT key column
 // ══════════════════════════════════════════════════════════
 function autoDetectKeyCol() {
   const dataRows = S.rows.slice(1, Math.min(6, S.rows.length));
   let bestIdx = 0, bestScore = -1;
 
   S.headers.forEach((h, ci) => {
-    // score by header name
     let score = 0;
-    if (/^[№#]|номер|number|^id$/i.test(h.trim())) score += 5;
+    if (/^[№#]|номер|number|^id$|колонка\s*1/i.test(h.trim())) score += 5;
 
-    // score by data: count cells that look like 10-14 digit numbers
     dataRows.forEach(row => {
       const v = norm(row[ci]??'');
       if (/^\d{10,14}$/.test(v)) score += 2;
@@ -773,7 +616,7 @@ function initColMap() {
   }
   const keyIdx = autoDetectKeyCol();
   S.colMap = S.headers.map((h,i)=>({ original:h, alias:h, visible:true, isKey:i===keyIdx }));
-  logInfo('ColMap: ініціалізовано', { keyCol:`Col${keyIdx+1} «${S.headers[keyIdx]||'?'}», auto:true });
+  logInfo('ColMap: ініціалізовано', { keyCol:`Col${keyIdx+1} «${S.headers[keyIdx]||'?'}»`, auto:true });
 }
 
 function setKeyCol(idx) {
@@ -790,9 +633,11 @@ function renderMapping() {
   if (!S.headers.length) return;
   document.getElementById('mapping-block').style.display='';
 
-  // --- Preview table ---
+  // Показуємо/приховуємо банер про синтетичний заголовок
+  document.getElementById('no-header-banner').classList.toggle('visible', S.syntheticHeader);
+
   const keyIdx = S.colMap.findIndex(c=>c.isKey);
-  const previewRows = S.rows.slice(0, PREVIEW_ROWS+1); // header + 5 rows
+  const previewRows = S.rows.slice(0, PREVIEW_ROWS+1);
   const pwrap = document.getElementById('preview-wrap');
   const thHtml = S.headers.map((h,i)=>`<th class="${i===keyIdx?'is-key-th':''}">${esc(h||`Col${i+1}`)}</th>`).join('');
   const tbodyHtml = previewRows.slice(1).map(row=>`<tr>${
@@ -800,7 +645,6 @@ function renderMapping() {
   }</tr>`).join('');
   pwrap.innerHTML = `<table class="preview-table"><thead><tr>${thHtml}</tr></thead><tbody>${tbodyHtml}</tbody></table>`;
 
-  // --- Column selector list ---
   const list = document.getElementById('col-select-list');
   list.innerHTML = '';
 
@@ -811,8 +655,8 @@ function renderMapping() {
 
     const div = document.createElement('label');
     div.className = 'col-select-item' + (isKey?' is-key':'');
-    div.innerHTML = 
-      `<input class="col-radio" type="radio" name="keycol" ${isKey?'checked':''} onchange="setKeyCol(${i})">
+    div.innerHTML = `
+      <input class="col-radio" type="radio" name="keycol" ${isKey?'checked':''} onchange="setKeyCol(${i})">
       <div class="col-radio-visual"></div>
       <div class="col-info">
         <div class="col-label-row">
@@ -824,6 +668,7 @@ function renderMapping() {
           ${autoTag}
         </div>
         <div class="col-sample">Приклад: <span>${esc(samples.join(' · '))||'(порожньо)'}</span></div>
+      </div>
       <div class="col-right">
         <span class="key-badge-v2">🔑 Ключ для порівняння</span>
         <label class="vis-toggle" onclick="event.stopPropagation()">
@@ -942,7 +787,7 @@ function renderDups(keys) {
       const row=S.rows[ri];
       const item=document.createElement('div'); item.className='dup-row-item';
       const cells=visCols.map(ci=>`<div class="dup-col-cell"><div class="dup-col-name">${esc(alias(ci))}</div><div class="dup-col-val">${esc(row[ci]??'')}</div></div>`).join('');
-      item.innerHTML=`<div class="dup-row-idx">рядок ${ri+1}</div><div class="dup-cols">${cells}</div>`;
+      item.innerHTML=`<div class="dup-row-idx">рядок ${ri}</div><div class="dup-cols">${cells}</div>`;
       b.appendChild(item);
     });
     h.addEventListener('click',()=>{
@@ -976,7 +821,7 @@ function renderInvalidBody(items,visCols){
   if (!items.length){ tb.innerHTML=`<tr><td colspan="99" style="text-align:center;padding:32px;color:var(--muted)">Невалідних номерів не знайдено ✅</td></tr>`; return; }
   tb.innerHTML=items.map(({rowIdx,value,reason})=>{
     const row=S.rows[rowIdx], r=REASONS[reason]||{cls:'',text:reason};
-    return `<tr><td style="color:var(--muted);font-size:11px">${rowIdx+1}</td><td><span class="invalid-val">${esc(value)}</span></td><td style="color:var(--muted)">${value.length}</td><td><span class="inv-reason ${r.cls}">${r.text}</span></td>${visCols.map(i=>`<td>${esc(row[i]??'')}</td>`).join('')}</tr>`;
+    return `<tr><td style="color:var(--muted);font-size:11px">${rowIdx}</td><td><span class="invalid-val">${esc(value)}</span></td><td style="color:var(--muted)">${value.length}</td><td><span class="inv-reason ${r.cls}">${r.text}</span></td>${visCols.map(i=>`<td>${esc(row[i]??'')}</td>`).join('')}</tr>`;
   }).join('');
 }
 
@@ -993,7 +838,11 @@ function filterInvalid(){
 function toCSV(rowIdxs){
   const sep=S.sep==='\t'?',':S.sep;
   const e=v=>`"${String(v??'').replace(/"/g,'""')}"`;
-  return S.headers.map((_,ci)=>e(alias(ci))).join(sep)+'\n'+rowIdxs.map(ri=>S.rows[ri].map(v=>e(v)).join(sep)).join('\n');
+  // Якщо заголовок синтетичний — не включаємо його у вивід
+  const headerRow = S.syntheticHeader
+    ? S.colMap.map((_,ci)=>`Номер ${ci+1}`).join(sep)
+    : S.headers.map((_,ci)=>e(alias(ci))).join(sep);
+  return headerRow+'\n'+rowIdxs.map(ri=>S.rows[ri].map(v=>e(v)).join(sep)).join('\n');
 }
 
 function dl(content,filename){
@@ -1052,8 +901,7 @@ document.getElementById('textarea').addEventListener('input',e=>{ if(e.target.va
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function set(id,v){ document.getElementById(id).textContent=v; }
 
-// Init
-logInfo('Додаток ініціалізовано',{version:'3.1.1',time:new Date().toLocaleString('uk-UA')});
+logInfo('Додаток ініціалізовано',{version:'3.2.0',time:new Date().toLocaleString('uk-UA')});
 </script>
 </body>
 </html>
