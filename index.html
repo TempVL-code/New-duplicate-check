@@ -22,13 +22,13 @@
   --border:  #d5c8f0;
   --white:   #ffffff;
 
-  --dbg-bg:   #1a1025;
-  --dbg-line: #261838;
-  --dbg-ok:   #4ade80;
-  --dbg-err:  #f87171;
-  --dbg-warn: #fbbf24;
-  --dbg-inf:  #818cf8;
-  --dbg-muted:#6b5d8a;
+  --dbg-bg:   #f5f2ff;
+  --dbg-line: #ede8ff;
+  --dbg-ok:   #166534;
+  --dbg-err:  #991b1b;
+  --dbg-warn: #92400e;
+  --dbg-inf:  #3730a3;
+  --dbg-muted:#7c6fa0;
 }
 
 body {
@@ -219,45 +219,7 @@ textarea::placeholder { color: var(--muted); }
 }
 .col-sample span { color: var(--ink2); }
 
-/* Extract option */
-.extract-row {
-  display: none;
-  align-items: center;
-  gap: 8px;
-  margin-top: 6px;
-  padding: 8px 12px;
-  background: rgba(124,58,237,0.06);
-  border: 1px dashed rgba(124,58,237,0.25);
-  border-radius: 6px;
-  font-size: 12px;
-  color: var(--ink2);
-}
-.col-select-item.is-key .extract-row { display: flex; }
-.extract-label { white-space: nowrap; font-size: 11px; color: var(--muted); }
-.extract-input {
-  width: 60px;
-  padding: 4px 8px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px; font-weight: 700;
-  border: 1.5px solid var(--border);
-  border-radius: 4px;
-  background: var(--white);
-  color: var(--accent3);
-  text-align: center;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.extract-input:focus { border-color: var(--accent3); box-shadow: 0 0 0 3px rgba(124,58,237,0.15); }
-.extract-preview {
-  font-size: 11px;
-  color: var(--accent3);
-  font-weight: 600;
-  background: rgba(124,58,237,0.1);
-  padding: 2px 8px;
-  border-radius: 4px;
-  min-width: 80px;
-}
-.extract-hint { font-size: 10px; color: var(--muted); }
+
 
 .col-right {
   display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0;
@@ -413,42 +375,42 @@ textarea::placeholder { color: var(--muted); }
 ══════════════════════════════════════════ */
 #debug-panel {
   background: var(--dbg-bg);
-  border: 1.5px solid rgba(124,58,237,0.2);
+  border: 1.5px solid var(--border);
   border-radius: 8px;
   margin-bottom: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 12px rgba(92,46,178,0.08);
   font-family: 'IBM Plex Mono', monospace;
 }
 .dbg-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 11px 18px;
-  background: rgba(255,255,255,0.04);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
   cursor: pointer; user-select: none;
 }
-.dbg-header:hover { background: rgba(255,255,255,0.06); }
-.dbg-title { display:flex; align-items:center; gap:10px; font-size:12px; font-weight:600; color:#c9b8f0; letter-spacing:1px; text-transform:uppercase; }
+.dbg-header:hover { background: var(--bg3); }
+.dbg-title { display:flex; align-items:center; gap:10px; font-size:12px; font-weight:600; color:var(--ink2); letter-spacing:1px; text-transform:uppercase; }
 .dbg-dot { width:8px; height:8px; border-radius:50%; background:var(--dbg-ok); box-shadow:0 0 6px var(--dbg-ok); animation:pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 .dbg-dot.err { background:var(--dbg-err); box-shadow:0 0 6px var(--dbg-err); }
 .dbg-controls { display:flex; align-items:center; gap:8px; }
-.dbg-cnt { font-size:11px; color:var(--dbg-muted); background:rgba(255,255,255,0.05); padding:2px 8px; border-radius:20px; }
-.dbg-cnt.has-err { color:var(--dbg-err); background:rgba(248,113,113,0.1); }
+.dbg-cnt { font-size:11px; color:var(--muted); background:var(--bg3); padding:2px 8px; border-radius:20px; }
+.dbg-cnt.has-err { color:var(--dbg-err); background:rgba(153,27,27,0.08); }
 .dbg-body { display:none; height:260px; overflow-y:auto; padding:8px 0; }
 .dbg-body.open { display:block; }
 .dbg-body::-webkit-scrollbar { width:5px; }
-.dbg-body::-webkit-scrollbar-track { background:var(--dbg-bg); }
-.dbg-body::-webkit-scrollbar-thumb { background:#3a2558; border-radius:3px; }
+.dbg-body::-webkit-scrollbar-track { background:var(--bg2); }
+.dbg-body::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
 .dbg-line {
   display:grid; grid-template-columns:95px 52px 1fr;
   padding:3px 18px; font-size:11px; line-height:1.6;
   border-bottom:1px solid transparent; transition:background 0.1s;
 }
 .dbg-line:hover { background:var(--dbg-line); }
-.dbg-ts { color:var(--dbg-muted); }
+.dbg-ts { color:var(--muted); }
 .dbg-lvl { font-weight:700; font-size:10px; letter-spacing:0.5px; }
-.dbg-msg { color:#d4c8f0; word-break:break-all; }
+.dbg-msg { color:var(--ink); word-break:break-all; }
 .lvl-ok   { color:var(--dbg-ok); }
 .lvl-err  { color:var(--dbg-err); }
 .lvl-warn { color:var(--dbg-warn); }
@@ -457,31 +419,31 @@ textarea::placeholder { color: var(--muted); }
 .dbg-line.level-warn { background:rgba(251,191,36,0.04); }
 .dbg-footer {
   display:flex; align-items:center; justify-content:space-between; gap:10px;
-  padding:9px 18px; background:rgba(255,255,255,0.03);
-  border-top:1px solid rgba(255,255,255,0.06); flex-wrap:wrap;
+  padding:9px 18px; background:var(--bg2);
+  border-top:1px solid var(--border); flex-wrap:wrap;
 }
 .dbg-filter { display:flex; gap:5px; flex-wrap:wrap; }
 .dbg-filter-btn {
   font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.5px;
-  padding:3px 10px; border-radius:20px; border:1px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.04); color:var(--dbg-muted); cursor:pointer; transition:all 0.15s;
+  padding:3px 10px; border-radius:20px; border:1px solid var(--border);
+  background:var(--white); color:var(--muted); cursor:pointer; transition:all 0.15s;
 }
 .dbg-filter-btn:hover { border-color:var(--dbg-inf); color:var(--dbg-inf); }
-.dbg-filter-btn.active { background:rgba(129,140,248,0.15); border-color:var(--dbg-inf); color:var(--dbg-inf); }
-.dbg-filter-btn.f-ok.active   { background:rgba(74,222,128,0.1);  border-color:var(--dbg-ok);   color:var(--dbg-ok); }
-.dbg-filter-btn.f-err.active  { background:rgba(248,113,113,0.1); border-color:var(--dbg-err);  color:var(--dbg-err); }
-.dbg-filter-btn.f-warn.active { background:rgba(251,191,36,0.1);  border-color:var(--dbg-warn); color:var(--dbg-warn); }
+.dbg-filter-btn.active { background:rgba(55,48,163,0.08); border-color:var(--dbg-inf); color:var(--dbg-inf); }
+.dbg-filter-btn.f-ok.active   { background:rgba(22,101,52,0.08);  border-color:var(--dbg-ok);   color:var(--dbg-ok); }
+.dbg-filter-btn.f-err.active  { background:rgba(153,27,27,0.08);  border-color:var(--dbg-err);  color:var(--dbg-err); }
+.dbg-filter-btn.f-warn.active { background:rgba(146,64,14,0.08);  border-color:var(--dbg-warn); color:var(--dbg-warn); }
 .dbg-dl-btn {
   font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
-  padding:4px 12px; background:rgba(255,255,255,0.05); color:#c9b8f0;
-  border:1px solid rgba(255,255,255,0.1); border-radius:4px;
+  padding:4px 12px; background:var(--white); color:var(--ink2);
+  border:1px solid var(--border); border-radius:4px;
   cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:6px;
 }
-.dbg-dl-btn:hover { background:rgba(255,255,255,0.08); border-color:var(--dbg-ok); color:var(--dbg-ok); }
+.dbg-dl-btn:hover { background:var(--bg2); border-color:var(--dbg-ok); color:var(--dbg-ok); }
 .dbg-clear-btn {
   font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
-  padding:4px 10px; background:transparent; color:var(--dbg-muted);
-  border:1px solid rgba(255,255,255,0.08); border-radius:4px;
+  padding:4px 10px; background:transparent; color:var(--muted);
+  border:1px solid var(--border); border-radius:4px;
   cursor:pointer; transition:all 0.15s;
 }
 .dbg-clear-btn:hover { border-color:var(--dbg-err); color:var(--dbg-err); }
@@ -541,8 +503,7 @@ textarea::placeholder { color: var(--muted); }
 
   <div class="mapping-hint">
     👇 <strong>Вкажіть колонку з номерами для порівняння</strong> — клікніть на потрібний рядок.<br>
-    Якщо номер <em>зліплений з датою</em> (наприклад <code>421910190662026-02-03</code>) — вкажіть <strong>кількість перших символів</strong> які є номером.<br>
-    Також можна перейменувати колонки та вимкнути непотрібні зі звіту.
+    Можна перейменувати колонки та вимкнути непотрібні зі звіту.
   </div>
 
   <!-- Попередній перегляд -->
@@ -698,15 +659,15 @@ function downloadLog() {
 // ══════════════════════════════════════════════════════════
 const S = {
   rows:[], headers:[], sep:'\t',
-  colMap:[],   // [{original,alias,visible,isKey,extractLen}]
+  colMap:[],   // [{original,alias,visible,isKey}]
   groups:{}, order:[], dupOrder:[], invalid:[], keyCol:0,
 };
 
-const NUM_MIN=10, NUM_MAX=14;
+const NUM_MIN=10, NUM_MAX=15;
 const REASONS = {
   chars:{ cls:'r-chars', text:'⛔ Нечислові символи' },
-  short:{ cls:'r-short', text:`📏 Менше ${NUM_MIN} цифр` },
-  long: { cls:'r-long',  text:`📏 Більше ${NUM_MAX} цифр` },
+  short:{ cls:'r-short', text:`📏 Менше 10 цифр` },
+  long: { cls:'r-long',  text:`📏 Більше 15 цифр` },
 };
 const PREVIEW_ROWS = 5;
 
@@ -785,7 +746,7 @@ function initColMap() {
     return;
   }
   const keyIdx = autoDetectKeyCol();
-  S.colMap = S.headers.map((h,i)=>({ original:h, alias:h, visible:true, isKey:i===keyIdx, extractLen:0 }));
+  S.colMap = S.headers.map((h,i)=>({ original:h, alias:h, visible:true, isKey:i===keyIdx }));
   logInfo('ColMap: ініціалізовано', { keyCol:`Col${keyIdx+1} «${S.headers[keyIdx]||'?'}»`, auto:true });
 }
 
@@ -837,19 +798,6 @@ function renderMapping() {
           ${autoTag}
         </div>
         <div class="col-sample">Приклад: <span>${esc(samples.join(' · '))||'(порожньо)'}</span></div>
-        <div class="extract-row" id="extract-row-${i}">
-          <span class="extract-label">✂️ Взяти перших</span>
-          <input class="extract-input" type="number" min="0" max="30"
-            value="${col.extractLen||0}"
-            placeholder="0"
-            title="0 = вся клітинка"
-            oninput="updateExtract(${i}, this.value)"
-            onclick="event.stopPropagation()">
-          <span class="extract-label">символів</span>
-          <span class="extract-preview" id="extract-preview-${i}">${isKey&&col.extractLen>0?esc(samples[0]?.slice(0,col.extractLen)||''):'— вся клітинка'}</span>
-          <span class="extract-hint">(0 = вся клітинка)</span>
-        </div>
-      </div>
       <div class="col-right">
         <span class="key-badge-v2">🔑 Ключ для порівняння</span>
         <label class="vis-toggle" onclick="event.stopPropagation()">
@@ -861,23 +809,7 @@ function renderMapping() {
   });
 }
 
-// ══════════════════════════════════════════════════════════
-// EXTRACT HELPER — оновлює extractLen і live preview
-// ══════════════════════════════════════════════════════════
-function updateExtract(ci, val) {
-  const n = parseInt(val, 10);
-  S.colMap[ci].extractLen = isNaN(n) || n < 0 ? 0 : n;
-  // update live preview
-  const samples = getSampleValues(ci, 1);
-  const prev = document.getElementById(`extract-preview-${ci}`);
-  if (prev) {
-    const len = S.colMap[ci].extractLen;
-    prev.textContent = len > 0 && samples[0]
-      ? samples[0].slice(0, len)
-      : '— вся клітинка';
-  }
-  logInfo(`Витягування: колонка ${ci+1} → перших ${S.colMap[ci].extractLen||'всі'} символів`);
-}
+
 
 // ══════════════════════════════════════════════════════════
 // VALIDATE
@@ -902,8 +834,7 @@ function runCheck() {
     S.keyCol = S.colMap.findIndex(c=>c.isKey);
     if (S.keyCol<0) S.keyCol=0;
     const ci = S.keyCol;
-    const extractLen = S.colMap[ci]?.extractLen || 0;
-    logInfo('Ключова колонка',{idx:ci, name:S.headers[ci]||'?', extractLen:extractLen||'вся клітинка'});
+    logInfo('Ключова колонка',{idx:ci, name:S.headers[ci]||'?'});
 
     const groups={},order=[],invalid=[];
     const statR={chars:0,short:0,long:0};
@@ -911,8 +842,6 @@ function runCheck() {
     for (let ri=1;ri<S.rows.length;ri++){
       let val=norm(S.rows[ri][ci]??'');
       if (!val) continue;
-      // Apply extract: take first N chars if set
-      if (extractLen > 0) val = val.slice(0, extractLen);
       const v=validateNum(val);
       if (v!=='ok'){ invalid.push({rowIdx:ri,value:val,reason:v}); statR[v]++; continue; }
       if (!groups[val]){groups[val]=[];order.push(val);}
@@ -1100,7 +1029,7 @@ function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').rep
 function set(id,v){ document.getElementById(id).textContent=v; }
 
 // Init
-logInfo('Додаток ініціалізовано',{version:'3.0.0',time:new Date().toLocaleString('uk-UA')});
+logInfo('Додаток ініціалізовано',{version:'3.1.0',time:new Date().toLocaleString('uk-UA')});
 </script>
 </body>
 </html>
