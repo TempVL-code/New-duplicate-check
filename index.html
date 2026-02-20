@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
 :root {
   --bg:      #faf8ff;
   --bg2:     #f0ebff;
@@ -21,7 +21,7 @@
   --warn:    #c07000;
   --border:  #d5c8f0;
   --white:   #ffffff;
- 
+
   --dbg-bg:   #f5f2ff;
   --dbg-line: #ede8ff;
   --dbg-ok:   #166534;
@@ -30,7 +30,7 @@
   --dbg-inf:  #3730a3;
   --dbg-muted:#7c6fa0;
 }
- 
+
 body {
   font-family: 'IBM Plex Mono', monospace;
   background: var(--bg);
@@ -38,9 +38,10 @@ body {
   min-height: 100vh;
   padding: 36px 20px 80px;
 }
- 
+
 .wrap { max-width: 1080px; margin: 0 auto; }
- 
+
+/* ── Header ── */
 header {
   margin-bottom: 40px; padding-bottom: 24px;
   border-bottom: 2px solid var(--border);
@@ -55,7 +56,8 @@ header h1 {
 }
 header h1 em { font-style: normal; color: var(--accent3); }
 .header-sub { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; padding-bottom: 4px; }
- 
+
+/* ── Block ── */
 .block {
   background: var(--white);
   border: 1.5px solid var(--border);
@@ -66,7 +68,7 @@ header h1 em { font-style: normal; color: var(--accent3); }
   animation: fadeUp 0.3s ease both;
 }
 @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
- 
+
 .block-title {
   font-family: 'Syne', sans-serif;
   font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
@@ -74,7 +76,8 @@ header h1 em { font-style: normal; color: var(--accent3); }
   display: flex; align-items: center; gap: 10px;
 }
 .block-title::after { content:''; flex:1; height:1px; background:var(--border); }
- 
+
+/* ── Textarea ── */
 textarea {
   width: 100%; height: 160px;
   background: var(--bg); border: 1.5px solid var(--border); border-radius: 6px;
@@ -84,7 +87,8 @@ textarea {
 }
 textarea:focus { border-color: var(--accent3); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
 textarea::placeholder { color: var(--muted); }
- 
+
+/* ── Dropzone + header checkbox ── */
 .dropzone {
   position: relative; border: 2px dashed var(--border); border-radius: 6px;
   padding: 16px; text-align: center; margin-top: 12px; cursor: pointer;
@@ -94,7 +98,18 @@ textarea::placeholder { color: var(--muted); }
 .dropzone input { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
 .dropzone-icon { font-size: 20px; display: block; margin-bottom: 4px; }
 #file-name { margin-top:8px; font-size:12px; color:var(--accent2); font-weight:600; min-height:16px; }
- 
+
+.header-option {
+  display: flex; align-items: center; gap: 8px; margin: 12px 0 0 4px;
+  font-size: 12px; cursor: pointer;
+}
+.header-option input[type=checkbox] {
+  accent-color: var(--accent3); width: 16px; height: 16px; cursor: pointer;
+}
+
+/* ══════════════════════════════════════════
+   MAPPING — ОНОВЛЕНИЙ ДИЗАЙН
+══════════════════════════════════════════ */
 .mapping-hint {
   font-size: 13px; color: var(--ink2); margin-bottom: 18px;
   background: var(--bg2); border: 1px solid var(--border);
@@ -102,7 +117,8 @@ textarea::placeholder { color: var(--muted); }
 }
 .mapping-hint strong { color: var(--accent3); }
 .mapping-hint code { background:var(--bg3); padding:1px 5px; border-radius:3px; font-size:11px; color:var(--ink); }
- 
+
+/* Таблиця попереднього перегляду */
 .preview-wrap {
   margin-bottom: 20px;
   overflow-x: auto;
@@ -110,7 +126,7 @@ textarea::placeholder { color: var(--muted); }
 .preview-wrap::-webkit-scrollbar { height: 5px; }
 .preview-wrap::-webkit-scrollbar-track { background: var(--bg); }
 .preview-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
- 
+
 .preview-table {
   width: 100%; border-collapse: collapse; font-size: 11px;
   min-width: 500px;
@@ -133,11 +149,12 @@ textarea::placeholder { color: var(--muted); }
   color: var(--accent3);
 }
 .preview-table td.is-key-td { background: rgba(124,58,237,0.05); font-weight: 600; color: var(--accent3); }
- 
+
+/* Список колонок з радіокнопками */
 .col-select-list {
   display: flex; flex-direction: column; gap: 8px;
 }
- 
+
 .col-select-item {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -157,9 +174,10 @@ textarea::placeholder { color: var(--muted); }
   background: linear-gradient(135deg, rgba(124,58,237,0.05) 0%, var(--white) 100%);
   box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
 }
- 
+
+/* Прихована radio */
 .col-radio { display: none; }
- 
+
 .col-radio-visual {
   width: 18px; height: 18px;
   border-radius: 50%;
@@ -182,9 +200,9 @@ textarea::placeholder { color: var(--muted); }
   transition: opacity 0.15s;
 }
 .col-select-item.is-key .col-radio-visual::after { opacity: 1; }
- 
+
 .col-info { min-width: 0; }
- 
+
 .col-label-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 3px;
 }
@@ -201,18 +219,18 @@ textarea::placeholder { color: var(--muted); }
   transition: border-color 0.2s;
 }
 .col-alias-input:focus { border-bottom-color: var(--accent3); }
- 
+
 .col-sample {
   font-size: 10px; color: var(--muted);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   max-width: 100%;
 }
 .col-sample span { color: var(--ink2); }
- 
+
 .col-right {
   display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0;
 }
- 
+
 .key-badge-v2 {
   display: none;
   font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
@@ -220,21 +238,23 @@ textarea::placeholder { color: var(--muted); }
   padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(124,58,237,0.25);
 }
 .col-select-item.is-key .key-badge-v2 { display: inline-flex; }
- 
+
 .vis-toggle {
   display: flex; align-items: center; gap: 4px;
   font-size: 10px; color: var(--muted); cursor: pointer;
   user-select: none;
 }
 .vis-toggle input[type=checkbox] { accent-color: var(--accent3); cursor: pointer; width: 13px; height: 13px; }
- 
+
+/* Авто-підказка */
 .auto-hint {
   display: inline-flex; align-items: center; gap: 5px;
   font-size: 10px; color: var(--accent3); font-weight: 600;
   background: rgba(124,58,237,0.08); padding: 2px 8px; border-radius: 20px;
   margin-left: 8px;
 }
- 
+
+/* ── Buttons ── */
 .btn-row { display:flex; gap:10px; flex-wrap:wrap; }
 .btn {
   font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
@@ -244,19 +264,20 @@ textarea::placeholder { color: var(--muted); }
   display:inline-flex; align-items:center; gap:7px; white-space:nowrap;
 }
 .btn:disabled { opacity:0.3; cursor:not-allowed !important; transform:none !important; box-shadow:none !important; }
- 
+
 .btn-primary { background:var(--accent3); color:#fff; border-color:var(--accent3); box-shadow:0 2px 8px rgba(124,58,237,0.3); }
 .btn-primary:not(:disabled):hover { background:var(--ink2); border-color:var(--ink2); transform:translateY(-1px); box-shadow:0 4px 12px rgba(124,58,237,0.35); }
- 
+
 .btn-danger  { background:var(--white); color:var(--accent);  border-color:var(--accent);  box-shadow:3px 3px 0 rgba(214,59,74,0.12); }
 .btn-danger:not(:disabled):hover  { background:var(--accent);  color:#fff; transform:translate(-1px,-1px); }
- 
+
 .btn-success { background:var(--white); color:var(--accent2); border-color:var(--accent2); box-shadow:3px 3px 0 rgba(26,122,70,0.12); }
 .btn-success:not(:disabled):hover { background:var(--accent2); color:#fff; transform:translate(-1px,-1px); }
- 
+
 .btn-warn    { background:var(--white); color:var(--warn);    border-color:var(--warn);    box-shadow:3px 3px 0 rgba(192,112,0,0.12); }
 .btn-warn:not(:disabled):hover    { background:var(--warn);    color:#fff; transform:translate(-1px,-1px); }
- 
+
+/* ── Stats ── */
 .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:16px; }
 .stat-card {
   border:1.5px solid var(--border); border-radius:8px;
@@ -275,7 +296,8 @@ textarea::placeholder { color: var(--muted); }
 .stat-card.c-rows    .stat-num { color:#c07a1a; }
 .stat-card.c-invalid .stat-num { color:var(--warn); }
 .stat-lbl { font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); line-height:1.4; }
- 
+
+/* ── Tabs ── */
 .tabs { display:flex; gap:0; border-bottom:1.5px solid var(--border); margin-bottom:18px; }
 .tab-btn {
   font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
@@ -291,7 +313,8 @@ textarea::placeholder { color: var(--muted); }
 .tab-btn.tab-warn.active .tab-cnt { background:var(--warn); color:#fff; }
 .tab-panel { display:none; }
 .tab-panel.active { display:block; }
- 
+
+/* ── Search ── */
 .search-row { display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
 .search-input {
   flex:1; min-width:180px; max-width:320px; padding:8px 13px;
@@ -302,7 +325,8 @@ textarea::placeholder { color: var(--muted); }
 .search-input:focus { border-color:var(--accent3); box-shadow:0 0 0 3px rgba(124,58,237,0.1); }
 .search-input::placeholder { color:var(--muted); }
 .count-badge { font-size:11px; color:var(--muted); }
- 
+
+/* ── Dup list ── */
 .dup-list { display:flex; flex-direction:column; gap:7px; max-height:500px; overflow-y:auto; padding-right:4px; }
 .dup-list::-webkit-scrollbar { width:5px; }
 .dup-list::-webkit-scrollbar-track { background:var(--bg); }
@@ -329,7 +353,8 @@ textarea::placeholder { color: var(--muted); }
 .dup-col-cell { display:flex; flex-direction:column; gap:1px; }
 .dup-col-name { font-size:9px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
 .dup-col-val { font-size:12px; color:var(--ink); font-weight:500; }
- 
+
+/* ── Invalid table ── */
 .invalid-list-wrap { max-height:480px; overflow-y:auto; }
 .invalid-list-wrap::-webkit-scrollbar { width:5px; }
 .invalid-list-wrap::-webkit-scrollbar-track { background:var(--bg); }
@@ -344,13 +369,16 @@ textarea::placeholder { color: var(--muted); }
 .inv-reason.r-chars { background:rgba(214,59,74,0.1); color:var(--accent); }
 .inv-reason.r-short { background:rgba(192,112,0,0.1); color:var(--warn); }
 .inv-reason.r-long  { background:rgba(124,58,237,0.1); color:var(--accent3); }
- 
+
 .empty { text-align:center; padding:44px 20px; color:var(--muted); }
 .empty-icon { font-size:40px; display:block; margin-bottom:10px; }
 .empty-text { font-size:13px; }
- 
+
 #results-block { display:none; }
- 
+
+/* ══════════════════════════════════════════
+   DEBUG PANEL
+══════════════════════════════════════════ */
 #debug-panel {
   background: var(--dbg-bg);
   border: 1.5px solid var(--border);
@@ -473,6 +501,10 @@ textarea::placeholder { color: var(--muted); }
     Перетягніть файл або натисніть для вибору (.csv / .tsv / .txt)
   </div>
   <div id="file-name"></div>
+  <!-- НОВЕ: прапорець для заголовка -->
+  <label class="header-option">
+    <input type="checkbox" id="has-header" checked> Перший рядок — заголовок
+  </label>
 </div>
 
 <!-- 2. Вибір колонки для порівняння -->
@@ -547,7 +579,6 @@ textarea::placeholder { color: var(--muted); }
 </div>
 
 </div><!-- /wrap -->
-
 <script>
 // ══════════════════════════════════════════════════════════
 // DEBUG LOGGER
@@ -590,7 +621,7 @@ function appendLine(entry) {
   const d = document.createElement('div');
   d.className = `dbg-line level-${entry.level}`;
   const lm = {ok:'✓ OK',err:'✕ ERR',warn:'⚠ WARN',info:'ℹ INFO'};
-  const dataStr = entry.data!==undefined ? `<span style="opacity:0.45">→ ${esc(JSON.stringify(entry.data))}</span>` : '';
+  const dataStr = entry.data!==undefined ? ` <span style="opacity:0.45">→ ${esc(JSON.stringify(entry.data))}</span>` : '';
   d.innerHTML = `<span class="dbg-ts">${entry.ts}</span><span class="dbg-lvl lvl-${entry.level}">${lm[entry.level]||entry.level}</span><span class="dbg-msg">${esc(entry.msg)}${dataStr}</span>`;
   body.appendChild(d);
   body.scrollTop = body.scrollHeight;
@@ -651,7 +682,7 @@ const REASONS = {
 const PREVIEW_ROWS = 5;
 
 // ══════════════════════════════════════════════════════════
-// PARSE
+// PARSE (оновлено з урахуванням заголовка)
 // ══════════════════════════════════════════════════════════
 function detectSep(line) {
   if (line.includes('\t')) return '\t';
@@ -675,42 +706,48 @@ function norm(v){ return String(v??'').replace(/^'+/,'').trim(); }
 
 function loadText(text) {
   try {
-    // Виправлена обробка рядків — найнадійніший варіант
-    const lines = text.split(/\r?\n/)
-                      .map(l => l.trim())
-                      .filter(l => l.length > 0);
-
-    if (lines.length < 1) { logWarn('loadText: немає даних після очищення'); return; }
-
-    S.sep = lines.length > 0 ? detectSep(lines[0]) : '\t';
-    const parsed = lines.map(l => parseLine(l, S.sep));
-    S.headers = parsed[0] || [];
-    S.rows = parsed;
-
-    logInfo('Дані завантажено', {
-      raw_lines: text.split(/\r?\n/).length,
-      cleaned_lines: lines.length,
-      rows: parsed.length - 1,
-      cols: S.headers.length,
-      sep: S.sep === '\t' ? 'TAB' : S.sep
+    const lines = text.trim().split(/\r?\n/).filter(l=>l.trim());
+    if (lines.length<1){ logWarn('loadText: немає даних'); return; }
+    
+    const hasHeader = document.getElementById('has-header').checked;
+    S.sep = detectSep(lines[0]);
+    const parsed = lines.map(l=>parseLine(l,S.sep));
+    
+    if (hasHeader) {
+      S.headers = parsed[0] || [];
+      S.rows = parsed;                     // рядок 0 – заголовок, далі дані
+    } else {
+      // заголовка немає – створюємо штучні назви колонок
+      S.headers = parsed[0].map((_, idx) => `Колонка ${idx+1}`);
+      // додаємо штучний заголовок як перший рядок, щоб структура S.rows була однаковою
+      S.rows = [S.headers, ...parsed];      // parsed – це всі рядки (включаючи перший як дані)
+    }
+    
+    logInfo('Дані завантажено',{ 
+      rows: S.rows.length - 1, 
+      cols: S.headers.length, 
+      sep: S.sep==='\t'?'TAB':S.sep,
+      hasHeader 
     });
-
     initColMap();
     renderMapping();
-  } catch(e){ logErr('loadText: помилка', e.message); }
+  } catch(e){ logErr('loadText: помилка',e.message); }
 }
 
 // ══════════════════════════════════════════════════════════
-// AUTO-DETECT key column
+// AUTO-DETECT key column: find column where most values
+// look like long digit strings (10-14 digits)
 // ══════════════════════════════════════════════════════════
 function autoDetectKeyCol() {
   const dataRows = S.rows.slice(1, Math.min(6, S.rows.length));
   let bestIdx = 0, bestScore = -1;
 
   S.headers.forEach((h, ci) => {
+    // score by header name
     let score = 0;
     if (/^[№#]|номер|number|^id$/i.test(h.trim())) score += 5;
 
+    // score by data: count cells that look like 10-14 digit numbers
     dataRows.forEach(row => {
       const v = norm(row[ci]??'');
       if (/^\d{10,14}$/.test(v)) score += 2;
@@ -736,7 +773,7 @@ function initColMap() {
   }
   const keyIdx = autoDetectKeyCol();
   S.colMap = S.headers.map((h,i)=>({ original:h, alias:h, visible:true, isKey:i===keyIdx }));
-  logInfo('ColMap: ініціалізовано', { keyCol:`Col${keyIdx+1} «${S.headers[keyIdx]||'?'}»`, auto:true });
+  logInfo('ColMap: ініціалізовано', { keyCol:`Col${keyIdx+1} «${S.headers[keyIdx]||'?'}», auto:true });
 }
 
 function setKeyCol(idx) {
@@ -753,8 +790,9 @@ function renderMapping() {
   if (!S.headers.length) return;
   document.getElementById('mapping-block').style.display='';
 
+  // --- Preview table ---
   const keyIdx = S.colMap.findIndex(c=>c.isKey);
-  const previewRows = S.rows.slice(0, PREVIEW_ROWS+1);
+  const previewRows = S.rows.slice(0, PREVIEW_ROWS+1); // header + 5 rows
   const pwrap = document.getElementById('preview-wrap');
   const thHtml = S.headers.map((h,i)=>`<th class="${i===keyIdx?'is-key-th':''}">${esc(h||`Col${i+1}`)}</th>`).join('');
   const tbodyHtml = previewRows.slice(1).map(row=>`<tr>${
@@ -762,6 +800,7 @@ function renderMapping() {
   }</tr>`).join('');
   pwrap.innerHTML = `<table class="preview-table"><thead><tr>${thHtml}</tr></thead><tbody>${tbodyHtml}</tbody></table>`;
 
+  // --- Column selector list ---
   const list = document.getElementById('col-select-list');
   list.innerHTML = '';
 
@@ -772,8 +811,8 @@ function renderMapping() {
 
     const div = document.createElement('label');
     div.className = 'col-select-item' + (isKey?' is-key':'');
-    div.innerHTML = `
-      <input class="col-radio" type="radio" name="keycol" ${isKey?'checked':''} onchange="setKeyCol(${i})">
+    div.innerHTML = 
+      `<input class="col-radio" type="radio" name="keycol" ${isKey?'checked':''} onchange="setKeyCol(${i})">
       <div class="col-radio-visual"></div>
       <div class="col-info">
         <div class="col-label-row">
@@ -785,7 +824,6 @@ function renderMapping() {
           ${autoTag}
         </div>
         <div class="col-sample">Приклад: <span>${esc(samples.join(' · '))||'(порожньо)'}</span></div>
-      </div>
       <div class="col-right">
         <span class="key-badge-v2">🔑 Ключ для порівняння</span>
         <label class="vis-toggle" onclick="event.stopPropagation()">
@@ -869,7 +907,7 @@ function runCheck() {
 }
 
 // ══════════════════════════════════════════════════════════
-// TABS & UTILS
+// TABS
 // ══════════════════════════════════════════════════════════
 function switchTab(name) {
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
@@ -878,6 +916,9 @@ function switchTab(name) {
   document.getElementById(`tab-${name}-btn`).classList.add('active');
 }
 
+// ══════════════════════════════════════════════════════════
+// RENDER DUPS
+// ══════════════════════════════════════════════════════════
 function alias(ci){ return S.colMap[ci]?.alias||S.headers[ci]||`Col${ci+1}`; }
 function vis(ci)  { return S.colMap[ci]?S.colMap[ci].visible:true; }
 
@@ -919,6 +960,9 @@ function filterDups(){
   renderDups(f); set('search-count',`${f.length} з ${S.dupOrder.length} груп`);
 }
 
+// ══════════════════════════════════════════════════════════
+// RENDER INVALID
+// ══════════════════════════════════════════════════════════
 function renderInvalid(items){
   const ci=S.keyCol;
   const visCols=S.headers.map((_,i)=>i).filter(i=>vis(i)&&i!==ci);
@@ -928,6 +972,7 @@ function renderInvalid(items){
 
 function renderInvalidBody(items,visCols){
   const tb=document.getElementById('inv-tbody');
+  if (!visCols) visCols=S.headers.map((_,i)=>i).filter(i=>vis(i)&&i!==S.keyCol);
   if (!items.length){ tb.innerHTML=`<tr><td colspan="99" style="text-align:center;padding:32px;color:var(--muted)">Невалідних номерів не знайдено ✅</td></tr>`; return; }
   tb.innerHTML=items.map(({rowIdx,value,reason})=>{
     const row=S.rows[rowIdx], r=REASONS[reason]||{cls:'',text:reason};
@@ -1008,7 +1053,7 @@ function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').rep
 function set(id,v){ document.getElementById(id).textContent=v; }
 
 // Init
-logInfo('Додаток ініціалізовано',{version:'3.2.0 (виправлено підрахунок рядків)',time:new Date().toLocaleString('uk-UA')});
+logInfo('Додаток ініціалізовано',{version:'3.1.1',time:new Date().toLocaleString('uk-UA')});
 </script>
 </body>
 </html>
