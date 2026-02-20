@@ -9,23 +9,26 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:      #f0ede8;
-  --bg2:     #e5e0d8;
-  --bg3:     #d8d2c8;
-  --ink:     #1a1714;
-  --muted:   #8a8278;
-  --accent:  #c0392b;
-  --accent2: #1a6b3c;
-  --accent3: #1a3a6b;
-  --warn:    #b06000;
-  --border:  #c8c2b8;
-  --dbg-bg:  #0d1117;
-  --dbg-line:#1c2128;
-  --dbg-ok:  #3fb950;
-  --dbg-err: #f85149;
-  --dbg-warn:#d29922;
-  --dbg-inf: #58a6ff;
-  --dbg-muted:#6e7681;
+  --bg:      #faf8ff;
+  --bg2:     #f0ebff;
+  --bg3:     #e4dbf7;
+  --ink:     #3d2278;
+  --ink2:    #5b3fa0;
+  --muted:   #9585b8;
+  --accent:  #d63b4a;
+  --accent2: #1a7a46;
+  --accent3: #7c3aed;
+  --warn:    #c07000;
+  --border:  #d5c8f0;
+  --white:   #ffffff;
+
+  --dbg-bg:   #1a1025;
+  --dbg-line: #261838;
+  --dbg-ok:   #4ade80;
+  --dbg-err:  #f87171;
+  --dbg-warn: #fbbf24;
+  --dbg-inf:  #818cf8;
+  --dbg-muted:#6b5d8a;
 }
 
 body {
@@ -33,127 +36,292 @@ body {
   background: var(--bg);
   color: var(--ink);
   min-height: 100vh;
-  padding: 40px 20px 80px;
+  padding: 36px 20px 80px;
 }
 
 .wrap { max-width: 1080px; margin: 0 auto; }
 
+/* ── Header ── */
 header {
-  margin-bottom: 44px; padding-bottom: 28px;
-  border-bottom: 2px solid var(--ink);
+  margin-bottom: 40px; padding-bottom: 24px;
+  border-bottom: 2px solid var(--border);
   display: flex; align-items: flex-end; justify-content: space-between;
   gap: 20px; flex-wrap: wrap;
 }
 header h1 {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(26px, 5vw, 50px);
+  font-size: clamp(24px, 4.5vw, 46px);
   font-weight: 800; letter-spacing: -2px; line-height: 1;
+  color: var(--ink);
 }
-header h1 em { font-style: normal; color: var(--accent); }
-.header-sub {
-  font-size: 11px; color: var(--muted);
-  letter-spacing: 2px; text-transform: uppercase; padding-bottom: 4px;
-}
+header h1 em { font-style: normal; color: var(--accent3); }
+.header-sub { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; padding-bottom: 4px; }
 
+/* ── Block ── */
 .block {
-  background: #fff; border: 1.5px solid var(--border); border-radius: 4px;
-  padding: 26px 28px; margin-bottom: 18px;
-  box-shadow: 4px 4px 0 var(--bg3); animation: fadeUp 0.3s ease both;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 26px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(92,46,178,0.07), 4px 4px 0 var(--bg3);
+  animation: fadeUp 0.3s ease both;
 }
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(10px); }
-  to   { opacity:1; transform:translateY(0); }
-}
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
 .block-title {
   font-family: 'Syne', sans-serif;
-  font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 18px;
+  font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px;
   display: flex; align-items: center; gap: 10px;
 }
 .block-title::after { content:''; flex:1; height:1px; background:var(--border); }
 
+/* ── Textarea ── */
 textarea {
-  width: 100%; height: 170px;
-  background: var(--bg); border: 1.5px solid var(--border); border-radius: 4px;
+  width: 100%; height: 160px;
+  background: var(--bg); border: 1.5px solid var(--border); border-radius: 6px;
   font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink);
-  padding: 14px; resize: vertical; outline: none;
+  padding: 12px 14px; resize: vertical; outline: none;
   transition: border-color 0.2s; line-height: 1.6;
 }
-textarea:focus { border-color: var(--ink); }
+textarea:focus { border-color: var(--accent3); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
 textarea::placeholder { color: var(--muted); }
 
+/* ── Dropzone ── */
 .dropzone {
-  position: relative; border: 2px dashed var(--border); border-radius: 4px;
-  padding: 18px; text-align: center; margin-top: 14px; cursor: pointer;
+  position: relative; border: 2px dashed var(--border); border-radius: 6px;
+  padding: 16px; text-align: center; margin-top: 12px; cursor: pointer;
   transition: all 0.2s; background: var(--bg); color: var(--muted); font-size: 12px;
 }
-.dropzone:hover, .dropzone.drag { border-color: var(--ink); background: var(--bg2); color: var(--ink); }
+.dropzone:hover, .dropzone.drag { border-color: var(--accent3); background: var(--bg2); color: var(--ink2); }
 .dropzone input { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-.dropzone-icon { font-size: 22px; display: block; margin-bottom: 4px; }
+.dropzone-icon { font-size: 20px; display: block; margin-bottom: 4px; }
 #file-name { margin-top:8px; font-size:12px; color:var(--accent2); font-weight:600; min-height:16px; }
 
-/* Mapping */
-.mapping-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(215px,1fr)); gap:10px; }
-.map-item {
-  background:var(--bg); border:1.5px solid var(--border); border-radius:4px;
-  padding:12px 14px; display:flex; flex-direction:column; gap:6px;
-  transition:border-color 0.2s, box-shadow 0.2s;
+/* ══════════════════════════════════════════
+   MAPPING — ОНОВЛЕНИЙ ДИЗАЙН
+══════════════════════════════════════════ */
+.mapping-hint {
+  font-size: 13px; color: var(--ink2); margin-bottom: 18px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 12px 16px; line-height: 1.6;
 }
-.map-item.is-key { border-color:var(--accent3); background:#eef2fa; box-shadow:2px 2px 0 rgba(26,58,107,0.15); }
-.map-col-num { font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
-.map-original { font-size:12px; font-weight:700; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.map-alias-input {
-  width:100%; padding:6px 10px;
-  font-family:'IBM Plex Mono',monospace; font-size:12px;
-  border:1.5px solid var(--border); border-radius:4px;
-  background:#fff; color:var(--ink); outline:none; transition:border-color 0.2s;
+.mapping-hint strong { color: var(--accent3); }
+.mapping-hint code { background:var(--bg3); padding:1px 5px; border-radius:3px; font-size:11px; color:var(--ink); }
+
+/* Таблиця попереднього перегляду */
+.preview-wrap {
+  margin-bottom: 20px;
+  overflow-x: auto;
 }
-.map-alias-input:focus { border-color:var(--accent3); }
-.map-controls { display:flex; gap:10px; flex-wrap:wrap; margin-top:2px; }
-.map-chk-row { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--muted); cursor:pointer; white-space:nowrap; }
-.map-chk-row input[type=checkbox] { cursor:pointer; }
-.map-chk-row.key-chk { color:var(--accent3); font-weight:600; }
-.map-chk-row.key-chk input[type=checkbox] { accent-color:var(--accent3); }
-.map-chk-row.vis-chk input[type=checkbox] { accent-color:var(--accent); }
-.key-badge {
-  display:inline-flex; align-items:center; gap:4px;
-  font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
-  color:var(--accent3); background:rgba(26,58,107,0.1);
-  padding:2px 7px; border-radius:20px; border:1px solid rgba(26,58,107,0.2);
+.preview-wrap::-webkit-scrollbar { height: 5px; }
+.preview-wrap::-webkit-scrollbar-track { background: var(--bg); }
+.preview-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.preview-table {
+  width: 100%; border-collapse: collapse; font-size: 11px;
+  min-width: 500px;
+}
+.preview-table th {
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 6px 10px; text-align: left; color: var(--muted);
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  white-space: nowrap;
+}
+.preview-table td {
+  border: 1px solid var(--border); padding: 6px 10px;
+  color: var(--ink); max-width: 180px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.preview-table tr:nth-child(even) td { background: var(--bg); }
+.preview-table th.is-key-th {
+  background: var(--bg2);
+  border-top: 3px solid var(--accent3);
+  color: var(--accent3);
+}
+.preview-table td.is-key-td { background: rgba(124,58,237,0.05); font-weight: 600; color: var(--accent3); }
+
+/* Список колонок з радіокнопками */
+.col-select-list {
+  display: flex; flex-direction: column; gap: 8px;
 }
 
-/* Buttons */
+.col-select-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+.col-select-item:hover { border-color: var(--accent3); background: var(--bg2); }
+.col-select-item.is-key {
+  border-color: var(--accent3);
+  background: linear-gradient(135deg, rgba(124,58,237,0.05) 0%, var(--white) 100%);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+}
+
+/* Прихована radio */
+.col-radio { display: none; }
+
+.col-radio-visual {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--white);
+  flex-shrink: 0;
+  transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.col-select-item.is-key .col-radio-visual {
+  border-color: var(--accent3);
+  background: var(--accent3);
+}
+.col-radio-visual::after {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: white;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.col-select-item.is-key .col-radio-visual::after { opacity: 1; }
+
+.col-info { min-width: 0; }
+
+.col-label-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 3px;
+}
+.col-num-badge {
+  font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--muted); background: var(--bg3);
+  padding: 1px 6px; border-radius: 10px; flex-shrink: 0;
+}
+.col-alias-input {
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600;
+  color: var(--ink); background: transparent; border: none; outline: none;
+  border-bottom: 1.5px dashed var(--border);
+  padding: 0 2px; width: 100%; min-width: 80px;
+  transition: border-color 0.2s;
+}
+.col-alias-input:focus { border-bottom-color: var(--accent3); }
+
+.col-sample {
+  font-size: 10px; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+}
+.col-sample span { color: var(--ink2); }
+
+/* Extract option */
+.extract-row {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 8px 12px;
+  background: rgba(124,58,237,0.06);
+  border: 1px dashed rgba(124,58,237,0.25);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--ink2);
+}
+.col-select-item.is-key .extract-row { display: flex; }
+.extract-label { white-space: nowrap; font-size: 11px; color: var(--muted); }
+.extract-input {
+  width: 60px;
+  padding: 4px 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px; font-weight: 700;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  background: var(--white);
+  color: var(--accent3);
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.extract-input:focus { border-color: var(--accent3); box-shadow: 0 0 0 3px rgba(124,58,237,0.15); }
+.extract-preview {
+  font-size: 11px;
+  color: var(--accent3);
+  font-weight: 600;
+  background: rgba(124,58,237,0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  min-width: 80px;
+}
+.extract-hint { font-size: 10px; color: var(--muted); }
+
+.col-right {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0;
+}
+
+.key-badge-v2 {
+  display: none;
+  font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--accent3); background: rgba(124,58,237,0.1);
+  padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(124,58,237,0.25);
+}
+.col-select-item.is-key .key-badge-v2 { display: inline-flex; }
+
+.vis-toggle {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 10px; color: var(--muted); cursor: pointer;
+  user-select: none;
+}
+.vis-toggle input[type=checkbox] { accent-color: var(--accent3); cursor: pointer; width: 13px; height: 13px; }
+
+/* Авто-підказка */
+.auto-hint {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10px; color: var(--accent3); font-weight: 600;
+  background: rgba(124,58,237,0.08); padding: 2px 8px; border-radius: 20px;
+  margin-left: 8px;
+}
+
+/* ── Buttons ── */
 .btn-row { display:flex; gap:10px; flex-wrap:wrap; }
 .btn {
   font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
   letter-spacing:0.3px; padding:10px 18px;
-  border:1.5px solid transparent; border-radius:4px;
+  border:1.5px solid transparent; border-radius:6px;
   cursor:pointer; transition:all 0.15s;
   display:inline-flex; align-items:center; gap:7px; white-space:nowrap;
 }
 .btn:disabled { opacity:0.3; cursor:not-allowed !important; transform:none !important; box-shadow:none !important; }
-.btn-primary { background:var(--ink); color:#fff; border-color:var(--ink); box-shadow:3px 3px 0 var(--bg3); }
-.btn-primary:not(:disabled):hover { background:var(--accent); border-color:var(--accent); transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--bg3); }
-.btn-danger  { background:#fff; color:var(--accent);  border-color:var(--accent);  box-shadow:3px 3px 0 rgba(192,57,43,0.15); }
-.btn-danger:not(:disabled):hover  { background:var(--accent);  color:#fff; transform:translate(-1px,-1px); box-shadow:4px 4px 0 rgba(192,57,43,0.2); }
-.btn-success { background:#fff; color:var(--accent2); border-color:var(--accent2); box-shadow:3px 3px 0 rgba(26,107,60,0.15); }
-.btn-success:not(:disabled):hover { background:var(--accent2); color:#fff; transform:translate(-1px,-1px); box-shadow:4px 4px 0 rgba(26,107,60,0.2); }
-.btn-warn    { background:#fff; color:var(--warn);    border-color:var(--warn);    box-shadow:3px 3px 0 rgba(176,96,0,0.15); }
-.btn-warn:not(:disabled):hover    { background:var(--warn);    color:#fff; transform:translate(-1px,-1px); box-shadow:4px 4px 0 rgba(176,96,0,0.2); }
-.btn-ghost   { background:transparent; color:var(--muted); border-color:var(--border); box-shadow:none; }
-.btn-ghost:hover { color:var(--ink); border-color:var(--ink); }
 
-/* Stats */
-.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:18px; }
-.stat-card { border:1.5px solid var(--border); border-radius:4px; padding:16px 18px; background:var(--bg); position:relative; overflow:hidden; }
-.stat-card::before { content:''; position:absolute; left:0;top:0;bottom:0; width:3px; }
+.btn-primary { background:var(--accent3); color:#fff; border-color:var(--accent3); box-shadow:0 2px 8px rgba(124,58,237,0.3); }
+.btn-primary:not(:disabled):hover { background:var(--ink2); border-color:var(--ink2); transform:translateY(-1px); box-shadow:0 4px 12px rgba(124,58,237,0.35); }
+
+.btn-danger  { background:var(--white); color:var(--accent);  border-color:var(--accent);  box-shadow:3px 3px 0 rgba(214,59,74,0.12); }
+.btn-danger:not(:disabled):hover  { background:var(--accent);  color:#fff; transform:translate(-1px,-1px); }
+
+.btn-success { background:var(--white); color:var(--accent2); border-color:var(--accent2); box-shadow:3px 3px 0 rgba(26,122,70,0.12); }
+.btn-success:not(:disabled):hover { background:var(--accent2); color:#fff; transform:translate(-1px,-1px); }
+
+.btn-warn    { background:var(--white); color:var(--warn);    border-color:var(--warn);    box-shadow:3px 3px 0 rgba(192,112,0,0.12); }
+.btn-warn:not(:disabled):hover    { background:var(--warn);    color:#fff; transform:translate(-1px,-1px); }
+
+/* ── Stats ── */
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:16px; }
+.stat-card {
+  border:1.5px solid var(--border); border-radius:8px;
+  padding:16px 18px; background:var(--bg); position:relative; overflow:hidden;
+}
+.stat-card::before { content:''; position:absolute; left:0;top:0;bottom:0; width:3px; border-radius:3px 0 0 3px; }
 .stat-card.c-total::before  { background:var(--accent3); }
 .stat-card.c-unique::before { background:var(--accent2); }
 .stat-card.c-dup::before    { background:var(--accent); }
 .stat-card.c-rows::before   { background:#c07a1a; }
 .stat-card.c-invalid::before{ background:var(--warn); }
-.stat-num { font-family:'Syne',sans-serif; font-size:34px; font-weight:800; line-height:1; margin-bottom:4px; }
+.stat-num { font-family:'Syne',sans-serif; font-size:32px; font-weight:800; line-height:1; margin-bottom:4px; }
 .stat-card.c-total   .stat-num { color:var(--accent3); }
 .stat-card.c-unique  .stat-num { color:var(--accent2); }
 .stat-card.c-dup     .stat-num { color:var(--accent); }
@@ -161,41 +329,41 @@ textarea::placeholder { color: var(--muted); }
 .stat-card.c-invalid .stat-num { color:var(--warn); }
 .stat-lbl { font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); line-height:1.4; }
 
-/* Tabs */
-.tabs { display:flex; gap:0; border-bottom:1.5px solid var(--border); margin-bottom:20px; }
+/* ── Tabs ── */
+.tabs { display:flex; gap:0; border-bottom:1.5px solid var(--border); margin-bottom:18px; }
 .tab-btn {
   font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
-  padding:9px 18px; border:none; background:none; cursor:pointer;
+  padding:8px 16px; border:none; background:none; cursor:pointer;
   color:var(--muted); border-bottom:2px solid transparent; margin-bottom:-1.5px;
   transition:all 0.15s; display:flex; align-items:center; gap:6px;
 }
 .tab-btn:hover { color:var(--ink); }
-.tab-btn.active { color:var(--ink); border-bottom-color:var(--ink); }
+.tab-btn.active { color:var(--accent3); border-bottom-color:var(--accent3); }
 .tab-btn.tab-warn.active { color:var(--warn); border-bottom-color:var(--warn); }
 .tab-cnt { font-size:10px; font-weight:700; padding:1px 7px; border-radius:20px; background:var(--bg3); color:var(--muted); }
-.tab-btn.active .tab-cnt { background:var(--ink); color:#fff; }
+.tab-btn.active .tab-cnt { background:var(--accent3); color:#fff; }
 .tab-btn.tab-warn.active .tab-cnt { background:var(--warn); color:#fff; }
 .tab-panel { display:none; }
 .tab-panel.active { display:block; }
 
-/* Search */
+/* ── Search ── */
 .search-row { display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
 .search-input {
   flex:1; min-width:180px; max-width:320px; padding:8px 13px;
   font-family:'IBM Plex Mono',monospace; font-size:12px;
-  border:1.5px solid var(--border); border-radius:4px;
+  border:1.5px solid var(--border); border-radius:6px;
   background:var(--bg); color:var(--ink); outline:none; transition:border-color 0.2s;
 }
-.search-input:focus { border-color:var(--ink); }
+.search-input:focus { border-color:var(--accent3); box-shadow:0 0 0 3px rgba(124,58,237,0.1); }
 .search-input::placeholder { color:var(--muted); }
 .count-badge { font-size:11px; color:var(--muted); }
 
-/* Dup list */
+/* ── Dup list ── */
 .dup-list { display:flex; flex-direction:column; gap:7px; max-height:500px; overflow-y:auto; padding-right:4px; }
 .dup-list::-webkit-scrollbar { width:5px; }
 .dup-list::-webkit-scrollbar-track { background:var(--bg); }
 .dup-list::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
-.dup-group { border:1.5px solid var(--border); border-radius:4px; overflow:hidden; animation:fadeUp 0.2s ease both; }
+.dup-group { border:1.5px solid var(--border); border-radius:6px; overflow:hidden; animation:fadeUp 0.2s ease both; }
 .dup-header {
   display:flex; align-items:center; justify-content:space-between;
   padding:10px 15px; background:var(--bg2); cursor:pointer;
@@ -208,7 +376,7 @@ textarea::placeholder { color: var(--muted); }
 .pill { font-size:10px; font-weight:700; padding:2px 8px; border-radius:20px; background:var(--accent); color:#fff; }
 .chevron { transition:transform 0.2s; font-size:11px; color:var(--muted); }
 .chevron.r { transform:rotate(180deg); }
-.dup-body { display:none; padding:10px 14px; background:#fff; }
+.dup-body { display:none; padding:10px 14px; background:var(--white); }
 .dup-body.open { display:block; }
 .dup-row-item { display:grid; grid-template-columns:50px 1fr; gap:10px; padding:7px 0; border-bottom:1px solid var(--bg2); font-size:11px; align-items:start; }
 .dup-row-item:last-child { border-bottom:none; }
@@ -218,7 +386,7 @@ textarea::placeholder { color: var(--muted); }
 .dup-col-name { font-size:9px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
 .dup-col-val { font-size:12px; color:var(--ink); font-weight:500; }
 
-/* Invalid table */
+/* ── Invalid table ── */
 .invalid-list-wrap { max-height:480px; overflow-y:auto; }
 .invalid-list-wrap::-webkit-scrollbar { width:5px; }
 .invalid-list-wrap::-webkit-scrollbar-track { background:var(--bg); }
@@ -227,12 +395,12 @@ textarea::placeholder { color: var(--muted); }
 .invalid-table th { text-align:left; padding:8px 12px; background:var(--bg2); border:1px solid var(--border); font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); font-weight:600; }
 .invalid-table td { padding:8px 12px; border:1px solid var(--border); color:var(--ink); vertical-align:top; }
 .invalid-table tr:nth-child(even) td { background:var(--bg); }
-.invalid-table tr:hover td { background:#fef5f0; }
+.invalid-table tr:hover td { background:rgba(124,58,237,0.03); }
 .invalid-val { font-weight:700; color:var(--warn); }
 .inv-reason { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:600; letter-spacing:0.5px; padding:2px 8px; border-radius:20px; }
-.inv-reason.r-chars { background:rgba(192,57,43,0.1); color:var(--accent); }
-.inv-reason.r-short { background:rgba(176,96,0,0.1); color:var(--warn); }
-.inv-reason.r-long  { background:rgba(26,58,107,0.1); color:var(--accent3); }
+.inv-reason.r-chars { background:rgba(214,59,74,0.1); color:var(--accent); }
+.inv-reason.r-short { background:rgba(192,112,0,0.1); color:var(--warn); }
+.inv-reason.r-long  { background:rgba(124,58,237,0.1); color:var(--accent3); }
 
 .empty { text-align:center; padding:44px 20px; color:var(--muted); }
 .empty-icon { font-size:40px; display:block; margin-bottom:10px; }
@@ -240,142 +408,81 @@ textarea::placeholder { color: var(--muted); }
 
 #results-block { display:none; }
 
-/* ══ DEBUG PANEL ══════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   DEBUG PANEL
+══════════════════════════════════════════ */
 #debug-panel {
   background: var(--dbg-bg);
-  border: 1.5px solid #30363d;
-  border-radius: 4px;
-  margin-bottom: 18px;
+  border: 1.5px solid rgba(124,58,237,0.2);
+  border-radius: 8px;
+  margin-bottom: 16px;
   overflow: hidden;
-  box-shadow: 4px 4px 0 #0a0d10;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   font-family: 'IBM Plex Mono', monospace;
 }
-
 .dbg-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 18px;
-  background: #161b22;
-  border-bottom: 1px solid #30363d;
-  cursor: pointer;
-  user-select: none;
+  padding: 11px 18px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer; user-select: none;
 }
-
-.dbg-header:hover { background: #1c2128; }
-
-.dbg-title {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 12px; font-weight: 600; color: #c9d1d9;
-  letter-spacing: 1px; text-transform: uppercase;
-}
-
-.dbg-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--dbg-ok);
-  box-shadow: 0 0 6px var(--dbg-ok);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity:1; }
-  50% { opacity:0.4; }
-}
-
+.dbg-header:hover { background: rgba(255,255,255,0.06); }
+.dbg-title { display:flex; align-items:center; gap:10px; font-size:12px; font-weight:600; color:#c9b8f0; letter-spacing:1px; text-transform:uppercase; }
+.dbg-dot { width:8px; height:8px; border-radius:50%; background:var(--dbg-ok); box-shadow:0 0 6px var(--dbg-ok); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 .dbg-dot.err { background:var(--dbg-err); box-shadow:0 0 6px var(--dbg-err); }
-
-.dbg-controls {
-  display: flex; align-items: center; gap: 8px;
-}
-
-.dbg-cnt {
-  font-size: 11px; color: var(--dbg-muted);
-  background: #21262d; padding: 2px 8px; border-radius: 20px;
-}
-.dbg-cnt.has-err { color: var(--dbg-err); background: rgba(248,81,73,0.1); }
-
-.dbg-body {
-  display: none;
-  height: 280px;
-  overflow-y: auto;
-  padding: 10px 0;
-}
-.dbg-body.open { display: block; }
-
-.dbg-body::-webkit-scrollbar { width: 5px; }
-.dbg-body::-webkit-scrollbar-track { background: #0d1117; }
-.dbg-body::-webkit-scrollbar-thumb { background: #30363d; border-radius:3px; }
-
+.dbg-controls { display:flex; align-items:center; gap:8px; }
+.dbg-cnt { font-size:11px; color:var(--dbg-muted); background:rgba(255,255,255,0.05); padding:2px 8px; border-radius:20px; }
+.dbg-cnt.has-err { color:var(--dbg-err); background:rgba(248,113,113,0.1); }
+.dbg-body { display:none; height:260px; overflow-y:auto; padding:8px 0; }
+.dbg-body.open { display:block; }
+.dbg-body::-webkit-scrollbar { width:5px; }
+.dbg-body::-webkit-scrollbar-track { background:var(--dbg-bg); }
+.dbg-body::-webkit-scrollbar-thumb { background:#3a2558; border-radius:3px; }
 .dbg-line {
-  display: grid;
-  grid-template-columns: 90px 48px 1fr;
-  gap: 0;
-  padding: 3px 18px;
-  font-size: 11px;
-  line-height: 1.6;
-  border-bottom: 1px solid transparent;
-  transition: background 0.1s;
+  display:grid; grid-template-columns:95px 52px 1fr;
+  padding:3px 18px; font-size:11px; line-height:1.6;
+  border-bottom:1px solid transparent; transition:background 0.1s;
 }
-.dbg-line:hover { background: var(--dbg-line); }
-
-.dbg-ts { color: var(--dbg-muted); }
-.dbg-lvl {
-  font-weight: 700; font-size: 10px; letter-spacing: 0.5px;
-  padding: 1px 0; text-align: left;
-}
-.dbg-msg { color: #c9d1d9; word-break: break-all; }
-
-.lvl-ok   { color: var(--dbg-ok); }
-.lvl-err  { color: var(--dbg-err); }
-.lvl-warn { color: var(--dbg-warn); }
-.lvl-info { color: var(--dbg-inf); }
-
-.dbg-line.level-err  { background: rgba(248,81,73,0.06); }
-.dbg-line.level-warn { background: rgba(210,153,34,0.04); }
-
+.dbg-line:hover { background:var(--dbg-line); }
+.dbg-ts { color:var(--dbg-muted); }
+.dbg-lvl { font-weight:700; font-size:10px; letter-spacing:0.5px; }
+.dbg-msg { color:#d4c8f0; word-break:break-all; }
+.lvl-ok   { color:var(--dbg-ok); }
+.lvl-err  { color:var(--dbg-err); }
+.lvl-warn { color:var(--dbg-warn); }
+.lvl-info { color:var(--dbg-inf); }
+.dbg-line.level-err  { background:rgba(248,113,113,0.06); }
+.dbg-line.level-warn { background:rgba(251,191,36,0.04); }
 .dbg-footer {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  padding: 10px 18px;
-  background: #161b22;
-  border-top: 1px solid #30363d;
-  flex-wrap: wrap;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:9px 18px; background:rgba(255,255,255,0.03);
+  border-top:1px solid rgba(255,255,255,0.06); flex-wrap:wrap;
 }
-
-.dbg-filter {
-  display: flex; gap: 6px; flex-wrap: wrap;
-}
-
+.dbg-filter { display:flex; gap:5px; flex-wrap:wrap; }
 .dbg-filter-btn {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px; font-weight: 600; letter-spacing: 0.5px;
-  padding: 3px 10px; border-radius: 20px;
-  border: 1px solid #30363d;
-  background: #21262d; color: var(--dbg-muted);
-  cursor: pointer; transition: all 0.15s;
+  font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.5px;
+  padding:3px 10px; border-radius:20px; border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.04); color:var(--dbg-muted); cursor:pointer; transition:all 0.15s;
 }
-.dbg-filter-btn:hover { border-color: #58a6ff; color: #58a6ff; }
-.dbg-filter-btn.active { background: #1f3a5c; border-color: var(--dbg-inf); color: var(--dbg-inf); }
-.dbg-filter-btn.f-ok.active   { background:rgba(63,185,80,0.1);  border-color:var(--dbg-ok);   color:var(--dbg-ok); }
-.dbg-filter-btn.f-err.active  { background:rgba(248,81,73,0.1);  border-color:var(--dbg-err);  color:var(--dbg-err); }
-.dbg-filter-btn.f-warn.active { background:rgba(210,153,34,0.1); border-color:var(--dbg-warn); color:var(--dbg-warn); }
-.dbg-filter-btn.f-info.active { background:rgba(88,166,255,0.1); border-color:var(--dbg-inf);  color:var(--dbg-inf); }
-
+.dbg-filter-btn:hover { border-color:var(--dbg-inf); color:var(--dbg-inf); }
+.dbg-filter-btn.active { background:rgba(129,140,248,0.15); border-color:var(--dbg-inf); color:var(--dbg-inf); }
+.dbg-filter-btn.f-ok.active   { background:rgba(74,222,128,0.1);  border-color:var(--dbg-ok);   color:var(--dbg-ok); }
+.dbg-filter-btn.f-err.active  { background:rgba(248,113,113,0.1); border-color:var(--dbg-err);  color:var(--dbg-err); }
+.dbg-filter-btn.f-warn.active { background:rgba(251,191,36,0.1);  border-color:var(--dbg-warn); color:var(--dbg-warn); }
 .dbg-dl-btn {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px; font-weight: 600;
-  padding: 4px 12px;
-  background: #21262d; color: #c9d1d9;
-  border: 1px solid #30363d; border-radius: 4px;
-  cursor: pointer; transition: all 0.15s;
-  display: flex; align-items: center; gap: 6px;
+  font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
+  padding:4px 12px; background:rgba(255,255,255,0.05); color:#c9b8f0;
+  border:1px solid rgba(255,255,255,0.1); border-radius:4px;
+  cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:6px;
 }
-.dbg-dl-btn:hover { background: #292e36; border-color: var(--dbg-ok); color: var(--dbg-ok); }
-
+.dbg-dl-btn:hover { background:rgba(255,255,255,0.08); border-color:var(--dbg-ok); color:var(--dbg-ok); }
 .dbg-clear-btn {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px; font-weight: 600;
-  padding: 4px 10px;
-  background: transparent; color: var(--dbg-muted);
-  border: 1px solid #30363d; border-radius: 4px;
-  cursor: pointer; transition: all 0.15s;
+  font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
+  padding:4px 10px; background:transparent; color:var(--dbg-muted);
+  border:1px solid rgba(255,255,255,0.08); border-radius:4px;
+  cursor:pointer; transition:all 0.15s;
 }
 .dbg-clear-btn:hover { border-color:var(--dbg-err); color:var(--dbg-err); }
 </style>
@@ -388,7 +495,7 @@ textarea::placeholder { color: var(--muted); }
   <div class="header-sub">Аналіз · Валідація · Очищення</div>
 </header>
 
-<!-- DEBUG PANEL -->
+<!-- DEBUG -->
 <div id="debug-panel">
   <div class="dbg-header" onclick="toggleDbg()">
     <div class="dbg-title">
@@ -397,21 +504,21 @@ textarea::placeholder { color: var(--muted); }
     </div>
     <div class="dbg-controls">
       <span class="dbg-cnt" id="dbg-cnt">0 подій</span>
-      <span style="font-size:11px;color:#6e7681" id="dbg-chevron">▼</span>
+      <span style="font-size:11px;color:#6b5d8a" id="dbg-chevron">▼</span>
     </div>
   </div>
   <div class="dbg-body" id="dbg-body"></div>
   <div class="dbg-footer">
     <div class="dbg-filter">
-      <button class="dbg-filter-btn active"    id="ff-all"  onclick="dbgFilter('all')">Всі</button>
-      <button class="dbg-filter-btn f-ok"      id="ff-ok"   onclick="dbgFilter('ok')">✓ Успіх</button>
-      <button class="dbg-filter-btn f-err"     id="ff-err"  onclick="dbgFilter('err')">✕ Помилки</button>
-      <button class="dbg-filter-btn f-warn"    id="ff-warn" onclick="dbgFilter('warn')">⚠ Попередження</button>
-      <button class="dbg-filter-btn f-info"    id="ff-info" onclick="dbgFilter('info')">ℹ Інфо</button>
+      <button class="dbg-filter-btn active" id="ff-all"  onclick="dbgFilter('all')">Всі</button>
+      <button class="dbg-filter-btn f-ok"   id="ff-ok"   onclick="dbgFilter('ok')">✓ Успіх</button>
+      <button class="dbg-filter-btn f-err"  id="ff-err"  onclick="dbgFilter('err')">✕ Помилки</button>
+      <button class="dbg-filter-btn f-warn" id="ff-warn" onclick="dbgFilter('warn')">⚠ Попередження</button>
+      <button class="dbg-filter-btn"        id="ff-info" onclick="dbgFilter('info')">ℹ Інфо</button>
     </div>
     <div style="display:flex;gap:6px;">
       <button class="dbg-clear-btn" onclick="clearLog()">Очистити</button>
-      <button class="dbg-dl-btn" onclick="downloadLog()">⬇ Зберегти .log</button>
+      <button class="dbg-dl-btn"    onclick="downloadLog()">⬇ Зберегти .log</button>
     </div>
   </div>
 </div>
@@ -428,21 +535,28 @@ textarea::placeholder { color: var(--muted); }
   <div id="file-name"></div>
 </div>
 
-<!-- 2. Мапінг -->
+<!-- 2. Вибір колонки для порівняння -->
 <div class="block" id="mapping-block" style="display:none;">
-  <div class="block-title">🗂 Мапінг колонок</div>
-  <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">
-    Позначте <strong>🔑 Ключ перевірки</strong> — яка колонка містить номер для аналізу дублів.<br>
-    Також можна перейменувати колонки та обрати, які показувати у звіті.
-  </p>
-  <div class="mapping-grid" id="mapping-grid"></div>
+  <div class="block-title">🗂 Налаштування колонок</div>
+
+  <div class="mapping-hint">
+    👇 <strong>Вкажіть колонку з номерами для порівняння</strong> — клікніть на потрібний рядок.<br>
+    Якщо номер <em>зліплений з датою</em> (наприклад <code>421910190662026-02-03</code>) — вкажіть <strong>кількість перших символів</strong> які є номером.<br>
+    Також можна перейменувати колонки та вимкнути непотрібні зі звіту.
+  </div>
+
+  <!-- Попередній перегляд -->
+  <div class="preview-wrap" id="preview-wrap"></div>
+
+  <!-- Список колонок -->
+  <div class="col-select-list" id="col-select-list"></div>
 </div>
 
 <!-- 3. Дії -->
 <div class="block">
   <div class="block-title">⚙️ Дії</div>
   <div class="btn-row">
-    <button class="btn btn-primary" onclick="runCheck()">🔍 Перевірити</button>
+    <button class="btn btn-primary" onclick="runCheck()">🔍 Перевірити дублі</button>
     <button class="btn btn-danger"  id="btn-dl-dup"   onclick="downloadDuplicates()"       disabled>📥 Дублі (CSV)</button>
     <button class="btn btn-success" id="btn-dl-clean" onclick="downloadWithoutDuplicates()" disabled>✨ Без дублів (CSV)</button>
     <button class="btn btn-warn"    id="btn-dl-inv"   onclick="downloadInvalid()"           disabled>⚠️ Невалідні (CSV)</button>
@@ -494,109 +608,84 @@ textarea::placeholder { color: var(--muted); }
 </div>
 
 </div><!-- /wrap -->
-
 <script>
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // DEBUG LOGGER
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 const LOG = [];
-let dbgOpen     = false;
-let dbgActiveFilter = 'all';
-let dbgHasErr   = false;
+let dbgOpen = false, dbgFilter_ = 'all', dbgHasErr = false;
 
 function ts() {
   const n = new Date();
-  return `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}.${String(n.getMilliseconds()).padStart(3,'0')}`;
+  return `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}.${pad3(n.getMilliseconds())}`;
 }
+const pad  = n => String(n).padStart(2,'0');
+const pad3 = n => String(n).padStart(3,'0');
 
-// Levels: ok | err | warn | info
 function log(level, msg, data) {
   const entry = { ts: ts(), level, msg, data, date: new Date().toISOString() };
   LOG.push(entry);
   if (level === 'err') dbgHasErr = true;
-
   updateDbgHeader();
-  if (dbgOpen) appendLogLine(entry);
-
-  // also mirror to browser console
-  const fn = level === 'err' ? 'error' : level === 'warn' ? 'warn' : 'log';
-  console[fn](`[${entry.ts}] [${level.toUpperCase()}] ${msg}`, data ?? '');
+  if (dbgOpen) appendLine(entry);
+  const fn = level==='err'?'error':level==='warn'?'warn':'log';
+  console[fn](`[${entry.ts}][${level.toUpperCase()}] ${msg}`, data??'');
 }
-
-function logOk(msg, data)   { log('ok',   msg, data); }
-function logErr(msg, data)  { log('err',  msg, data); }
-function logWarn(msg, data) { log('warn', msg, data); }
-function logInfo(msg, data) { log('info', msg, data); }
+const logOk   = (m,d) => log('ok',m,d);
+const logErr  = (m,d) => log('err',m,d);
+const logWarn = (m,d) => log('warn',m,d);
+const logInfo = (m,d) => log('info',m,d);
 
 function updateDbgHeader() {
-  const total = LOG.length;
-  const errCnt = LOG.filter(e => e.level === 'err').length;
+  const errCnt = LOG.filter(e=>e.level==='err').length;
   const cnt = document.getElementById('dbg-cnt');
-  cnt.textContent = `${total} подій${errCnt ? ' · ' + errCnt + ' помилок' : ''}`;
-  cnt.className = 'dbg-cnt' + (errCnt ? ' has-err' : '');
-  const dot = document.getElementById('dbg-dot');
-  dot.className = 'dbg-dot' + (errCnt ? ' err' : '');
+  cnt.textContent = `${LOG.length} подій${errCnt?' · '+errCnt+' помилок':''}`;
+  cnt.className = 'dbg-cnt'+(errCnt?' has-err':'');
+  document.getElementById('dbg-dot').className = 'dbg-dot'+(errCnt?' err':'');
 }
 
-function appendLogLine(entry) {
-  if (dbgActiveFilter !== 'all' && entry.level !== dbgActiveFilter) return;
+function appendLine(entry) {
+  if (dbgFilter_!=='all' && entry.level!==dbgFilter_) return;
   const body = document.getElementById('dbg-body');
-  const div = document.createElement('div');
-  div.className = `dbg-line level-${entry.level}`;
-  const lvlMap = { ok:'✓ OK', err:'✕ ERR', warn:'⚠ WARN', info:'ℹ INFO' };
-  div.innerHTML = `
-    <span class="dbg-ts">${esc(entry.ts)}</span>
-    <span class="dbg-lvl lvl-${entry.level}">${lvlMap[entry.level]||entry.level}</span>
-    <span class="dbg-msg">${esc(entry.msg)}${entry.data !== undefined ? ' <span style="opacity:0.5">→ '+esc(JSON.stringify(entry.data))+'</span>' : ''}</span>`;
-  body.appendChild(div);
+  const d = document.createElement('div');
+  d.className = `dbg-line level-${entry.level}`;
+  const lm = {ok:'✓ OK',err:'✕ ERR',warn:'⚠ WARN',info:'ℹ INFO'};
+  const dataStr = entry.data!==undefined ? ` <span style="opacity:0.45">→ ${esc(JSON.stringify(entry.data))}</span>` : '';
+  d.innerHTML = `<span class="dbg-ts">${entry.ts}</span><span class="dbg-lvl lvl-${entry.level}">${lm[entry.level]||entry.level}</span><span class="dbg-msg">${esc(entry.msg)}${dataStr}</span>`;
+  body.appendChild(d);
   body.scrollTop = body.scrollHeight;
 }
 
 function redrawLog() {
   const body = document.getElementById('dbg-body');
   body.innerHTML = '';
-  LOG.forEach(e => {
-    if (dbgActiveFilter === 'all' || e.level === dbgActiveFilter) appendLogLine(e);
-  });
+  LOG.forEach(e => { if (dbgFilter_==='all'||e.level===dbgFilter_) appendLine(e); });
 }
 
 function toggleDbg() {
   dbgOpen = !dbgOpen;
   document.getElementById('dbg-body').classList.toggle('open', dbgOpen);
-  document.getElementById('dbg-chevron').textContent = dbgOpen ? '▲' : '▼';
+  document.getElementById('dbg-chevron').textContent = dbgOpen?'▲':'▼';
   if (dbgOpen) redrawLog();
 }
 
 function dbgFilter(f) {
-  dbgActiveFilter = f;
-  document.querySelectorAll('.dbg-filter-btn').forEach(b => b.classList.remove('active'));
+  dbgFilter_ = f;
+  document.querySelectorAll('.dbg-filter-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(`ff-${f}`).classList.add('active');
   if (dbgOpen) redrawLog();
 }
 
 function clearLog() {
-  LOG.length = 0;
-  dbgHasErr = false;
+  LOG.length = 0; dbgHasErr = false;
   document.getElementById('dbg-body').innerHTML = '';
-  updateDbgHeader();
-  logInfo('Лог очищено вручну');
+  updateDbgHeader(); logInfo('Лог очищено вручну');
 }
 
 function downloadLog() {
-  const lines = LOG.map(e => {
-    const lvl = e.level.toUpperCase().padEnd(4);
-    const data = e.data !== undefined ? ' | DATA: ' + JSON.stringify(e.data) : '';
-    return `[${e.date}] [${lvl}] ${e.msg}${data}`;
-  });
-  const header = [
-    '='.repeat(70),
-    'DUPLICATE CHECKER — DEBUG LOG',
-    `Згенеровано: ${new Date().toLocaleString('uk-UA')}`,
-    `Всього подій: ${LOG.length} | Помилок: ${LOG.filter(e=>e.level==='err').length}`,
-    '='.repeat(70),
-    ''
-  ];
-  const blob = new Blob([header.join('\n') + lines.join('\n')], { type:'text/plain;charset=utf-8;' });
+  const lines = LOG.map(e=>`[${e.date}] [${e.level.toUpperCase().padEnd(4)}] ${e.msg}${e.data!==undefined?' | '+JSON.stringify(e.data):''}`);
+  const head = ['='.repeat(70),'DUPLICATE CHECKER — DEBUG LOG',`Згенеровано: ${new Date().toLocaleString('uk-UA')}`,`Подій: ${LOG.length} | Помилок: ${LOG.filter(e=>e.level==='err').length}`,'='.repeat(70),''].join('\n');
+  const blob = new Blob([head+lines.join('\n')],{type:'text/plain;charset=utf-8;'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = `debug_${new Date().toISOString().replace(/[:.]/g,'-').slice(0,19)}.log`;
@@ -604,234 +693,269 @@ function downloadLog() {
   logOk('Лог збережено у файл');
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // STATE
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 const S = {
-  rows: [], headers: [], sep: '\t',
-  colMap: [], groups: {}, order: [], dupOrder: [], invalid: [], keyCol: 0,
+  rows:[], headers:[], sep:'\t',
+  colMap:[],   // [{original,alias,visible,isKey,extractLen}]
+  groups:{}, order:[], dupOrder:[], invalid:[], keyCol:0,
 };
 
-const NUM_MIN = 10, NUM_MAX = 14;
+const NUM_MIN=10, NUM_MAX=14;
 const REASONS = {
-  chars: { cls:'r-chars', text:'⛔ Нечислові символи' },
-  short: { cls:'r-short', text:`📏 Менше ${NUM_MIN} цифр` },
-  long:  { cls:'r-long',  text:`📏 Більше ${NUM_MAX} цифр` },
+  chars:{ cls:'r-chars', text:'⛔ Нечислові символи' },
+  short:{ cls:'r-short', text:`📏 Менше ${NUM_MIN} цифр` },
+  long: { cls:'r-long',  text:`📏 Більше ${NUM_MAX} цифр` },
 };
+const PREVIEW_ROWS = 5;
 
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // PARSE
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 function detectSep(line) {
   if (line.includes('\t')) return '\t';
-  const s = (line.match(/;/g)||[]).length, c = (line.match(/,/g)||[]).length;
-  return s >= c ? ';' : ',';
+  const s=(line.match(/;/g)||[]).length, c=(line.match(/,/g)||[]).length;
+  return s>=c?';':',';
 }
 
 function parseLine(line, sep) {
-  if (sep !== ',') return line.split(sep).map(c => c.trim().replace(/^"|"$/g,''));
-  const res=[]; let cur='', inQ=false;
-  for (let i=0;i<line.length;i++) {
+  if (sep!==',') return line.split(sep).map(c=>c.trim().replace(/^"|"$/g,''));
+  const res=[]; let cur='',inQ=false;
+  for (let i=0;i<line.length;i++){
     const ch=line[i];
-    if (ch==='"') { inQ=!inQ; continue; }
-    if (ch===','&&!inQ) { res.push(cur.trim()); cur=''; continue; }
+    if (ch==='"'){inQ=!inQ;continue;}
+    if (ch===','&&!inQ){res.push(cur.trim());cur='';continue;}
     cur+=ch;
   }
-  res.push(cur.trim());
-  return res;
+  res.push(cur.trim()); return res;
 }
 
-function norm(v) { return String(v??'').replace(/^'+/,'').trim(); }
+function norm(v){ return String(v??'').replace(/^'+/,'').trim(); }
 
 function loadText(text) {
   try {
     const lines = text.trim().split(/\r?\n/).filter(l=>l.trim());
-    if (lines.length < 2) {
-      logWarn('loadText: менше 2 рядків, пропускаємо', { lines: lines.length });
-      return;
-    }
+    if (lines.length<2){ logWarn('loadText: < 2 рядків'); return; }
     S.sep = detectSep(lines[0]);
     const parsed = lines.map(l=>parseLine(l,S.sep));
     S.headers = parsed[0]||[];
     S.rows = parsed;
-    logInfo('Дані завантажено', { rows: parsed.length - 1, cols: S.headers.length, sep: S.sep === '\t' ? 'TAB' : S.sep });
+    logInfo('Дані завантажено',{ rows:parsed.length-1, cols:S.headers.length, sep:S.sep==='\t'?'TAB':S.sep });
     initColMap();
     renderMapping();
-  } catch(e) {
-    logErr('loadText: помилка парсингу', e.message);
-  }
+  } catch(e){ logErr('loadText: помилка',e.message); }
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
+// AUTO-DETECT key column: find column where most values
+// look like long digit strings (10-14 digits)
+// ══════════════════════════════════════════════════════════
+function autoDetectKeyCol() {
+  const dataRows = S.rows.slice(1, Math.min(6, S.rows.length));
+  let bestIdx = 0, bestScore = -1;
+
+  S.headers.forEach((h, ci) => {
+    // score by header name
+    let score = 0;
+    if (/^[№#]|номер|number|^id$/i.test(h.trim())) score += 5;
+
+    // score by data: count cells that look like 10-14 digit numbers
+    dataRows.forEach(row => {
+      const v = norm(row[ci]??'');
+      if (/^\d{10,14}$/.test(v)) score += 2;
+      else if (/^\d{8,16}$/.test(v)) score += 1;
+    });
+
+    if (score > bestScore) { bestScore = score; bestIdx = ci; }
+  });
+  return bestIdx;
+}
+
+function getSampleValues(ci, count=3) {
+  return S.rows.slice(1, count+1).map(r=>norm(r[ci]??'')).filter(Boolean);
+}
+
+// ══════════════════════════════════════════════════════════
 // COLUMN MAP
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 function initColMap() {
-  if (S.colMap.length === S.headers.length) {
-    S.headers.forEach((h,i) => { S.colMap[i].original = h; });
-    logInfo('ColMap: оновлено назви (збережено псевдоніми)');
+  if (S.colMap.length===S.headers.length) {
+    S.headers.forEach((h,i)=>{S.colMap[i].original=h;});
     return;
   }
-  let keyIdx = S.headers.findIndex(h => /^[№#]|^номер$|^number$|^id$/i.test(h.trim()));
-  if (keyIdx < 0) keyIdx = 0;
-  S.colMap = S.headers.map((h,i) => ({ original:h, alias:h, visible:true, isKey:i===keyIdx }));
-  logInfo('ColMap: ініціалізовано', { keyCol: S.headers[keyIdx] || `Col${keyIdx+1}`, totalCols: S.headers.length });
+  const keyIdx = autoDetectKeyCol();
+  S.colMap = S.headers.map((h,i)=>({ original:h, alias:h, visible:true, isKey:i===keyIdx, extractLen:0 }));
+  logInfo('ColMap: ініціалізовано', { keyCol:`Col${keyIdx+1} «${S.headers[keyIdx]||'?'}»`, auto:true });
 }
 
 function setKeyCol(idx) {
   const prev = S.colMap.findIndex(c=>c.isKey);
-  S.colMap.forEach((c,i)=>c.isKey = i===idx);
-  logInfo('ColMap: ключ перевірки змінено', { від: S.headers[prev]||prev, до: S.headers[idx]||idx });
+  S.colMap.forEach((c,i)=>c.isKey=i===idx);
+  logInfo('Ключ перевірки змінено',{від:S.headers[prev]||prev, до:S.headers[idx]||idx});
   renderMapping();
 }
 
+// ══════════════════════════════════════════════════════════
+// RENDER MAPPING
+// ══════════════════════════════════════════════════════════
 function renderMapping() {
   if (!S.headers.length) return;
-  document.getElementById('mapping-block').style.display = '';
-  const grid = document.getElementById('mapping-grid');
-  grid.innerHTML = '';
+  document.getElementById('mapping-block').style.display='';
+
+  // --- Preview table ---
+  const keyIdx = S.colMap.findIndex(c=>c.isKey);
+  const previewRows = S.rows.slice(0, PREVIEW_ROWS+1); // header + 5 rows
+  const pwrap = document.getElementById('preview-wrap');
+  const thHtml = S.headers.map((h,i)=>`<th class="${i===keyIdx?'is-key-th':''}">${esc(h||`Col${i+1}`)}</th>`).join('');
+  const tbodyHtml = previewRows.slice(1).map(row=>`<tr>${
+    row.map((v,i)=>`<td class="${i===keyIdx?'is-key-td':''}" title="${esc(v)}">${esc(v)}</td>`).join('')
+  }</tr>`).join('');
+  pwrap.innerHTML = `<table class="preview-table"><thead><tr>${thHtml}</tr></thead><tbody>${tbodyHtml}</tbody></table>`;
+
+  // --- Column selector list ---
+  const list = document.getElementById('col-select-list');
+  list.innerHTML = '';
+
   S.colMap.forEach((col,i) => {
-    const d = document.createElement('div');
-    d.className = 'map-item' + (col.isKey?' is-key':'');
-    d.innerHTML = `
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;">
-        <div class="map-col-num">Колонка ${i+1}</div>
-        ${col.isKey?'<span class="key-badge">🔑 Ключ перевірки</span>':''}
+    const samples = getSampleValues(i, 3);
+    const isKey = col.isKey;
+    const autoTag = isKey && autoDetectKeyCol()===i ? '<span class="auto-hint">⚡ авто-визначено</span>' : '';
+
+    const div = document.createElement('label');
+    div.className = 'col-select-item' + (isKey?' is-key':'');
+    div.innerHTML = `
+      <input class="col-radio" type="radio" name="keycol" ${isKey?'checked':''} onchange="setKeyCol(${i})">
+      <div class="col-radio-visual"></div>
+      <div class="col-info">
+        <div class="col-label-row">
+          <span class="col-num-badge">Кол. ${i+1}</span>
+          <input class="col-alias-input" type="text" value="${esc(col.alias)}"
+            placeholder="Назва…"
+            oninput="S.colMap[${i}].alias=this.value.trim()||S.colMap[${i}].original"
+            onclick="event.stopPropagation()">
+          ${autoTag}
+        </div>
+        <div class="col-sample">Приклад: <span>${esc(samples.join(' · '))||'(порожньо)'}</span></div>
+        <div class="extract-row" id="extract-row-${i}">
+          <span class="extract-label">✂️ Взяти перших</span>
+          <input class="extract-input" type="number" min="0" max="30"
+            value="${col.extractLen||0}"
+            placeholder="0"
+            title="0 = вся клітинка"
+            oninput="updateExtract(${i}, this.value)"
+            onclick="event.stopPropagation()">
+          <span class="extract-label">символів</span>
+          <span class="extract-preview" id="extract-preview-${i}">${isKey&&col.extractLen>0?esc(samples[0]?.slice(0,col.extractLen)||''):'— вся клітинка'}</span>
+          <span class="extract-hint">(0 = вся клітинка)</span>
+        </div>
       </div>
-      <div class="map-original" title="${esc(col.original)}">${esc(col.original)||'(порожня)'}</div>
-      <input class="map-alias-input" type="text" placeholder="Псевдонім…" value="${esc(col.alias)}"
-        oninput="S.colMap[${i}].alias=this.value.trim()||S.colMap[${i}].original">
-      <div class="map-controls">
-        <label class="map-chk-row key-chk">
-          <input type="checkbox" ${col.isKey?'checked':''} onchange="setKeyCol(${i})">
-          🔑 Ключ перевірки
-        </label>
-        <label class="map-chk-row vis-chk">
+      <div class="col-right">
+        <span class="key-badge-v2">🔑 Ключ для порівняння</span>
+        <label class="vis-toggle" onclick="event.stopPropagation()">
           <input type="checkbox" ${col.visible?'checked':''} onchange="S.colMap[${i}].visible=this.checked">
-          Показувати
+          показувати
         </label>
       </div>`;
-    grid.appendChild(d);
+    list.appendChild(div);
   });
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
+// EXTRACT HELPER — оновлює extractLen і live preview
+// ══════════════════════════════════════════════════════════
+function updateExtract(ci, val) {
+  const n = parseInt(val, 10);
+  S.colMap[ci].extractLen = isNaN(n) || n < 0 ? 0 : n;
+  // update live preview
+  const samples = getSampleValues(ci, 1);
+  const prev = document.getElementById(`extract-preview-${ci}`);
+  if (prev) {
+    const len = S.colMap[ci].extractLen;
+    prev.textContent = len > 0 && samples[0]
+      ? samples[0].slice(0, len)
+      : '— вся клітинка';
+  }
+  logInfo(`Витягування: колонка ${ci+1} → перших ${S.colMap[ci].extractLen||'всі'} символів`);
+}
+
+// ══════════════════════════════════════════════════════════
 // VALIDATE
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 function validateNum(v) {
   if (!/^\d+$/.test(v)) return 'chars';
-  if (v.length < NUM_MIN) return 'short';
-  if (v.length > NUM_MAX) return 'long';
+  if (v.length<NUM_MIN) return 'short';
+  if (v.length>NUM_MAX) return 'long';
   return 'ok';
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // CORE CHECK
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 function runCheck() {
   logInfo('━━━ Запуск перевірки ━━━');
   try {
     const raw = document.getElementById('textarea').value.trim();
-    if (!raw) {
-      logWarn('Перевірка скасована: порожні дані');
-      alert('Спочатку вставте або завантажте дані.');
-      return;
-    }
-
+    if (!raw){ logWarn('Перевірка скасована: порожні дані'); alert('Спочатку вставте або завантажте дані.'); return; }
     loadText(raw);
+
     S.keyCol = S.colMap.findIndex(c=>c.isKey);
-    if (S.keyCol < 0) S.keyCol = 0;
+    if (S.keyCol<0) S.keyCol=0;
     const ci = S.keyCol;
-    logInfo('Ключова колонка', { idx: ci, name: S.headers[ci]||'?' });
+    const extractLen = S.colMap[ci]?.extractLen || 0;
+    logInfo('Ключова колонка',{idx:ci, name:S.headers[ci]||'?', extractLen:extractLen||'вся клітинка'});
 
-    const groups={}, order=[], invalid=[];
-    const statByReason = { chars:0, short:0, long:0 };
+    const groups={},order=[],invalid=[];
+    const statR={chars:0,short:0,long:0};
 
-    for (let ri=1; ri<S.rows.length; ri++) {
-      const val = norm(S.rows[ri][ci]??'');
+    for (let ri=1;ri<S.rows.length;ri++){
+      let val=norm(S.rows[ri][ci]??'');
       if (!val) continue;
-      const v = validateNum(val);
-      if (v !== 'ok') {
-        invalid.push({ rowIdx:ri, value:val, reason:v });
-        statByReason[v]++;
-        continue;
-      }
-      if (!groups[val]) { groups[val]=[]; order.push(val); }
+      // Apply extract: take first N chars if set
+      if (extractLen > 0) val = val.slice(0, extractLen);
+      const v=validateNum(val);
+      if (v!=='ok'){ invalid.push({rowIdx:ri,value:val,reason:v}); statR[v]++; continue; }
+      if (!groups[val]){groups[val]=[];order.push(val);}
       groups[val].push(ri);
     }
 
-    S.groups   = groups;
-    S.order    = order;
-    S.dupOrder = order.filter(n=>groups[n].length>1);
-    S.invalid  = invalid;
+    S.groups=groups; S.order=order;
+    S.dupOrder=order.filter(n=>groups[n].length>1);
+    S.invalid=invalid;
 
-    const totalRows = S.rows.length - 1;
-    const dupNums   = S.dupOrder.length;
-    const dupRows   = S.dupOrder.reduce((s,n)=>s+groups[n].length,0);
-    const invCnt    = invalid.length;
+    const totalRows=S.rows.length-1, dupNums=S.dupOrder.length;
+    const dupRows=S.dupOrder.reduce((s,n)=>s+groups[n].length,0);
+    const invCnt=invalid.length;
 
-    // Log results
-    logOk('Перевірку завершено', {
-      всього_рядків: totalRows,
-      унікальних: order.length,
-      номерів_з_дублями: dupNums,
-      рядків_дублів: dupRows,
-      невалідних: invCnt,
-    });
+    logOk('Перевірку завершено',{всього:totalRows,унікальних:order.length,дублів:dupNums,рядків_дублів:dupRows,невалідних:invCnt});
+    if (dupNums>0){ logWarn(`Знайдено ${dupNums} дубльованих номерів (${dupRows} рядків)`); }
+    else { logOk('Дублікатів не знайдено — файл чистий!'); }
+    if (invCnt>0){ logWarn(`Невалідних номерів: ${invCnt}`,statR); }
+    else { logOk('Всі номери пройшли валідацію!'); }
 
-    if (dupNums > 0) {
-      logWarn(`Знайдено ${dupNums} дубльованих номерів (${dupRows} рядків)`);
-      S.dupOrder.slice(0,5).forEach(n => {
-        logWarn(`  Дубль: №${n}`, { разів: groups[n].length, рядки: groups[n].map(r=>r+1) });
-      });
-      if (S.dupOrder.length > 5) logWarn(`  ... та ще ${S.dupOrder.length-5} дублів`);
-    } else {
-      logOk('Дублікатів не знайдено — файл чистий!');
-    }
+    set('s-total',totalRows); set('s-unique',order.length);
+    set('s-dup',dupNums); set('s-rows',dupRows); set('s-invalid',invCnt);
+    set('tc-dup',dupNums); set('tc-inv',invCnt);
 
-    if (invCnt > 0) {
-      logWarn(`Невалідних номерів: ${invCnt}`, statByReason);
-      invalid.slice(0,5).forEach(x => {
-        logWarn(`  Невалідний рядок ${x.rowIdx+1}`, { значення: x.value, довжина: x.value.length, причина: x.reason });
-      });
-      if (invalid.length > 5) logWarn(`  ... та ще ${invalid.length-5}`);
-    } else {
-      logOk('Всі номери пройшли валідацію!');
-    }
+    document.getElementById('results-block').style.display='block';
+    document.getElementById('btn-dl-dup').disabled   = dupNums===0;
+    document.getElementById('btn-dl-clean').disabled = order.length===0;
+    document.getElementById('btn-dl-inv').disabled   = invCnt===0;
 
-    set('s-total',   totalRows);
-    set('s-unique',  order.length);
-    set('s-dup',     dupNums);
-    set('s-rows',    dupRows);
-    set('s-invalid', invCnt);
-    set('tc-dup',    dupNums);
-    set('tc-inv',    invCnt);
-
-    document.getElementById('results-block').style.display = 'block';
-    document.getElementById('btn-dl-dup').disabled   = dupNums === 0;
-    document.getElementById('btn-dl-clean').disabled = order.length === 0;
-    document.getElementById('btn-dl-inv').disabled   = invCnt === 0;
-
-    const si = document.getElementById('search-input');
-    si.value=''; si.disabled = dupNums===0;
-    set('search-count', `${dupNums} груп`);
+    const si=document.getElementById('search-input');
+    si.value=''; si.disabled=dupNums===0;
+    set('search-count',`${dupNums} груп`);
 
     renderDups(S.dupOrder);
     renderInvalid(S.invalid);
-
-    if (dupNums===0 && invCnt>0) switchTab('inv');
-    else switchTab('dup');
-
-    document.getElementById('results-block').scrollIntoView({ behavior:'smooth', block:'start' });
-
-  } catch(e) {
-    logErr('runCheck: критична помилка', e.message);
-    console.error(e);
-  }
+    if (dupNums===0&&invCnt>0) switchTab('inv'); else switchTab('dup');
+    document.getElementById('results-block').scrollIntoView({behavior:'smooth',block:'start'});
+  } catch(e){ logErr('runCheck: критична помилка',e.message); console.error(e); }
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // TABS
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 function switchTab(name) {
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -839,40 +963,32 @@ function switchTab(name) {
   document.getElementById(`tab-${name}-btn`).classList.add('active');
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // RENDER DUPS
-// ══════════════════════════════════════════════════════════════════
-function alias(ci) { return S.colMap[ci]?.alias||S.headers[ci]||`Col${ci+1}`; }
-function vis(ci)   { return S.colMap[ci] ? S.colMap[ci].visible : true; }
+// ══════════════════════════════════════════════════════════
+function alias(ci){ return S.colMap[ci]?.alias||S.headers[ci]||`Col${ci+1}`; }
+function vis(ci)  { return S.colMap[ci]?S.colMap[ci].visible:true; }
 
 function renderDups(keys) {
-  const list = document.getElementById('dup-list');
-  if (!keys.length) {
-    list.innerHTML = `<div class="empty"><span class="empty-icon">✅</span><div class="empty-text">Дублікатів не знайдено!</div></div>`;
+  const list=document.getElementById('dup-list');
+  if (!keys.length){
+    list.innerHTML=`<div class="empty"><span class="empty-icon">✅</span><div class="empty-text">Дублікатів не знайдено!</div></div>`;
     return;
   }
-  list.innerHTML = '';
-  keys.forEach((num,gi) => {
-    const rowIdxs = S.groups[num];
-    const g = document.createElement('div');
+  list.innerHTML='';
+  keys.forEach((num,gi)=>{
+    const rowIdxs=S.groups[num];
+    const g=document.createElement('div');
     g.className='dup-group'; g.style.animationDelay=`${gi*0.02}s`;
-    const h = document.createElement('div');
+    const h=document.createElement('div');
     h.className='dup-header';
-    h.innerHTML=`
-      <span class="dup-num-label">${esc(num)}</span>
-      <div class="dup-meta"><span class="pill">${rowIdxs.length}×</span><span class="chevron">▼</span></div>`;
-    const b = document.createElement('div');
-    b.className='dup-body';
-    const visCols = S.headers.map((_,ci)=>ci).filter(vis);
-    rowIdxs.forEach(ri => {
+    h.innerHTML=`<span class="dup-num-label">${esc(num)}</span><div class="dup-meta"><span class="pill">${rowIdxs.length}×</span><span class="chevron">▼</span></div>`;
+    const b=document.createElement('div'); b.className='dup-body';
+    const visCols=S.headers.map((_,ci)=>ci).filter(vis);
+    rowIdxs.forEach(ri=>{
       const row=S.rows[ri];
-      const item=document.createElement('div');
-      item.className='dup-row-item';
-      const cells=visCols.map(ci=>`
-        <div class="dup-col-cell">
-          <div class="dup-col-name">${esc(alias(ci))}</div>
-          <div class="dup-col-val">${esc(row[ci]??'')}</div>
-        </div>`).join('');
+      const item=document.createElement('div'); item.className='dup-row-item';
+      const cells=visCols.map(ci=>`<div class="dup-col-cell"><div class="dup-col-name">${esc(alias(ci))}</div><div class="dup-col-val">${esc(row[ci]??'')}</div></div>`).join('');
       item.innerHTML=`<div class="dup-row-idx">рядок ${ri+1}</div><div class="dup-cols">${cells}</div>`;
       b.appendChild(item);
     });
@@ -885,147 +1001,106 @@ function renderDups(keys) {
   });
 }
 
-function filterDups() {
+function filterDups(){
   const q=document.getElementById('search-input').value.trim().toLowerCase();
   const f=q?S.dupOrder.filter(n=>n.includes(q)):S.dupOrder;
-  renderDups(f);
-  set('search-count',`${f.length} з ${S.dupOrder.length} груп`);
+  renderDups(f); set('search-count',`${f.length} з ${S.dupOrder.length} груп`);
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // RENDER INVALID
-// ══════════════════════════════════════════════════════════════════
-function renderInvalid(items) {
+// ══════════════════════════════════════════════════════════
+function renderInvalid(items){
   const ci=S.keyCol;
   const visCols=S.headers.map((_,i)=>i).filter(i=>vis(i)&&i!==ci);
-  document.getElementById('inv-thead').innerHTML=`<tr>
-    <th>Рядок</th><th>${esc(alias(ci))}</th><th>Довжина</th><th>Причина</th>
-    ${visCols.map(i=>`<th>${esc(alias(i))}</th>`).join('')}
-  </tr>`;
-  renderInvalidBody(items,visCols);
-  set('inv-count',`${items.length} записів`);
+  document.getElementById('inv-thead').innerHTML=`<tr><th>Рядок</th><th>${esc(alias(ci))}</th><th>Довжина</th><th>Причина</th>${visCols.map(i=>`<th>${esc(alias(i))}</th>`).join('')}</tr>`;
+  renderInvalidBody(items,visCols); set('inv-count',`${items.length} записів`);
 }
 
-function renderInvalidBody(items,visCols) {
+function renderInvalidBody(items,visCols){
   const tb=document.getElementById('inv-tbody');
   if (!visCols) visCols=S.headers.map((_,i)=>i).filter(i=>vis(i)&&i!==S.keyCol);
-  if (!items.length) {
-    tb.innerHTML=`<tr><td colspan="99" style="text-align:center;padding:32px;color:var(--muted)">Невалідних номерів не знайдено ✅</td></tr>`;
-    return;
-  }
+  if (!items.length){ tb.innerHTML=`<tr><td colspan="99" style="text-align:center;padding:32px;color:var(--muted)">Невалідних номерів не знайдено ✅</td></tr>`; return; }
   tb.innerHTML=items.map(({rowIdx,value,reason})=>{
-    const row=S.rows[rowIdx];
-    const r=REASONS[reason]||{cls:'',text:reason};
-    const dataCells=visCols.map(i=>`<td>${esc(row[i]??'')}</td>`).join('');
-    return `<tr>
-      <td style="color:var(--muted);font-size:11px">${rowIdx+1}</td>
-      <td><span class="invalid-val">${esc(value)}</span></td>
-      <td style="color:var(--muted)">${value.length}</td>
-      <td><span class="inv-reason ${r.cls}">${r.text}</span></td>
-      ${dataCells}
-    </tr>`;
+    const row=S.rows[rowIdx], r=REASONS[reason]||{cls:'',text:reason};
+    return `<tr><td style="color:var(--muted);font-size:11px">${rowIdx+1}</td><td><span class="invalid-val">${esc(value)}</span></td><td style="color:var(--muted)">${value.length}</td><td><span class="inv-reason ${r.cls}">${r.text}</span></td>${visCols.map(i=>`<td>${esc(row[i]??'')}</td>`).join('')}</tr>`;
   }).join('');
 }
 
-function filterInvalid() {
+function filterInvalid(){
   const q=document.getElementById('inv-search').value.trim().toLowerCase();
   const visCols=S.headers.map((_,i)=>i).filter(i=>vis(i)&&i!==S.keyCol);
   const f=q?S.invalid.filter(x=>x.value.toLowerCase().includes(q)||REASONS[x.reason]?.text.toLowerCase().includes(q)):S.invalid;
-  renderInvalidBody(f,visCols);
-  set('inv-count',`${f.length} з ${S.invalid.length} записів`);
+  renderInvalidBody(f,visCols); set('inv-count',`${f.length} з ${S.invalid.length} записів`);
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // DOWNLOADS
-// ══════════════════════════════════════════════════════════════════
-function toCSV(rowIdxs) {
+// ══════════════════════════════════════════════════════════
+function toCSV(rowIdxs){
   const sep=S.sep==='\t'?',':S.sep;
   const e=v=>`"${String(v??'').replace(/"/g,'""')}"`;
-  const head=S.headers.map((_,ci)=>e(alias(ci))).join(sep);
-  const body=rowIdxs.map(ri=>S.rows[ri].map(v=>e(v)).join(sep)).join('\n');
-  return head+'\n'+body;
+  return S.headers.map((_,ci)=>e(alias(ci))).join(sep)+'\n'+rowIdxs.map(ri=>S.rows[ri].map(v=>e(v)).join(sep)).join('\n');
 }
 
-function dl(content,filename) {
-  try {
+function dl(content,filename){
+  try{
     const blob=new Blob(['\uFEFF'+content],{type:'text/csv;charset=utf-8;'});
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(blob); a.download=filename; a.click();
-    logOk(`Файл завантажено: ${filename}`, { рядків: content.split('\n').length - 1 });
-  } catch(e) {
-    logErr(`Помилка завантаження файлу: ${filename}`, e.message);
-  }
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.click();
+    logOk(`Файл завантажено: ${filename}`,{рядків:content.split('\n').length-1});
+  }catch(e){logErr(`Помилка завантаження: ${filename}`,e.message);}
 }
 
-function downloadDuplicates() {
-  logInfo('Запит: завантаження дублів');
-  const idxs=[];
-  S.dupOrder.forEach(n=>S.groups[n].forEach(ri=>idxs.push(ri)));
-  if (idxs.length) dl(toCSV(idxs),'duplicates.csv');
-  else logWarn('downloadDuplicates: немає даних');
+function downloadDuplicates(){
+  logInfo('Завантаження дублів');
+  const idxs=[]; S.dupOrder.forEach(n=>S.groups[n].forEach(ri=>idxs.push(ri)));
+  if (idxs.length) dl(toCSV(idxs),'duplicates.csv'); else logWarn('Немає дублів для завантаження');
 }
-
-function downloadWithoutDuplicates() {
-  logInfo('Запит: завантаження без дублів');
+function downloadWithoutDuplicates(){
+  logInfo('Завантаження без дублів');
   const idxs=S.order.map(n=>S.groups[n][0]);
-  if (idxs.length) dl(toCSV(idxs),'without_duplicates.csv');
-  else logWarn('downloadWithoutDuplicates: немає даних');
+  if (idxs.length) dl(toCSV(idxs),'without_duplicates.csv'); else logWarn('Немає даних');
 }
-
-function downloadInvalid() {
-  logInfo('Запит: завантаження невалідних');
-  if (!S.invalid.length) { logWarn('downloadInvalid: немає невалідних'); return; }
+function downloadInvalid(){
+  logInfo('Завантаження невалідних');
+  if (!S.invalid.length){logWarn('Немає невалідних'); return;}
   dl(toCSV(S.invalid.map(x=>x.rowIdx)),'invalid_numbers.csv');
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // FILE I/O
-// ══════════════════════════════════════════════════════════════════
-function readFile(file) {
-  if (!file) { logWarn('readFile: файл не вибрано'); return; }
-  logInfo('Файл вибрано', { name: file.name, size: file.size + ' байт', type: file.type });
+// ══════════════════════════════════════════════════════════
+function readFile(file){
+  if (!file){logWarn('Файл не вибрано'); return;}
+  logInfo('Файл вибрано',{name:file.name,size:file.size+' байт'});
   document.getElementById('file-name').textContent='✓ '+file.name;
   const r=new FileReader();
   r.onload=ev=>{
-    try {
+    try{
       document.getElementById('textarea').value=ev.target.result;
       loadText(ev.target.result);
       logOk(`Файл прочитано: ${file.name}`);
-    } catch(e) {
-      logErr(`Помилка читання файлу: ${file.name}`, e.message);
-    }
+    }catch(e){logErr(`Помилка читання: ${file.name}`,e.message);}
   };
-  r.onerror=()=>logErr('FileReader: помилка читання', file.name);
+  r.onerror=()=>logErr('FileReader: помилка',file.name);
   r.readAsText(file,'utf-8');
 }
 
-document.getElementById('file-input').addEventListener('change', e=>readFile(e.target.files[0]));
-
+document.getElementById('file-input').addEventListener('change',e=>readFile(e.target.files[0]));
 const dz=document.getElementById('dropzone');
-dz.addEventListener('dragover', e=>{ e.preventDefault(); dz.classList.add('drag'); });
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag');});
 dz.addEventListener('dragleave',()=>dz.classList.remove('drag'));
-dz.addEventListener('drop',e=>{
-  e.preventDefault(); dz.classList.remove('drag');
-  logInfo('Drag & Drop: файл скинуто');
-  readFile(e.dataTransfer.files[0]);
-});
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag');logInfo('Drag & Drop');readFile(e.dataTransfer.files[0]);});
+document.getElementById('textarea').addEventListener('input',e=>{ if(e.target.value.trim()) loadText(e.target.value); });
 
-document.getElementById('textarea').addEventListener('input',e=>{
-  if (e.target.value.trim()) loadText(e.target.value);
-});
-
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // UTILS
-// ══════════════════════════════════════════════════════════════════
-function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function set(id,v) { document.getElementById(id).textContent=v; }
+// ══════════════════════════════════════════════════════════
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function set(id,v){ document.getElementById(id).textContent=v; }
 
-// ── Init log ──────────────────────────────────────────────────────
-logInfo('Додаток ініціалізовано', {
-  ua: navigator.userAgent.slice(0,60),
-  time: new Date().toLocaleString('uk-UA'),
-  version: '2.0.0'
-});
+// Init
+logInfo('Додаток ініціалізовано',{version:'3.0.0',time:new Date().toLocaleString('uk-UA')});
 </script>
 </body>
 </html>
