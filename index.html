@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Перевірка дублікатів номерів</title>
+<title>Потужний шукач від Сивочолого</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,8 +50,8 @@ header {
 }
 header h1 {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(24px, 4.5vw, 46px);
-  font-weight: 800; letter-spacing: -2px; line-height: 1;
+  font-size: clamp(18px, 3.5vw, 36px);
+  font-weight: 800; letter-spacing: -1px; line-height: 1.1;
   color: var(--ink);
 }
 header h1 em { font-style: normal; color: var(--accent3); }
@@ -95,7 +96,6 @@ textarea::placeholder { color: var(--muted); }
 .dropzone-icon { font-size: 20px; display: block; margin-bottom: 4px; }
 #file-name { margin-top:8px; font-size:12px; color:var(--accent2); font-weight:600; min-height:16px; }
 
-/* no-header banner */
 .no-header-banner {
   display: none;
   background: rgba(192,112,0,0.08);
@@ -251,6 +251,9 @@ textarea::placeholder { color: var(--muted); }
 
 #results-block { display:none; }
 
+/* Excel badge */
+.excel-badge { display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:700; letter-spacing:0.5px; padding:2px 8px; border-radius:20px; background:rgba(26,122,70,0.1); color:var(--accent2); border:1px solid rgba(26,122,70,0.25); margin-left:8px; }
+
 /* DEBUG */
 #debug-panel { background: var(--dbg-bg); border: 1.5px solid var(--border); border-radius: 8px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(92,46,178,0.08); font-family: 'IBM Plex Mono', monospace; }
 .dbg-header { display: flex; align-items: center; justify-content: space-between; padding: 11px 18px; background: var(--bg2); border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; }
@@ -296,8 +299,10 @@ textarea::placeholder { color: var(--muted); }
 <div class="wrap">
 
 <header>
-  <div><h1>ДУБЛІ<em>.</em>CSV</h1></div>
-  <div class="header-sub">Аналіз · Валідація · Очищення</div>
+  <div>
+    <h1>Потужний шукач<em>.</em><br>від Сивочолого</h1>
+  </div>
+  <div class="header-sub">Аналіз · Валідація · Очищення · Excel</div>
 </header>
 
 <!-- DEBUG -->
@@ -330,12 +335,13 @@ textarea::placeholder { color: var(--muted); }
 
 <!-- 1. Дані -->
 <div class="block">
-  <div class="block-title">📂 Дані</div>
+  <div class="block-title">📂 Дані <span class="excel-badge">✦ xlsx / xls підтримується</span></div>
   <textarea id="textarea" placeholder="Вставте CSV / TSV / Tab-дані сюди (Ctrl+V)…"></textarea>
   <div class="dropzone" id="dropzone">
-    <input type="file" id="file-input" accept=".csv,.tsv,.txt">
+    <input type="file" id="file-input" accept=".csv,.tsv,.txt,.xlsx,.xls">
     <span class="dropzone-icon">📄</span>
-    Перетягніть файл або натисніть для вибору (.csv / .tsv / .txt)
+    Перетягніть файл або натисніть для вибору<br>
+    <span style="font-size:10px;margin-top:4px;display:block;opacity:0.7">.csv &nbsp;·&nbsp; .tsv &nbsp;·&nbsp; .txt &nbsp;·&nbsp; .xlsx &nbsp;·&nbsp; .xls</span>
   </div>
   <div id="file-name"></div>
 </div>
@@ -344,7 +350,6 @@ textarea::placeholder { color: var(--muted); }
 <div class="block" id="mapping-block" style="display:none;">
   <div class="block-title">🗂 Налаштування колонок</div>
 
-  <!-- Банер: без заголовка -->
   <div class="no-header-banner" id="no-header-banner">
     ⚠️ <strong>Заголовок не виявлено.</strong> Перший рядок схожий на дані, тому автоматично додано синтетичний заголовок <code>Колонка 1…N</code>. Всі рядки включені в перевірку.
   </div>
@@ -490,7 +495,7 @@ function clearLog() {
 
 function downloadLog() {
   const lines = LOG.map(e=>`[${e.date}] [${e.level.toUpperCase().padEnd(4)}] ${e.msg}${e.data!==undefined?' | '+JSON.stringify(e.data):''}`);
-  const head = ['='.repeat(70),'DUPLICATE CHECKER — DEBUG LOG',`Згенеровано: ${new Date().toLocaleString('uk-UA')}`,`Подій: ${LOG.length} | Помилок: ${LOG.filter(e=>e.level==='err').length}`,'='.repeat(70),''].join('\n');
+  const head = ['='.repeat(70),'Потужний шукач від Сивочолого — DEBUG LOG',`Згенеровано: ${new Date().toLocaleString('uk-UA')}`,`Подій: ${LOG.length} | Помилок: ${LOG.filter(e=>e.level==='err').length}`,'='.repeat(70),''].join('\n');
   const blob = new Blob([head+lines.join('\n')],{type:'text/plain;charset=utf-8;'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -505,7 +510,7 @@ function downloadLog() {
 const S = {
   rows:[], headers:[], sep:'\t',
   colMap:[],
-  syntheticHeader: false,   // ← NEW: чи був доданий синтетичний заголовок
+  syntheticHeader: false,
   groups:{}, order:[], dupOrder:[], invalid:[], keyCol:0,
 };
 
@@ -540,12 +545,7 @@ function parseLine(line, sep) {
 
 function norm(v){ return String(v??'').replace(/^'+/,'').trim(); }
 
-/**
- * Визначає, чи схожий рядок на заголовок (а не на дані).
- * Якщо перший рядок — це числові номери, то заголовка немає.
- */
 function looksLikeHeader(cells) {
-  // Якщо хоча б одна клітинка — виключно цифри довжиною 8+, це дані, а не заголовок
   const dataLikeCells = cells.filter(c => /^\d{8,}$/.test(norm(c)));
   return dataLikeCells.length === 0;
 }
@@ -557,22 +557,17 @@ function loadText(text) {
     S.sep = detectSep(lines[0]);
     const parsed = lines.map(l=>parseLine(l,S.sep));
 
-    // ── КЛЮЧОВЕ ВИПРАВЛЕННЯ ──────────────────────────────
-    // Перевіряємо чи перший рядок — справжній заголовок
     if (looksLikeHeader(parsed[0])) {
-      // Є заголовок — стандартна поведінка
       S.headers = parsed[0];
       S.rows = parsed;
       S.syntheticHeader = false;
     } else {
-      // Заголовка немає — генеруємо синтетичний і вставляємо першим
       const colCount = parsed[0].length;
       S.headers = Array.from({length: colCount}, (_, i) => `Колонка ${i+1}`);
-      S.rows = [S.headers, ...parsed];   // synthetic header + всі рядки як дані
+      S.rows = [S.headers, ...parsed];
       S.syntheticHeader = true;
       logWarn('Заголовок не виявлено — додано синтетичний', { synthHeaders: S.headers });
     }
-    // ─────────────────────────────────────────────────────
 
     logInfo('Дані завантажено',{ rows: S.rows.length-1, cols:S.headers.length, sep:S.sep==='\t'?'TAB':S.sep, syntheticHeader: S.syntheticHeader });
     initColMap();
@@ -632,8 +627,6 @@ function setKeyCol(idx) {
 function renderMapping() {
   if (!S.headers.length) return;
   document.getElementById('mapping-block').style.display='';
-
-  // Показуємо/приховуємо банер про синтетичний заголовок
   document.getElementById('no-header-banner').classList.toggle('visible', S.syntheticHeader);
 
   const keyIdx = S.colMap.findIndex(c=>c.isKey);
@@ -838,7 +831,6 @@ function filterInvalid(){
 function toCSV(rowIdxs){
   const sep=S.sep==='\t'?',':S.sep;
   const e=v=>`"${String(v??'').replace(/"/g,'""')}"`;
-  // Якщо заголовок синтетичний — не включаємо його у вивід
   const headerRow = S.syntheticHeader
     ? S.colMap.map((_,ci)=>`Номер ${ci+1}`).join(sep)
     : S.headers.map((_,ci)=>e(alias(ci))).join(sep);
@@ -870,30 +862,62 @@ function downloadInvalid(){
 }
 
 // ══════════════════════════════════════════════════════════
-// FILE I/O
+// FILE I/O — з підтримкою Excel (.xlsx / .xls)
 // ══════════════════════════════════════════════════════════
 function readFile(file){
-  if (!file){logWarn('Файл не вибрано'); return;}
-  logInfo('Файл вибрано',{name:file.name,size:file.size+' байт'});
-  document.getElementById('file-name').textContent='✓ '+file.name;
-  const r=new FileReader();
-  r.onload=ev=>{
-    try{
-      document.getElementById('textarea').value=ev.target.result;
-      loadText(ev.target.result);
-      logOk(`Файл прочитано: ${file.name}`);
-    }catch(e){logErr(`Помилка читання: ${file.name}`,e.message);}
-  };
-  r.onerror=()=>logErr('FileReader: помилка',file.name);
-  r.readAsText(file,'utf-8');
+  if (!file){ logWarn('Файл не вибрано'); return; }
+  logInfo('Файл вибрано', {name: file.name, size: file.size + ' байт'});
+  document.getElementById('file-name').textContent = '✓ ' + file.name;
+  const ext = file.name.split('.').pop().toLowerCase();
+
+  if (ext === 'xlsx' || ext === 'xls') {
+    // ── Excel через SheetJS ───────────────────────────────
+    const r = new FileReader();
+    r.onload = ev => {
+      try {
+        const wb = XLSX.read(ev.target.result, {type: 'array'});
+        const sheetName = wb.SheetNames[0];
+        const ws = wb.Sheets[sheetName];
+        const csv = XLSX.utils.sheet_to_csv(ws);
+        document.getElementById('textarea').value = csv;
+        loadText(csv);
+        logOk('Excel прочитано: ' + file.name, {аркуш: sheetName, аркушів: wb.SheetNames.length});
+      } catch(e) {
+        logErr('Помилка читання Excel: ' + file.name, e.message);
+      }
+    };
+    r.onerror = () => logErr('FileReader: помилка', file.name);
+    r.readAsArrayBuffer(file);
+
+  } else {
+    // ── CSV / TSV / TXT ───────────────────────────────────
+    const r = new FileReader();
+    r.onload = ev => {
+      try {
+        document.getElementById('textarea').value = ev.target.result;
+        loadText(ev.target.result);
+        logOk('Файл прочитано: ' + file.name);
+      } catch(e) {
+        logErr('Помилка читання: ' + file.name, e.message);
+      }
+    };
+    r.onerror = () => logErr('FileReader: помилка', file.name);
+    r.readAsText(file, 'utf-8');
+  }
 }
 
-document.getElementById('file-input').addEventListener('change',e=>readFile(e.target.files[0]));
-const dz=document.getElementById('dropzone');
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag');});
-dz.addEventListener('dragleave',()=>dz.classList.remove('drag'));
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag');logInfo('Drag & Drop');readFile(e.dataTransfer.files[0]);});
-document.getElementById('textarea').addEventListener('input',e=>{ if(e.target.value.trim()) loadText(e.target.value); });
+document.getElementById('file-input').addEventListener('change', e => readFile(e.target.files[0]));
+const dz = document.getElementById('dropzone');
+dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('drag'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('drag');
+  logInfo('Drag & Drop');
+  readFile(e.dataTransfer.files[0]);
+});
+document.getElementById('textarea').addEventListener('input', e => {
+  if (e.target.value.trim()) loadText(e.target.value);
+});
 
 // ══════════════════════════════════════════════════════════
 // UTILS
@@ -901,7 +925,7 @@ document.getElementById('textarea').addEventListener('input',e=>{ if(e.target.va
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function set(id,v){ document.getElementById(id).textContent=v; }
 
-logInfo('Додаток ініціалізовано',{version:'3.2.0',time:new Date().toLocaleString('uk-UA')});
+logInfo('Потужний шукач від Сивочолого ініціалізовано', {version:'4.0.0', excel:'✓ SheetJS', time: new Date().toLocaleString('uk-UA')});
 </script>
 </body>
 </html>
