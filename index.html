@@ -1794,7 +1794,12 @@ function resetAll() {
   // ── DOM: Етап 1 ──
   document.getElementById('textarea').value = '';
   document.getElementById('file-name').textContent = '';
-  document.getElementById('file-input').value = '';
+  // Надійне скидання file input — замінюємо елемент клоном
+  const fi = document.getElementById('file-input');
+  const fiClone = fi.cloneNode(true);
+  fiClone.addEventListener('change', e => readFile(e.target.files[0]));
+  fi.replaceWith(fiClone);
+  document.getElementById('dropzone').classList.remove('drag');
   document.getElementById('mapping-block').style.display = 'none';
   document.getElementById('no-header-banner').classList.remove('visible');
   document.getElementById('preview-wrap').innerHTML = '';
@@ -1823,7 +1828,12 @@ function resetAll() {
 
   // ── DOM: Етап 2 ──
   document.getElementById('s2-file-name').textContent = '';
-  document.getElementById('s2-file-input').value = '';
+  // Надійне скидання file input — замінюємо елемент клоном
+  const s2fi = document.getElementById('s2-file-input');
+  const s2fiClone = s2fi.cloneNode(true);
+  s2fiClone.addEventListener('change', e => s2ReadFile(e.target.files[0]));
+  s2fi.replaceWith(s2fiClone);
+  document.getElementById('s2-dropzone').classList.remove('drag');
   document.getElementById('s2-mapping-block').style.display = 'none';
   document.getElementById('s2-actions-block').style.display = 'none';
   document.getElementById('s2-results-block').style.display = 'none';
@@ -1868,7 +1878,7 @@ function resetAll() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-, {version:'5.0.0', features:'Внутрішня перевірка + Крос-перевірка між файлами', time: new Date().toLocaleString('uk-UA')});
+logInfo('Потужний шукач v5.0 ініціалізовано', {version:'5.0.0', features:'Внутрішня перевірка + Крос-перевірка між файлами', time: new Date().toLocaleString('uk-UA')});
 </script>
 </body>
 </html>
