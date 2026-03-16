@@ -23,6 +23,12 @@
   --border:  #d5c8f0;
   --white:   #ffffff;
 
+  --stage2-bg:    #f0fff6;
+  --stage2-bg2:   #d6f5e6;
+  --stage2-bord:  #6dd6a0;
+  --stage2-ink:   #0d5c30;
+  --stage2-accent:#0a8c48;
+
   --dbg-bg:   #f5f2ff;
   --dbg-line: #ede8ff;
   --dbg-ok:   #166534;
@@ -57,6 +63,15 @@ header h1 {
 header h1 em { font-style: normal; color: var(--accent3); }
 .header-sub { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; padding-bottom: 4px; }
 
+/* STAGE BADGES */
+.stage-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 12px;
+}
+.stage-badge.s1 { background: rgba(124,58,237,0.1); color: var(--accent3); border: 1px solid rgba(124,58,237,0.3); }
+.stage-badge.s2 { background: rgba(10,140,72,0.1); color: var(--stage2-accent); border: 1px solid rgba(10,140,72,0.3); }
+
 .block {
   background: var(--white);
   border: 1.5px solid var(--border);
@@ -66,6 +81,11 @@ header h1 em { font-style: normal; color: var(--accent3); }
   box-shadow: 0 2px 12px rgba(92,46,178,0.07), 4px 4px 0 var(--bg3);
   animation: fadeUp 0.3s ease both;
 }
+.block.stage2-block {
+  border-color: var(--stage2-bord);
+  box-shadow: 0 2px 12px rgba(10,140,72,0.08), 4px 4px 0 var(--stage2-bg2);
+}
+
 @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
 .block-title {
@@ -75,6 +95,8 @@ header h1 em { font-style: normal; color: var(--accent3); }
   display: flex; align-items: center; gap: 10px;
 }
 .block-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.block-title.green { color: var(--stage2-accent); }
+.block-title.green::after { background: var(--stage2-bord); }
 
 textarea {
   width: 100%; height: 160px;
@@ -92,9 +114,12 @@ textarea::placeholder { color: var(--muted); }
   transition: all 0.2s; background: var(--bg); color: var(--muted); font-size: 12px;
 }
 .dropzone:hover, .dropzone.drag { border-color: var(--accent3); background: var(--bg2); color: var(--ink2); }
+.dropzone.green-drop { border-color: var(--stage2-bord); background: var(--stage2-bg); }
+.dropzone.green-drop:hover, .dropzone.green-drop.drag { border-color: var(--stage2-accent); background: var(--stage2-bg2); color: var(--stage2-ink); }
 .dropzone input { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
 .dropzone-icon { font-size: 20px; display: block; margin-bottom: 4px; }
 #file-name { margin-top:8px; font-size:12px; color:var(--accent2); font-weight:600; min-height:16px; }
+#s2-file-name { margin-top:8px; font-size:12px; color:var(--stage2-accent); font-weight:600; min-height:16px; }
 
 .no-header-banner {
   display: none;
@@ -114,7 +139,9 @@ textarea::placeholder { color: var(--muted); }
   background: var(--bg2); border: 1px solid var(--border);
   border-radius: 6px; padding: 12px 16px; line-height: 1.6;
 }
+.mapping-hint.green { background: var(--stage2-bg); border-color: var(--stage2-bord); color: var(--stage2-ink); }
 .mapping-hint strong { color: var(--accent3); }
+.mapping-hint.green strong { color: var(--stage2-accent); }
 .mapping-hint code { background:var(--bg3); padding:1px 5px; border-radius:3px; font-size:11px; color:var(--ink); }
 
 .preview-wrap { margin-bottom: 20px; overflow-x: auto; }
@@ -132,6 +159,8 @@ textarea::placeholder { color: var(--muted); }
 .preview-table tr:nth-child(even) td { background: var(--bg); }
 .preview-table th.is-key-th { background: var(--bg2); border-top: 3px solid var(--accent3); color: var(--accent3); }
 .preview-table td.is-key-td { background: rgba(124,58,237,0.05); font-weight: 600; color: var(--accent3); }
+.preview-table th.is-s2-th { background: var(--stage2-bg); border-top: 3px solid var(--stage2-accent); color: var(--stage2-accent); }
+.preview-table td.is-s2-td { background: rgba(10,140,72,0.05); font-weight: 600; color: var(--stage2-accent); }
 
 .col-select-list { display: flex; flex-direction: column; gap: 8px; }
 
@@ -143,11 +172,14 @@ textarea::placeholder { color: var(--muted); }
 }
 .col-select-item:hover { border-color: var(--accent3); background: var(--bg2); }
 .col-select-item.is-key { border-color: var(--accent3); background: linear-gradient(135deg, rgba(124,58,237,0.05) 0%, var(--white) 100%); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+.col-select-item.is-s2-key { border-color: var(--stage2-accent); background: linear-gradient(135deg, rgba(10,140,72,0.05) 0%, var(--white) 100%); box-shadow: 0 0 0 3px rgba(10,140,72,0.1); }
 .col-radio { display: none; }
 .col-radio-visual { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); background: var(--white); flex-shrink: 0; transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
 .col-select-item.is-key .col-radio-visual { border-color: var(--accent3); background: var(--accent3); }
+.col-select-item.is-s2-key .col-radio-visual { border-color: var(--stage2-accent); background: var(--stage2-accent); }
 .col-radio-visual::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: white; opacity: 0; transition: opacity 0.15s; }
-.col-select-item.is-key .col-radio-visual::after { opacity: 1; }
+.col-select-item.is-key .col-radio-visual::after,
+.col-select-item.is-s2-key .col-radio-visual::after { opacity: 1; }
 .col-info { min-width: 0; }
 .col-label-row { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
 .col-num-badge { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); background: var(--bg3); padding: 1px 6px; border-radius: 10px; flex-shrink: 0; }
@@ -157,16 +189,68 @@ textarea::placeholder { color: var(--muted); }
 .col-sample span { color: var(--ink2); }
 .col-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
 .key-badge-v2 { display: none; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent3); background: rgba(124,58,237,0.1); padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(124,58,237,0.25); }
+.key-badge-s2 { display: none; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--stage2-accent); background: rgba(10,140,72,0.1); padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(10,140,72,0.3); }
 .col-select-item.is-key .key-badge-v2 { display: inline-flex; }
+.col-select-item.is-s2-key .key-badge-s2 { display: inline-flex; }
 .vis-toggle { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--muted); cursor: pointer; user-select: none; }
 .vis-toggle input[type=checkbox] { accent-color: var(--accent3); cursor: pointer; width: 13px; height: 13px; }
 .auto-hint { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; color: var(--accent3); font-weight: 600; background: rgba(124,58,237,0.08); padding: 2px 8px; border-radius: 20px; margin-left: 8px; }
 
+/* ─── STAGE 2 CROSS-CHECK SPECIFIC ─── */
+.s2-col-pair {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; gap: 16px; margin-top: 16px;
+}
+.s2-col-side { display: flex; flex-direction: column; gap: 8px; }
+.s2-col-side-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px;
+  border-radius: 4px; margin-bottom: 4px; display: inline-block;
+}
+.s2-col-side-label.lft { background: rgba(124,58,237,0.1); color: var(--accent3); }
+.s2-col-side-label.rgt { background: rgba(10,140,72,0.1); color: var(--stage2-accent); }
+.s2-equals { font-size: 22px; color: var(--muted); padding-top: 28px; text-align: center; }
+.s2-col-btn {
+  display: flex; align-items: center; gap: 10px; background: var(--bg);
+  border: 1.5px solid var(--border); border-radius: 6px; padding: 10px 14px;
+  cursor: pointer; transition: all 0.15s; font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; color: var(--ink); text-align: left; width: 100%;
+}
+.s2-col-btn:hover { border-color: var(--accent3); background: var(--bg2); }
+.s2-col-btn.active-lft { border-color: var(--accent3); background: rgba(124,58,237,0.06); font-weight: 700; color: var(--accent3); }
+.s2-col-btn.active-rgt { border-color: var(--stage2-accent); background: rgba(10,140,72,0.06); font-weight: 700; color: var(--stage2-accent); }
+.s2-col-radio { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; transition: all 0.15s; }
+.s2-col-btn.active-lft .s2-col-radio { border-color: var(--accent3); background: var(--accent3); }
+.s2-col-btn.active-rgt .s2-col-radio { border-color: var(--stage2-accent); background: var(--stage2-accent); }
+.s2-col-num { font-size: 9px; background: var(--bg3); padding: 1px 6px; border-radius: 10px; color: var(--muted); flex-shrink: 0; }
+.s2-col-sample { font-size: 10px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.s2-add-pair-btn {
+  display: flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; font-weight: 600; color: var(--stage2-accent); background: var(--stage2-bg);
+  border: 1.5px dashed var(--stage2-bord); border-radius: 6px; padding: 8px 16px;
+  cursor: pointer; margin-top: 10px; transition: all 0.15s; width: 100%;
+}
+.s2-add-pair-btn:hover { background: var(--stage2-bg2); }
+
+.pair-list { display: flex; flex-direction: column; gap: 10px; }
+.pair-item {
+  display: grid; grid-template-columns: 1fr auto 1fr auto; align-items: center; gap: 10px;
+  background: var(--bg); border: 1.5px solid var(--border); border-radius: 6px; padding: 10px 14px;
+  animation: fadeUp 0.2s ease both;
+}
+.pair-item .pi-lft { font-size: 12px; font-weight: 600; color: var(--accent3); }
+.pair-item .pi-rgt { font-size: 12px; font-weight: 600; color: var(--stage2-accent); }
+.pair-item .pi-eq  { font-size: 16px; color: var(--muted); text-align: center; }
+.pair-del { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 16px; padding: 0 4px; transition: color 0.15s; }
+.pair-del:hover { color: var(--accent); }
+
+/* ─── RESULT TABLES ─── */
 .btn-row { display:flex; gap:10px; flex-wrap:wrap; }
 .btn { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; letter-spacing:0.3px; padding:10px 18px; border:1.5px solid transparent; border-radius:6px; cursor:pointer; transition:all 0.15s; display:inline-flex; align-items:center; gap:7px; white-space:nowrap; }
 .btn:disabled { opacity:0.3; cursor:not-allowed !important; transform:none !important; box-shadow:none !important; }
 .btn-primary { background:var(--accent3); color:#fff; border-color:var(--accent3); box-shadow:0 2px 8px rgba(124,58,237,0.3); }
 .btn-primary:not(:disabled):hover { background:var(--ink2); border-color:var(--ink2); transform:translateY(-1px); box-shadow:0 4px 12px rgba(124,58,237,0.35); }
+.btn-primary.green { background: var(--stage2-accent); border-color: var(--stage2-accent); box-shadow: 0 2px 8px rgba(10,140,72,0.3); }
+.btn-primary.green:not(:disabled):hover { background: var(--stage2-ink); border-color: var(--stage2-ink); }
 .btn-danger  { background:var(--white); color:var(--accent);  border-color:var(--accent);  box-shadow:3px 3px 0 rgba(214,59,74,0.12); }
 .btn-danger:not(:disabled):hover  { background:var(--accent);  color:#fff; transform:translate(-1px,-1px); }
 .btn-success { background:var(--white); color:var(--accent2); border-color:var(--accent2); box-shadow:3px 3px 0 rgba(26,122,70,0.12); }
@@ -182,12 +266,14 @@ textarea::placeholder { color: var(--muted); }
 .stat-card.c-dup::before    { background:var(--accent); }
 .stat-card.c-rows::before   { background:#c07a1a; }
 .stat-card.c-invalid::before{ background:var(--warn); }
+.stat-card.c-cross::before  { background:var(--stage2-accent); }
 .stat-num { font-family:'Syne',sans-serif; font-size:32px; font-weight:800; line-height:1; margin-bottom:4px; }
 .stat-card.c-total   .stat-num { color:var(--accent3); }
 .stat-card.c-unique  .stat-num { color:var(--accent2); }
 .stat-card.c-dup     .stat-num { color:var(--accent); }
 .stat-card.c-rows    .stat-num { color:#c07a1a; }
 .stat-card.c-invalid .stat-num { color:var(--warn); }
+.stat-card.c-cross   .stat-num { color:var(--stage2-accent); }
 .stat-lbl { font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); line-height:1.4; }
 
 .tabs { display:flex; gap:0; border-bottom:1.5px solid var(--border); margin-bottom:18px; }
@@ -195,9 +281,11 @@ textarea::placeholder { color: var(--muted); }
 .tab-btn:hover { color:var(--ink); }
 .tab-btn.active { color:var(--accent3); border-bottom-color:var(--accent3); }
 .tab-btn.tab-warn.active { color:var(--warn); border-bottom-color:var(--warn); }
+.tab-btn.tab-green.active { color:var(--stage2-accent); border-bottom-color:var(--stage2-accent); }
 .tab-cnt { font-size:10px; font-weight:700; padding:1px 7px; border-radius:20px; background:var(--bg3); color:var(--muted); }
 .tab-btn.active .tab-cnt { background:var(--accent3); color:#fff; }
 .tab-btn.tab-warn.active .tab-cnt { background:var(--warn); color:#fff; }
+.tab-btn.tab-green.active .tab-cnt { background:var(--stage2-accent); color:#fff; }
 .tab-panel { display:none; }
 .tab-panel.active { display:block; }
 
@@ -218,6 +306,7 @@ textarea::placeholder { color: var(--muted); }
 .dup-num-label { font-weight:700; font-size:13px; color:var(--accent); }
 .dup-meta { display:flex; align-items:center; gap:8px; }
 .pill { font-size:10px; font-weight:700; padding:2px 8px; border-radius:20px; background:var(--accent); color:#fff; }
+.pill.green { background:var(--stage2-accent); }
 .chevron { transition:transform 0.2s; font-size:11px; color:var(--muted); }
 .chevron.r { transform:rotate(180deg); }
 .dup-body { display:none; padding:10px 14px; background:var(--white); }
@@ -229,6 +318,25 @@ textarea::placeholder { color: var(--muted); }
 .dup-col-cell { display:flex; flex-direction:column; gap:1px; }
 .dup-col-name { font-size:9px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
 .dup-col-val { font-size:12px; color:var(--ink); font-weight:500; }
+
+/* ─── CROSS CHECK RESULTS ─── */
+.cross-results { display:flex; flex-direction:column; gap:0; }
+.cross-result-row {
+  display:grid; gap:0; border-bottom:1px solid var(--border);
+  font-size:12px; transition:background 0.1s;
+}
+.cross-result-row:hover { background:rgba(10,140,72,0.04); }
+.cross-result-row.header-row { background:var(--stage2-bg); position:sticky; top:0; z-index:1; font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); font-weight:700; }
+.cross-cell { padding:8px 12px; border-right:1px solid var(--border); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.cross-cell:last-child { border-right:none; }
+.cross-cell.source-cell { color:var(--accent3); font-weight:600; }
+.cross-cell.ext-cell { color:var(--stage2-accent); font-weight:600; }
+.cross-cell.row-num-cell { color:var(--muted); font-size:11px; }
+
+.cross-wrap { max-height:500px; overflow-y:auto; border:1.5px solid var(--stage2-bord); border-radius:6px; }
+.cross-wrap::-webkit-scrollbar { width:5px; }
+.cross-wrap::-webkit-scrollbar-track { background:var(--bg); }
+.cross-wrap::-webkit-scrollbar-thumb { background:var(--stage2-bord); border-radius:3px; }
 
 .invalid-list-wrap { max-height:480px; overflow-y:auto; }
 .invalid-list-wrap::-webkit-scrollbar { width:5px; }
@@ -250,6 +358,7 @@ textarea::placeholder { color: var(--muted); }
 .empty-text { font-size:13px; }
 
 #results-block { display:none; }
+#s2-results-block { display:none; }
 
 /* Excel badge */
 .excel-badge { display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:700; letter-spacing:0.5px; padding:2px 8px; border-radius:20px; background:rgba(26,122,70,0.1); color:var(--accent2); border:1px solid rgba(26,122,70,0.25); margin-left:8px; }
@@ -293,6 +402,37 @@ textarea::placeholder { color: var(--muted); }
 .dbg-dl-btn:hover { background:var(--bg2); border-color:var(--dbg-ok); color:var(--dbg-ok); }
 .dbg-clear-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; padding:4px 10px; background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:4px; cursor:pointer; transition:all 0.15s; }
 .dbg-clear-btn:hover { border-color:var(--dbg-err); color:var(--dbg-err); }
+
+/* ─── DIVIDER ─── */
+.stage-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 28px 0 20px; font-size: 11px; color: var(--muted);
+  letter-spacing: 2px; text-transform: uppercase;
+}
+.stage-divider::before, .stage-divider::after { content:''; flex:1; height:2px; background:linear-gradient(90deg,var(--bg3),var(--border)); }
+.stage-divider::after { background:linear-gradient(270deg,var(--bg3),var(--stage2-bord)); }
+.stage-divider span { white-space:nowrap; font-weight:700; padding:4px 14px; background:var(--white); border:1.5px solid var(--border); border-radius:20px; }
+
+/* col selector modal-style */
+.s2-selectors-wrap { display:grid; grid-template-columns:1fr 40px 1fr; gap:12px; align-items:start; margin-top:12px; }
+.s2-sel-side { display:flex; flex-direction:column; gap:6px; }
+.s2-sel-title { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 12px; border-radius:4px; margin-bottom:2px; }
+.s2-sel-title.lft { background:rgba(124,58,237,0.1); color:var(--accent3); }
+.s2-sel-title.rgt { background:rgba(10,140,72,0.1); color:var(--stage2-accent); }
+.s2-sel-item {
+  display:flex; align-items:center; gap:8px; padding:8px 12px;
+  border:1.5px solid var(--border); border-radius:6px; cursor:pointer;
+  font-size:12px; font-family:'IBM Plex Mono',monospace; background:var(--bg);
+  transition:all 0.15s; color:var(--ink);
+}
+.s2-sel-item:hover { border-color:var(--accent3); background:var(--bg2); }
+.s2-sel-item.sel-lft { border-color:var(--accent3); background:rgba(124,58,237,0.06); color:var(--accent3); font-weight:700; }
+.s2-sel-item.sel-rgt { border-color:var(--stage2-accent); background:rgba(10,140,72,0.06); color:var(--stage2-accent); font-weight:700; }
+.s2-radio-dot { width:12px; height:12px; border-radius:50%; border:2px solid var(--border); flex-shrink:0; transition:all 0.15s; }
+.s2-sel-item.sel-lft .s2-radio-dot { border-color:var(--accent3); background:var(--accent3); }
+.s2-sel-item.sel-rgt .s2-radio-dot { border-color:var(--stage2-accent); background:var(--stage2-accent); }
+.s2-sel-smp { font-size:10px; color:var(--muted); margin-left:auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100px; }
+.s2-eq-label { font-size:20px; color:var(--muted); text-align:center; padding-top:36px; }
 </style>
 </head>
 <body>
@@ -302,7 +442,7 @@ textarea::placeholder { color: var(--muted); }
   <div>
     <h1>Потужний шукач<em>.</em><br>від Сивочолого</h1>
   </div>
-  <div class="header-sub">Аналіз · Валідація · Очищення · Excel</div>
+  <div class="header-sub">Аналіз · Валідація · Очищення · Крос-перевірка · Excel</div>
 </header>
 
 <!-- DEBUG -->
@@ -333,6 +473,11 @@ textarea::placeholder { color: var(--muted); }
   </div>
 </div>
 
+<!-- ══════════════════ ЕТАП 1 ══════════════════ -->
+<div style="margin-bottom:4px;">
+  <span class="stage-badge s1">⚡ Етап 1 — Внутрішня перевірка</span>
+</div>
+
 <!-- 1. Дані -->
 <div class="block">
   <div class="block-title">📂 Дані <span class="excel-badge">✦ xlsx / xls підтримується</span></div>
@@ -349,23 +494,20 @@ textarea::placeholder { color: var(--muted); }
 <!-- 2. Вибір колонки -->
 <div class="block" id="mapping-block" style="display:none;">
   <div class="block-title">🗂 Налаштування колонок</div>
-
   <div class="no-header-banner" id="no-header-banner">
     ⚠️ <strong>Заголовок не виявлено.</strong> Перший рядок схожий на дані, тому автоматично додано синтетичний заголовок <code>Колонка 1…N</code>. Всі рядки включені в перевірку.
   </div>
-
   <div class="mapping-hint">
     👇 <strong>Вкажіть колонку з номерами для порівняння</strong> — клікніть на потрібний рядок.<br>
     Можна перейменувати колонки та вимкнути непотрібні зі звіту.
   </div>
-
   <div class="preview-wrap" id="preview-wrap"></div>
   <div class="col-select-list" id="col-select-list"></div>
 </div>
 
-<!-- 3. Дії -->
+<!-- 3. Дії (Етап 1) -->
 <div class="block">
-  <div class="block-title">⚙️ Дії</div>
+  <div class="block-title">⚙️ Дії — Внутрішня перевірка</div>
   <div class="btn-row">
     <button class="btn btn-primary" onclick="runCheck()">🔍 Перевірити дублі</button>
     <button class="btn btn-danger"  id="btn-dl-dup"   onclick="downloadDuplicates()"       disabled>📥 Дублі (CSV)</button>
@@ -374,10 +516,10 @@ textarea::placeholder { color: var(--muted); }
   </div>
 </div>
 
-<!-- 4. Результати -->
+<!-- 4. Результати (Етап 1) -->
 <div id="results-block">
   <div class="block">
-    <div class="block-title">📊 Статистика</div>
+    <div class="block-title">📊 Статистика — Етап 1</div>
     <div class="stats-grid">
       <div class="stat-card c-total">  <div class="stat-num" id="s-total">0</div>  <div class="stat-lbl">Всього рядків</div></div>
       <div class="stat-card c-unique"> <div class="stat-num" id="s-unique">0</div> <div class="stat-lbl">Унікальних №</div></div>
@@ -393,7 +535,7 @@ textarea::placeholder { color: var(--muted); }
         🔁 Дублі <span class="tab-cnt" id="tc-dup">0</span>
       </button>
       <button class="tab-btn tab-warn" id="tab-inv-btn" onclick="switchTab('inv')">
-        ⚠️ Невалідні номери <span class="tab-cnt" id="tc-inv">0</span>
+        ⚠️ Невалідні <span class="tab-cnt" id="tc-inv">0</span>
       </button>
     </div>
     <div class="tab-panel active" id="tab-dup">
@@ -418,7 +560,116 @@ textarea::placeholder { color: var(--muted); }
   </div>
 </div>
 
+<!-- ══════════════════ STAGE DIVIDER ══════════════════ -->
+<div class="stage-divider"><span>✦ Етап 2 — Крос-перевірка з зовнішнім файлом ✦</span></div>
+
+<!-- ══════════════════ ЕТАП 2 ══════════════════ -->
+<div style="margin-bottom:4px;">
+  <span class="stage-badge s2">🔗 Крос-файлова перевірка</span>
 </div>
+
+<!-- 2A: Завантаження зовнішнього файлу -->
+<div class="block stage2-block">
+  <div class="block-title green">📂 Зовнішній файл для порівняння <span class="excel-badge">✦ xlsx / xls / csv</span></div>
+  <div class="mapping-hint green">
+    👇 Завантажте <strong>другий файл</strong> (CSV або Excel) — далі вкажіть які колонки порівнювати між основним файлом і цим.
+  </div>
+  <div class="dropzone green-drop" id="s2-dropzone">
+    <input type="file" id="s2-file-input" accept=".csv,.tsv,.txt,.xlsx,.xls">
+    <span class="dropzone-icon">🗄️</span>
+    Перетягніть зовнішній файл або натисніть<br>
+    <span style="font-size:10px;margin-top:4px;display:block;opacity:0.7">.csv &nbsp;·&nbsp; .tsv &nbsp;·&nbsp; .txt &nbsp;·&nbsp; .xlsx &nbsp;·&nbsp; .xls</span>
+  </div>
+  <div id="s2-file-name"></div>
+</div>
+
+<!-- 2B: Вибір колонок для порівняння (з'являється після завантаження) -->
+<div class="block stage2-block" id="s2-mapping-block" style="display:none;">
+  <div class="block-title green">🔀 Вибір колонок для порівняння</div>
+  <div class="mapping-hint green">
+    👇 Вкажіть <strong>яка колонка з основного файлу</strong> відповідає <strong>якій колонці зовнішнього файлу</strong>.<br>
+    Збіг вважається дублікатом між файлами.
+  </div>
+
+  <!-- Попередній перегляд зовнішнього файлу -->
+  <div style="margin-bottom:12px;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--stage2-accent);margin-bottom:6px;">Попередній перегляд зовнішнього файлу</div>
+    <div class="preview-wrap" id="s2-preview-wrap"></div>
+  </div>
+
+  <!-- Пари колонок -->
+  <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Пари колонок для порівняння</div>
+  <div id="s2-pairs-list" class="pair-list"></div>
+  <button class="s2-add-pair-btn" onclick="s2AddPair()">＋ Додати ще одну пару колонок</button>
+</div>
+
+<!-- 2C: Дії (Етап 2) -->
+<div class="block stage2-block" id="s2-actions-block" style="display:none;">
+  <div class="block-title green">⚙️ Дії — Крос-перевірка</div>
+  <div class="btn-row">
+    <button class="btn btn-primary green" onclick="runCrossCheck()">🔗 Знайти збіги між файлами</button>
+    <button class="btn btn-danger"  id="s2-btn-dl-cross"   onclick="s2DownloadCross()"   disabled>📥 Збіги (CSV)</button>
+    <button class="btn btn-success" id="s2-btn-dl-unique"  onclick="s2DownloadUnique()"  disabled>✨ Тільки унікальні (CSV)</button>
+    <button class="btn btn-warn"    id="s2-btn-dl-extonly" onclick="s2DownloadExtOnly()" disabled>📋 Тільки у зовн. файлі (CSV)</button>
+  </div>
+</div>
+
+<!-- 2D: Результати крос-перевірки -->
+<div id="s2-results-block">
+  <div class="block stage2-block">
+    <div class="block-title green">📊 Статистика — Крос-перевірка</div>
+    <div class="stats-grid">
+      <div class="stat-card c-total">  <div class="stat-num" id="s2-s-src">0</div>   <div class="stat-lbl">Рядків в основному</div></div>
+      <div class="stat-card c-total">  <div class="stat-num" id="s2-s-ext">0</div>   <div class="stat-lbl">Рядків у зовнішньому</div></div>
+      <div class="stat-card c-cross">  <div class="stat-num" id="s2-s-cross">0</div> <div class="stat-lbl">Збігів (дублів)</div></div>
+      <div class="stat-card c-unique"> <div class="stat-num" id="s2-s-uniq">0</div>  <div class="stat-lbl">Унікальних в основному</div></div>
+      <div class="stat-card c-rows">   <div class="stat-num" id="s2-s-extonly">0</div><div class="stat-lbl">Тільки у зовн. файлі</div></div>
+    </div>
+  </div>
+
+  <div class="block stage2-block">
+    <div class="tabs">
+      <button class="tab-btn tab-green active" id="tab-cross-btn"   onclick="switchTab2('cross')">
+        🔗 Збіги між файлами <span class="tab-cnt" id="tc-cross">0</span>
+      </button>
+      <button class="tab-btn"                  id="tab-srconly-btn" onclick="switchTab2('srconly')">
+        ⬅️ Тільки в основному <span class="tab-cnt" id="tc-srconly">0</span>
+      </button>
+      <button class="tab-btn"                  id="tab-extonly-btn" onclick="switchTab2('extonly')">
+        ➡️ Тільки у зовнішньому <span class="tab-cnt" id="tc-extonly">0</span>
+      </button>
+    </div>
+
+    <!-- Збіги -->
+    <div class="tab-panel active" id="tab-cross">
+      <div class="search-row">
+        <input class="search-input" id="s2-search-cross" placeholder="🔎 Пошук…" oninput="s2FilterCross()">
+        <span class="count-badge" id="s2-cnt-cross"></span>
+      </div>
+      <div class="cross-wrap" id="s2-cross-list"></div>
+    </div>
+
+    <!-- Тільки в основному -->
+    <div class="tab-panel" id="tab-srconly">
+      <div class="search-row">
+        <input class="search-input" id="s2-search-src" placeholder="🔎 Пошук…" oninput="s2FilterSrcOnly()">
+        <span class="count-badge" id="s2-cnt-srconly"></span>
+      </div>
+      <div class="cross-wrap" id="s2-srconly-list"></div>
+    </div>
+
+    <!-- Тільки у зовнішньому -->
+    <div class="tab-panel" id="tab-extonly">
+      <div class="search-row">
+        <input class="search-input" id="s2-search-ext" placeholder="🔎 Пошук…" oninput="s2FilterExtOnly()">
+        <span class="count-badge" id="s2-cnt-extonly"></span>
+      </div>
+      <div class="cross-wrap" id="s2-extonly-list"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- .wrap -->
 <script>
 // ══════════════════════════════════════════════════════════
 // DEBUG LOGGER
@@ -505,13 +756,27 @@ function downloadLog() {
 }
 
 // ══════════════════════════════════════════════════════════
-// STATE
+// STATE — Етап 1
 // ══════════════════════════════════════════════════════════
 const S = {
   rows:[], headers:[], sep:'\t',
   colMap:[],
   syntheticHeader: false,
   groups:{}, order:[], dupOrder:[], invalid:[], keyCol:0,
+};
+
+// ══════════════════════════════════════════════════════════
+// STATE — Етап 2
+// ══════════════════════════════════════════════════════════
+const S2 = {
+  rows: [], headers: [], sep: '\t',
+  colMap: [], syntheticHeader: false,
+  // pairs: [{srcCol: 0, extCol: 0}]
+  pairs: [],
+  // results
+  crossRows: [],    // рядки з основного, що мають збіги
+  srcOnlyRows: [],  // рядки тільки в основному
+  extOnlyRows: [],  // рядки тільки у зовнішньому (індекси в S2.rows)
 };
 
 const NUM_MIN=10, NUM_MAX=15;
@@ -523,7 +788,7 @@ const REASONS = {
 const PREVIEW_ROWS = 5;
 
 // ══════════════════════════════════════════════════════════
-// PARSE
+// PARSE helpers
 // ══════════════════════════════════════════════════════════
 function detectSep(line) {
   if (line.includes('\t')) return '\t';
@@ -550,26 +815,30 @@ function looksLikeHeader(cells) {
   return dataLikeCells.length === 0;
 }
 
+function parseTextToState(text, stateObj) {
+  const lines = text.trim().split(/\r?\n/).filter(l=>l.trim());
+  if (lines.length < 1) return false;
+  stateObj.sep = detectSep(lines[0]);
+  const parsed = lines.map(l=>parseLine(l, stateObj.sep));
+  if (looksLikeHeader(parsed[0])) {
+    stateObj.headers = parsed[0];
+    stateObj.rows = parsed;
+    stateObj.syntheticHeader = false;
+  } else {
+    const colCount = parsed[0].length;
+    stateObj.headers = Array.from({length: colCount}, (_, i) => `Колонка ${i+1}`);
+    stateObj.rows = [stateObj.headers, ...parsed];
+    stateObj.syntheticHeader = true;
+  }
+  return true;
+}
+
 function loadText(text) {
   try {
-    const lines = text.trim().split(/\r?\n/).filter(l=>l.trim());
-    if (lines.length<1){ logWarn('loadText: порожній файл'); return; }
-    S.sep = detectSep(lines[0]);
-    const parsed = lines.map(l=>parseLine(l,S.sep));
-
-    if (looksLikeHeader(parsed[0])) {
-      S.headers = parsed[0];
-      S.rows = parsed;
-      S.syntheticHeader = false;
-    } else {
-      const colCount = parsed[0].length;
-      S.headers = Array.from({length: colCount}, (_, i) => `Колонка ${i+1}`);
-      S.rows = [S.headers, ...parsed];
-      S.syntheticHeader = true;
-      logWarn('Заголовок не виявлено — додано синтетичний', { synthHeaders: S.headers });
-    }
-
-    logInfo('Дані завантажено',{ rows: S.rows.length-1, cols:S.headers.length, sep:S.sep==='\t'?'TAB':S.sep, syntheticHeader: S.syntheticHeader });
+    const ok = parseTextToState(text, S);
+    if (!ok) { logWarn('loadText: порожній файл'); return; }
+    if (S.syntheticHeader) logWarn('Заголовок не виявлено — додано синтетичний', { synthHeaders: S.headers });
+    logInfo('Дані завантажено',{ rows: S.rows.length-1, cols:S.headers.length, sep:S.sep==='\t'?'TAB':S.sep });
     initColMap();
     renderMapping();
   } catch(e){ logErr('loadText: помилка',e.message); }
@@ -581,28 +850,41 @@ function loadText(text) {
 function autoDetectKeyCol() {
   const dataRows = S.rows.slice(1, Math.min(6, S.rows.length));
   let bestIdx = 0, bestScore = -1;
-
   S.headers.forEach((h, ci) => {
     let score = 0;
     if (/^[№#]|номер|number|^id$|колонка\s*1/i.test(h.trim())) score += 5;
-
     dataRows.forEach(row => {
       const v = norm(row[ci]??'');
       if (/^\d{10,14}$/.test(v)) score += 2;
       else if (/^\d{8,16}$/.test(v)) score += 1;
     });
-
     if (score > bestScore) { bestScore = score; bestIdx = ci; }
   });
   return bestIdx;
 }
 
-function getSampleValues(ci, count=3) {
-  return S.rows.slice(1, count+1).map(r=>norm(r[ci]??'')).filter(Boolean);
+function autoDetectKeyColInState(stateObj) {
+  const dataRows = stateObj.rows.slice(1, Math.min(6, stateObj.rows.length));
+  let bestIdx = 0, bestScore = -1;
+  stateObj.headers.forEach((h, ci) => {
+    let score = 0;
+    if (/^[№#]|номер|number|^id$|колонка\s*1/i.test(h.trim())) score += 5;
+    dataRows.forEach(row => {
+      const v = norm(row[ci]??'');
+      if (/^\d{10,14}$/.test(v)) score += 2;
+      else if (/^\d{8,16}$/.test(v)) score += 1;
+    });
+    if (score > bestScore) { bestScore = score; bestIdx = ci; }
+  });
+  return bestIdx;
+}
+
+function getSampleValues(ci, count=3, stateObj=S) {
+  return stateObj.rows.slice(1, count+1).map(r=>norm(r[ci]??'')).filter(Boolean);
 }
 
 // ══════════════════════════════════════════════════════════
-// COLUMN MAP
+// COLUMN MAP — Етап 1
 // ══════════════════════════════════════════════════════════
 function initColMap() {
   if (S.colMap.length===S.headers.length) {
@@ -611,7 +893,7 @@ function initColMap() {
   }
   const keyIdx = autoDetectKeyCol();
   S.colMap = S.headers.map((h,i)=>({ original:h, alias:h, visible:true, isKey:i===keyIdx }));
-  logInfo('ColMap: ініціалізовано', { keyCol:`Col${keyIdx+1} «${S.headers[keyIdx]||'?'}»`, auto:true });
+  logInfo('ColMap: ініціалізовано', { keyCol:`Col${keyIdx+1} «${S.headers[keyIdx]||'?'}»` });
 }
 
 function setKeyCol(idx) {
@@ -621,14 +903,10 @@ function setKeyCol(idx) {
   renderMapping();
 }
 
-// ══════════════════════════════════════════════════════════
-// RENDER MAPPING
-// ══════════════════════════════════════════════════════════
 function renderMapping() {
   if (!S.headers.length) return;
   document.getElementById('mapping-block').style.display='';
   document.getElementById('no-header-banner').classList.toggle('visible', S.syntheticHeader);
-
   const keyIdx = S.colMap.findIndex(c=>c.isKey);
   const previewRows = S.rows.slice(0, PREVIEW_ROWS+1);
   const pwrap = document.getElementById('preview-wrap');
@@ -640,12 +918,10 @@ function renderMapping() {
 
   const list = document.getElementById('col-select-list');
   list.innerHTML = '';
-
   S.colMap.forEach((col,i) => {
     const samples = getSampleValues(i, 3);
     const isKey = col.isKey;
     const autoTag = isKey && autoDetectKeyCol()===i ? '<span class="auto-hint">⚡ авто-визначено</span>' : '';
-
     const div = document.createElement('label');
     div.className = 'col-select-item' + (isKey?' is-key':'');
     div.innerHTML = `
@@ -684,23 +960,20 @@ function validateNum(v) {
 }
 
 // ══════════════════════════════════════════════════════════
-// CORE CHECK
+// CORE CHECK — Етап 1
 // ══════════════════════════════════════════════════════════
 function runCheck() {
-  logInfo('━━━ Запуск перевірки ━━━');
+  logInfo('━━━ Запуск перевірки (Етап 1) ━━━');
   try {
     const raw = document.getElementById('textarea').value.trim();
     if (!raw){ logWarn('Перевірка скасована: порожні дані'); alert('Спочатку вставте або завантажте дані.'); return; }
     loadText(raw);
-
     S.keyCol = S.colMap.findIndex(c=>c.isKey);
     if (S.keyCol<0) S.keyCol=0;
     const ci = S.keyCol;
     logInfo('Ключова колонка',{idx:ci, name:S.headers[ci]||'?'});
-
     const groups={},order=[],invalid=[];
     const statR={chars:0,short:0,long:0};
-
     for (let ri=1;ri<S.rows.length;ri++){
       let val=norm(S.rows[ri][ci]??'');
       if (!val) continue;
@@ -709,34 +982,27 @@ function runCheck() {
       if (!groups[val]){groups[val]=[];order.push(val);}
       groups[val].push(ri);
     }
-
     S.groups=groups; S.order=order;
     S.dupOrder=order.filter(n=>groups[n].length>1);
     S.invalid=invalid;
-
     const totalRows=S.rows.length-1, dupNums=S.dupOrder.length;
     const dupRows=S.dupOrder.reduce((s,n)=>s+groups[n].length,0);
     const invCnt=invalid.length;
-
     logOk('Перевірку завершено',{всього:totalRows,унікальних:order.length,дублів:dupNums,рядків_дублів:dupRows,невалідних:invCnt});
-    if (dupNums>0){ logWarn(`Знайдено ${dupNums} дубльованих номерів (${dupRows} рядків)`); }
-    else { logOk('Дублікатів не знайдено — файл чистий!'); }
-    if (invCnt>0){ logWarn(`Невалідних номерів: ${invCnt}`,statR); }
-    else { logOk('Всі номери пройшли валідацію!'); }
-
+    if (dupNums>0) logWarn(`Знайдено ${dupNums} дубльованих номерів (${dupRows} рядків)`);
+    else logOk('Дублікатів не знайдено — файл чистий!');
+    if (invCnt>0) logWarn(`Невалідних номерів: ${invCnt}`,statR);
+    else logOk('Всі номери пройшли валідацію!');
     set('s-total',totalRows); set('s-unique',order.length);
     set('s-dup',dupNums); set('s-rows',dupRows); set('s-invalid',invCnt);
     set('tc-dup',dupNums); set('tc-inv',invCnt);
-
     document.getElementById('results-block').style.display='block';
     document.getElementById('btn-dl-dup').disabled   = dupNums===0;
     document.getElementById('btn-dl-clean').disabled = order.length===0;
     document.getElementById('btn-dl-inv').disabled   = invCnt===0;
-
     const si=document.getElementById('search-input');
     si.value=''; si.disabled=dupNums===0;
     set('search-count',`${dupNums} груп`);
-
     renderDups(S.dupOrder);
     renderInvalid(S.invalid);
     if (dupNums===0&&invCnt>0) switchTab('inv'); else switchTab('dup');
@@ -745,17 +1011,25 @@ function runCheck() {
 }
 
 // ══════════════════════════════════════════════════════════
-// TABS
+// TABS (Етап 1)
 // ══════════════════════════════════════════════════════════
 function switchTab(name) {
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#results-block .tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#results-block .tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  document.getElementById(`tab-${name}-btn`).classList.add('active');
+}
+
+// TABS (Етап 2)
+function switchTab2(name) {
+  document.querySelectorAll('#s2-results-block .tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#s2-results-block .tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(`tab-${name}`).classList.add('active');
   document.getElementById(`tab-${name}-btn`).classList.add('active');
 }
 
 // ══════════════════════════════════════════════════════════
-// RENDER DUPS
+// RENDER DUPS (Етап 1)
 // ══════════════════════════════════════════════════════════
 function alias(ci){ return S.colMap[ci]?.alias||S.headers[ci]||`Col${ci+1}`; }
 function vis(ci)  { return S.colMap[ci]?S.colMap[ci].visible:true; }
@@ -799,7 +1073,7 @@ function filterDups(){
 }
 
 // ══════════════════════════════════════════════════════════
-// RENDER INVALID
+// RENDER INVALID (Етап 1)
 // ══════════════════════════════════════════════════════════
 function renderInvalid(items){
   const ci=S.keyCol;
@@ -826,7 +1100,7 @@ function filterInvalid(){
 }
 
 // ══════════════════════════════════════════════════════════
-// DOWNLOADS
+// DOWNLOADS — Етап 1
 // ══════════════════════════════════════════════════════════
 function toCSV(rowIdxs){
   const sep=S.sep==='\t'?',':S.sep;
@@ -862,16 +1136,14 @@ function downloadInvalid(){
 }
 
 // ══════════════════════════════════════════════════════════
-// FILE I/O — з підтримкою Excel (.xlsx / .xls)
+// FILE I/O — Етап 1
 // ══════════════════════════════════════════════════════════
 function readFile(file){
   if (!file){ logWarn('Файл не вибрано'); return; }
   logInfo('Файл вибрано', {name: file.name, size: file.size + ' байт'});
   document.getElementById('file-name').textContent = '✓ ' + file.name;
   const ext = file.name.split('.').pop().toLowerCase();
-
   if (ext === 'xlsx' || ext === 'xls') {
-    // ── Excel через SheetJS ───────────────────────────────
     const r = new FileReader();
     r.onload = ev => {
       try {
@@ -881,25 +1153,19 @@ function readFile(file){
         const csv = XLSX.utils.sheet_to_csv(ws);
         document.getElementById('textarea').value = csv;
         loadText(csv);
-        logOk('Excel прочитано: ' + file.name, {аркуш: sheetName, аркушів: wb.SheetNames.length});
-      } catch(e) {
-        logErr('Помилка читання Excel: ' + file.name, e.message);
-      }
+        logOk('Excel прочитано: ' + file.name, {аркуш: sheetName});
+      } catch(e) { logErr('Помилка читання Excel: ' + file.name, e.message); }
     };
     r.onerror = () => logErr('FileReader: помилка', file.name);
     r.readAsArrayBuffer(file);
-
   } else {
-    // ── CSV / TSV / TXT ───────────────────────────────────
     const r = new FileReader();
     r.onload = ev => {
       try {
         document.getElementById('textarea').value = ev.target.result;
         loadText(ev.target.result);
         logOk('Файл прочитано: ' + file.name);
-      } catch(e) {
-        logErr('Помилка читання: ' + file.name, e.message);
-      }
+      } catch(e) { logErr('Помилка читання: ' + file.name, e.message); }
     };
     r.onerror = () => logErr('FileReader: помилка', file.name);
     r.readAsText(file, 'utf-8');
@@ -912,7 +1178,7 @@ dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('dr
 dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
 dz.addEventListener('drop', e => {
   e.preventDefault(); dz.classList.remove('drag');
-  logInfo('Drag & Drop');
+  logInfo('Drag & Drop (Етап 1)');
   readFile(e.dataTransfer.files[0]);
 });
 document.getElementById('textarea').addEventListener('input', e => {
@@ -920,12 +1186,465 @@ document.getElementById('textarea').addEventListener('input', e => {
 });
 
 // ══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
+// ЕТАП 2 — КРОС-ПЕРЕВІРКА
+// ══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
+
+function s2ReadFile(file) {
+  if (!file) { logWarn('S2: Файл не вибрано'); return; }
+  logInfo('S2: Файл вибрано', {name: file.name, size: file.size + ' байт'});
+  document.getElementById('s2-file-name').textContent = '✓ ' + file.name;
+  const ext = file.name.split('.').pop().toLowerCase();
+
+  const onText = text => {
+    try {
+      const ok = parseTextToState(text, S2);
+      if (!ok) { logWarn('S2: порожній файл'); return; }
+      if (S2.syntheticHeader) logWarn('S2: Заголовок не виявлено — синтетичний');
+      logOk('S2: Файл завантажено', {rows: S2.rows.length-1, cols: S2.headers.length});
+      s2InitColMap();
+      s2RenderMappingBlock();
+    } catch(e) { logErr('S2: parseTextToState помилка', e.message); }
+  };
+
+  if (ext === 'xlsx' || ext === 'xls') {
+    const r = new FileReader();
+    r.onload = ev => {
+      try {
+        const wb = XLSX.read(ev.target.result, {type: 'array'});
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        onText(XLSX.utils.sheet_to_csv(ws));
+        logOk('S2: Excel прочитано: ' + file.name);
+      } catch(e) { logErr('S2: Excel помилка', e.message); }
+    };
+    r.onerror = () => logErr('S2: FileReader помилка');
+    r.readAsArrayBuffer(file);
+  } else {
+    const r = new FileReader();
+    r.onload = ev => onText(ev.target.result);
+    r.onerror = () => logErr('S2: FileReader помилка');
+    r.readAsText(file, 'utf-8');
+  }
+}
+
+document.getElementById('s2-file-input').addEventListener('change', e => s2ReadFile(e.target.files[0]));
+const s2dz = document.getElementById('s2-dropzone');
+s2dz.addEventListener('dragover',  e => { e.preventDefault(); s2dz.classList.add('drag'); });
+s2dz.addEventListener('dragleave', () => s2dz.classList.remove('drag'));
+s2dz.addEventListener('drop', e => {
+  e.preventDefault(); s2dz.classList.remove('drag');
+  logInfo('S2: Drag & Drop');
+  s2ReadFile(e.dataTransfer.files[0]);
+});
+
+// ── ініціалізація: авто-визначити початкову пару ──
+function s2InitColMap() {
+  const keyIdx = autoDetectKeyColInState(S2);
+  S2.colMap = S2.headers.map((h,i)=>({original:h, alias:h}));
+  // Визначити початкову пару: авто-ключ з основного і авто-ключ з зовнішнього
+  const srcKey = S.headers.length ? (S.colMap.findIndex(c=>c.isKey) >= 0 ? S.colMap.findIndex(c=>c.isKey) : 0) : 0;
+  S2.pairs = [{srcCol: srcKey, extCol: keyIdx}];
+  logInfo('S2: ColMap ініціалізовано', {extKey: `Col${keyIdx+1} «${S2.headers[keyIdx]}»`, srcKey: `Col${srcKey+1} «${S.headers[srcKey]||'?'}»`});
+}
+
+function s2AddPair() {
+  S2.pairs.push({srcCol: 0, extCol: 0});
+  renderPairsList();
+  logInfo('S2: Додано пару колонок', {total: S2.pairs.length});
+}
+
+function s2RemovePair(idx) {
+  if (S2.pairs.length <= 1) { logWarn('S2: Мінімум 1 пара обов\'язкова'); return; }
+  S2.pairs.splice(idx,1);
+  renderPairsList();
+  logInfo('S2: Видалено пару', {залишилось: S2.pairs.length});
+}
+
+function s2SetSrcCol(pairIdx, colIdx) {
+  S2.pairs[pairIdx].srcCol = colIdx;
+  renderPairsList();
+}
+
+function s2SetExtCol(pairIdx, colIdx) {
+  S2.pairs[pairIdx].extCol = colIdx;
+  renderPairsList();
+}
+
+function s2RenderMappingBlock() {
+  document.getElementById('s2-mapping-block').style.display = '';
+  document.getElementById('s2-actions-block').style.display = '';
+
+  // Попередній перегляд зовнішнього файлу
+  const previewRows = S2.rows.slice(0, PREVIEW_ROWS+1);
+  const pwrap = document.getElementById('s2-preview-wrap');
+  const thHtml = S2.headers.map((h,i)=>`<th class="is-s2-th">${esc(h||`Col${i+1}`)}</th>`).join('');
+  const tbodyHtml = previewRows.slice(1).map(row=>`<tr>${
+    row.map((v,i)=>`<td class="is-s2-td" title="${esc(v)}">${esc(v)}</td>`).join('')
+  }</tr>`).join('');
+  pwrap.innerHTML = `<table class="preview-table"><thead><tr>${thHtml}</tr></thead><tbody>${tbodyHtml}</tbody></table>`;
+
+  renderPairsList();
+}
+
+function renderPairsList() {
+  const container = document.getElementById('s2-pairs-list');
+  container.innerHTML = '';
+  S2.pairs.forEach((pair, pi) => {
+    const div = document.createElement('div');
+    div.style.cssText = 'background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:2px;animation:fadeUp 0.2s ease both;';
+
+    // Header row
+    const hdr = document.createElement('div');
+    hdr.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;';
+    hdr.innerHTML = `
+      <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)">Пара ${pi+1}</span>
+      ${S2.pairs.length>1 ? `<button class="pair-del" onclick="s2RemovePair(${pi})" title="Видалити пару">✕</button>` : ''}`;
+    div.appendChild(hdr);
+
+    // Grid: src cols | = | ext cols
+    const grid = document.createElement('div');
+    grid.style.cssText = 'display:grid;grid-template-columns:1fr 30px 1fr;gap:10px;align-items:start;';
+
+    // ── SRC columns ──
+    const srcSide = document.createElement('div');
+    srcSide.innerHTML = `<div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:rgba(124,58,237,0.1);color:var(--accent3);padding:4px 10px;border-radius:4px;margin-bottom:6px;display:inline-block;">📄 Основний файл</div>`;
+    if (!S.headers.length) {
+      srcSide.innerHTML += `<div style="font-size:12px;color:var(--muted);padding:8px">Спочатку завантажте основний файл (Етап 1)</div>`;
+    } else {
+      S.headers.forEach((h, ci) => {
+        const btn = document.createElement('button');
+        const samples = getSampleValues(ci, 2, S);
+        btn.className = 's2-sel-item' + (pair.srcCol===ci?' sel-lft':'');
+        btn.innerHTML = `<span class="s2-radio-dot"></span><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(h)}">${esc(h||`Col${ci+1}`)}</span><span class="s2-sel-smp">${esc(samples[0]||'')}</span>`;
+        btn.onclick = () => s2SetSrcCol(pi, ci);
+        srcSide.appendChild(btn);
+      });
+    }
+
+    // ── Equals ──
+    const eqDiv = document.createElement('div');
+    eqDiv.style.cssText = 'text-align:center;padding-top:36px;font-size:20px;color:var(--muted);';
+    eqDiv.textContent = '↔';
+
+    // ── EXT columns ──
+    const extSide = document.createElement('div');
+    extSide.innerHTML = `<div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:rgba(10,140,72,0.1);color:var(--stage2-accent);padding:4px 10px;border-radius:4px;margin-bottom:6px;display:inline-block;">🗄️ Зовнішній файл</div>`;
+    S2.headers.forEach((h, ci) => {
+      const btn = document.createElement('button');
+      const samples = getSampleValues(ci, 2, S2);
+      btn.className = 's2-sel-item' + (pair.extCol===ci?' sel-rgt':'');
+      btn.innerHTML = `<span class="s2-radio-dot"></span><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(h)}">${esc(h||`Col${ci+1}`)}</span><span class="s2-sel-smp">${esc(samples[0]||'')}</span>`;
+      btn.onclick = () => s2SetExtCol(pi, ci);
+      extSide.appendChild(btn);
+    });
+
+    grid.appendChild(srcSide);
+    grid.appendChild(eqDiv);
+    grid.appendChild(extSide);
+    div.appendChild(grid);
+    container.appendChild(div);
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// CROSS CHECK LOGIC
+// ══════════════════════════════════════════════════════════
+function buildKeyFromRow(row, colIdxes) {
+  return colIdxes.map(ci => norm(row[ci]??'')).join('|||');
+}
+
+function runCrossCheck() {
+  logInfo('━━━ Запуск крос-перевірки (Етап 2) ━━━');
+  try {
+    if (!S.rows.length || S.rows.length < 2) { alert('Спочатку завантажте основний файл (Етап 1)!'); return; }
+    if (!S2.rows.length || S2.rows.length < 2) { alert('Завантажте зовнішній файл для порівняння!'); return; }
+    if (!S2.pairs.length) { alert('Додайте хоча б одну пару колонок!'); return; }
+
+    const srcCols = S2.pairs.map(p => p.srcCol);
+    const extCols = S2.pairs.map(p => p.extCol);
+
+    logInfo('S2: Пари колонок', S2.pairs.map((p,i)=>({src: S.headers[p.srcCol]||p.srcCol, ext: S2.headers[p.extCol]||p.extCol})));
+
+    // Будуємо мапи ключів
+    const extKeyMap = new Map(); // key → [rowIdx у S2]
+    for (let ri = 1; ri < S2.rows.length; ri++) {
+      const key = buildKeyFromRow(S2.rows[ri], extCols);
+      if (!key.replace(/\|/g,'').trim()) continue;
+      if (!extKeyMap.has(key)) extKeyMap.set(key, []);
+      extKeyMap.get(key).push(ri);
+    }
+
+    const srcKeyMap = new Map(); // key → [rowIdx у S]
+    for (let ri = 1; ri < S.rows.length; ri++) {
+      const key = buildKeyFromRow(S.rows[ri], srcCols);
+      if (!key.replace(/\|/g,'').trim()) continue;
+      if (!srcKeyMap.has(key)) srcKeyMap.set(key, []);
+      srcKeyMap.get(key).push(ri);
+    }
+
+    // crossRows: {key, srcRowIdxs, extRowIdxs}
+    const crossRows = [];
+    const srcMatchedKeys = new Set();
+    const extMatchedKeys = new Set();
+
+    srcKeyMap.forEach((srcIdxs, key) => {
+      if (extKeyMap.has(key)) {
+        const extIdxs = extKeyMap.get(key);
+        crossRows.push({ key, srcRowIdxs: srcIdxs, extRowIdxs: extIdxs });
+        srcMatchedKeys.add(key);
+        extMatchedKeys.add(key);
+      }
+    });
+
+    // srcOnly: є в основному, але немає у зовнішньому
+    const srcOnlyRows = [];
+    srcKeyMap.forEach((idxs, key) => {
+      if (!extKeyMap.has(key)) srcOnlyRows.push({key, rowIdxs: idxs});
+    });
+
+    // extOnly: є у зовнішньому, але немає в основному
+    const extOnlyRows = [];
+    extKeyMap.forEach((idxs, key) => {
+      if (!srcKeyMap.has(key)) extOnlyRows.push({key, rowIdxs: idxs});
+    });
+
+    S2.crossRows = crossRows;
+    S2.srcOnlyRows = srcOnlyRows;
+    S2.extOnlyRows = extOnlyRows;
+    S2._srcCols = srcCols;
+    S2._extCols = extCols;
+
+    logOk('Крос-перевірку завершено', {
+      збігів: crossRows.length,
+      тільки_в_основному: srcOnlyRows.length,
+      тільки_у_зовнішньому: extOnlyRows.length
+    });
+    if (crossRows.length > 0) logWarn(`Знайдено ${crossRows.length} збігів між файлами!`);
+    else logOk('Збігів між файлами не знайдено.');
+
+    // Статистика
+    set('s2-s-src', S.rows.length - 1);
+    set('s2-s-ext', S2.rows.length - 1);
+    set('s2-s-cross', crossRows.length);
+    set('s2-s-uniq', srcOnlyRows.length);
+    set('s2-s-extonly', extOnlyRows.length);
+    set('tc-cross', crossRows.length);
+    set('tc-srconly', srcOnlyRows.length);
+    set('tc-extonly', extOnlyRows.length);
+
+    document.getElementById('s2-results-block').style.display = 'block';
+    document.getElementById('s2-btn-dl-cross').disabled   = crossRows.length === 0;
+    document.getElementById('s2-btn-dl-unique').disabled  = srcOnlyRows.length === 0;
+    document.getElementById('s2-btn-dl-extonly').disabled = extOnlyRows.length === 0;
+
+    renderCrossResults(crossRows);
+    renderSrcOnly(srcOnlyRows);
+    renderExtOnly(extOnlyRows);
+
+    if (crossRows.length > 0) switchTab2('cross');
+    else if (srcOnlyRows.length > 0) switchTab2('srconly');
+    else switchTab2('extonly');
+
+    document.getElementById('s2-results-block').scrollIntoView({behavior:'smooth', block:'start'});
+  } catch(e) { logErr('S2 runCrossCheck: помилка', e.message); console.error(e); }
+}
+
+// ── Рендер: збіги ──
+function renderCrossResults(items) {
+  const container = document.getElementById('s2-cross-list');
+  if (!items.length) {
+    container.innerHTML = `<div class="empty"><span class="empty-icon">✅</span><div class="empty-text">Збігів між файлами не знайдено</div></div>`;
+    return;
+  }
+  // Визначаємо видимі колонки
+  const srcVisCols = S.headers.map((_,i)=>i).filter(vis);
+  const extVisCols = S2.headers.map((_,i)=>i);
+  const colCount = 1 + srcVisCols.length + extVisCols.length;
+  const colTemplate = `60px repeat(${srcVisCols.length}, 1fr) repeat(${extVisCols.length}, 1fr)`;
+
+  // Header
+  let html = `<div class="cross-results">`;
+  html += `<div class="cross-result-row header-row" style="grid-template-columns:${colTemplate}">`;
+  html += `<div class="cross-cell">рядок</div>`;
+  srcVisCols.forEach(ci => html += `<div class="cross-cell" style="color:var(--accent3)">📄 ${esc(alias(ci))}</div>`);
+  extVisCols.forEach(ci => html += `<div class="cross-cell" style="color:var(--stage2-accent)">🗄️ ${esc(S2.headers[ci]||`Col${ci+1}`)}</div>`);
+  html += `</div>`;
+
+  items.forEach(({key, srcRowIdxs, extRowIdxs}) => {
+    // Показуємо всі рядки-збіги з основного файлу
+    srcRowIdxs.forEach(ri => {
+      const row = S.rows[ri];
+      html += `<div class="cross-result-row" style="grid-template-columns:${colTemplate}">`;
+      html += `<div class="cross-cell row-num-cell">${ri}</div>`;
+      srcVisCols.forEach(ci => {
+        const isKey = S2._srcCols.includes(ci);
+        html += `<div class="cross-cell ${isKey?'source-cell':''}" title="${esc(row[ci]??'')}">${esc(row[ci]??'')}</div>`;
+      });
+      // Показуємо відповідні рядки із зовнішнього файлу (перший збіг або всі)
+      const extRow = S2.rows[extRowIdxs[0]];
+      extVisCols.forEach(ci => {
+        const isKey = S2._extCols.includes(ci);
+        html += `<div class="cross-cell ${isKey?'ext-cell':''}" title="${esc(extRow[ci]??'')}">${esc(extRow[ci]??'')}</div>`;
+      });
+      html += `</div>`;
+    });
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+// ── Рендер: тільки в основному ──
+function renderSrcOnly(items) {
+  const container = document.getElementById('s2-srconly-list');
+  if (!items.length) {
+    container.innerHTML = `<div class="empty"><span class="empty-icon">✅</span><div class="empty-text">Всі записи основного файлу мають збіги у зовнішньому</div></div>`;
+    return;
+  }
+  const srcVisCols = S.headers.map((_,i)=>i).filter(vis);
+  const colTemplate = `60px repeat(${srcVisCols.length}, 1fr)`;
+  let html = `<div class="cross-results">`;
+  html += `<div class="cross-result-row header-row" style="grid-template-columns:${colTemplate}">`;
+  html += `<div class="cross-cell">рядок</div>`;
+  srcVisCols.forEach(ci => html += `<div class="cross-cell" style="color:var(--accent3)">📄 ${esc(alias(ci))}</div>`);
+  html += `</div>`;
+  items.forEach(({rowIdxs}) => {
+    rowIdxs.forEach(ri => {
+      const row = S.rows[ri];
+      html += `<div class="cross-result-row" style="grid-template-columns:${colTemplate}">`;
+      html += `<div class="cross-cell row-num-cell">${ri}</div>`;
+      srcVisCols.forEach(ci => {
+        const isKey = S2._srcCols.includes(ci);
+        html += `<div class="cross-cell ${isKey?'source-cell':''}" title="${esc(row[ci]??'')}">${esc(row[ci]??'')}</div>`;
+      });
+      html += `</div>`;
+    });
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+// ── Рендер: тільки у зовнішньому ──
+function renderExtOnly(items) {
+  const container = document.getElementById('s2-extonly-list');
+  if (!items.length) {
+    container.innerHTML = `<div class="empty"><span class="empty-icon">✅</span><div class="empty-text">Всі записи зовнішнього файлу мають збіги в основному</div></div>`;
+    return;
+  }
+  const extVisCols = S2.headers.map((_,i)=>i);
+  const colTemplate = `60px repeat(${extVisCols.length}, 1fr)`;
+  let html = `<div class="cross-results">`;
+  html += `<div class="cross-result-row header-row" style="grid-template-columns:${colTemplate}">`;
+  html += `<div class="cross-cell">рядок</div>`;
+  extVisCols.forEach(ci => html += `<div class="cross-cell" style="color:var(--stage2-accent)">🗄️ ${esc(S2.headers[ci]||`Col${ci+1}`)}</div>`);
+  html += `</div>`;
+  items.forEach(({rowIdxs}) => {
+    rowIdxs.forEach(ri => {
+      const row = S2.rows[ri];
+      html += `<div class="cross-result-row" style="grid-template-columns:${colTemplate}">`;
+      html += `<div class="cross-cell row-num-cell">${ri}</div>`;
+      extVisCols.forEach(ci => {
+        const isKey = S2._extCols.includes(ci);
+        html += `<div class="cross-cell ${isKey?'ext-cell':''}" title="${esc(row[ci]??'')}">${esc(row[ci]??'')}</div>`;
+      });
+      html += `</div>`;
+    });
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+// ── Фільтри пошуку для Етапу 2 ──
+function s2FilterCross() {
+  const q = document.getElementById('s2-search-cross').value.trim().toLowerCase();
+  const f = q ? S2.crossRows.filter(x => x.key.toLowerCase().includes(q) || 
+    x.srcRowIdxs.some(ri => S.rows[ri].some(v => norm(v).toLowerCase().includes(q))) ||
+    x.extRowIdxs.some(ri => S2.rows[ri].some(v => norm(v).toLowerCase().includes(q)))
+  ) : S2.crossRows;
+  renderCrossResults(f);
+  set('s2-cnt-cross', `${f.length} з ${S2.crossRows.length} збігів`);
+}
+
+function s2FilterSrcOnly() {
+  const q = document.getElementById('s2-search-src').value.trim().toLowerCase();
+  const f = q ? S2.srcOnlyRows.filter(x => x.key.toLowerCase().includes(q) ||
+    x.rowIdxs.some(ri => S.rows[ri].some(v => norm(v).toLowerCase().includes(q)))
+  ) : S2.srcOnlyRows;
+  renderSrcOnly(f);
+  set('s2-cnt-srconly', `${f.length} з ${S2.srcOnlyRows.length}`);
+}
+
+function s2FilterExtOnly() {
+  const q = document.getElementById('s2-search-ext').value.trim().toLowerCase();
+  const f = q ? S2.extOnlyRows.filter(x => x.key.toLowerCase().includes(q) ||
+    x.rowIdxs.some(ri => S2.rows[ri].some(v => norm(v).toLowerCase().includes(q)))
+  ) : S2.extOnlyRows;
+  renderExtOnly(f);
+  set('s2-cnt-extonly', `${f.length} з ${S2.extOnlyRows.length}`);
+}
+
+// ── DOWNLOADS — Етап 2 ──
+function s2ToCSV(rows, stateObj, headers) {
+  const sep = ',';
+  const e = v => `"${String(v??'').replace(/"/g,'""')}"`;
+  const hRow = headers.map(h => e(h)).join(sep);
+  return hRow + '\n' + rows.map(row => row.map(v => e(v)).join(sep)).join('\n');
+}
+
+function s2DownloadCross() {
+  logInfo('S2: Завантаження збігів');
+  if (!S2.crossRows.length) return;
+  const srcVisCols = S.headers.map((_,i)=>i).filter(vis);
+  const extVisCols = S2.headers.map((_,i)=>i);
+  const headers = [
+    ...srcVisCols.map(ci => `[Основний] ${alias(ci)}`),
+    ...extVisCols.map(ci => `[Зовнішній] ${S2.headers[ci]||`Col${ci+1}`}`)
+  ];
+  const rows = [];
+  S2.crossRows.forEach(({srcRowIdxs, extRowIdxs}) => {
+    srcRowIdxs.forEach(ri => {
+      const srcRow = S.rows[ri];
+      const extRow = S2.rows[extRowIdxs[0]];
+      rows.push([
+        ...srcVisCols.map(ci => srcRow[ci]??''),
+        ...extVisCols.map(ci => extRow[ci]??'')
+      ]);
+    });
+  });
+  dl(s2ToCSV(rows, S2, headers), 'cross_matches.csv');
+}
+
+function s2DownloadUnique() {
+  logInfo('S2: Завантаження унікальних');
+  if (!S2.srcOnlyRows.length) return;
+  const srcVisCols = S.headers.map((_,i)=>i).filter(vis);
+  const headers = srcVisCols.map(ci => alias(ci));
+  const rows = [];
+  S2.srcOnlyRows.forEach(({rowIdxs}) => {
+    rowIdxs.forEach(ri => rows.push(srcVisCols.map(ci => S.rows[ri][ci]??'')));
+  });
+  dl(s2ToCSV(rows, S, headers), 'src_unique_only.csv');
+}
+
+function s2DownloadExtOnly() {
+  logInfo('S2: Завантаження тільки у зовнішньому');
+  if (!S2.extOnlyRows.length) return;
+  const extVisCols = S2.headers.map((_,i)=>i);
+  const headers = extVisCols.map(ci => S2.headers[ci]||`Col${ci+1}`);
+  const rows = [];
+  S2.extOnlyRows.forEach(({rowIdxs}) => {
+    rowIdxs.forEach(ri => rows.push(extVisCols.map(ci => S2.rows[ri][ci]??'')));
+  });
+  dl(s2ToCSV(rows, S2, headers), 'ext_only.csv');
+}
+
+// ══════════════════════════════════════════════════════════
 // UTILS
 // ══════════════════════════════════════════════════════════
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function set(id,v){ document.getElementById(id).textContent=v; }
+function set(id,v){ const el=document.getElementById(id); if(el) el.textContent=v; }
 
-logInfo('Потужний шукач від Сивочолого ініціалізовано', {version:'4.0.0', excel:'✓ SheetJS', time: new Date().toLocaleString('uk-UA')});
+logInfo('Потужний шукач v5.0 ініціалізовано', {version:'5.0.0', features:'Внутрішня перевірка + Крос-перевірка між файлами', time: new Date().toLocaleString('uk-UA')});
 </script>
 </body>
 </html>
