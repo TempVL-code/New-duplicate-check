@@ -400,8 +400,25 @@ textarea::placeholder { color: var(--muted); }
 .dbg-filter-btn.f-warn.active { background:rgba(146,64,14,0.08);  border-color:var(--dbg-warn); color:var(--dbg-warn); }
 .dbg-dl-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; padding:4px 12px; background:var(--white); color:var(--ink2); border:1px solid var(--border); border-radius:4px; cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:6px; }
 .dbg-dl-btn:hover { background:var(--bg2); border-color:var(--dbg-ok); color:var(--dbg-ok); }
-.dbg-clear-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; padding:4px 10px; background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:4px; cursor:pointer; transition:all 0.15s; }
-.dbg-clear-btn:hover { border-color:var(--dbg-err); color:var(--dbg-err); }
+.dbg-clear-btn {
+  font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700;
+  padding:5px 13px; background: rgba(153,27,27,0.07);
+  color: var(--dbg-err); border:1.5px solid rgba(153,27,27,0.35);
+  border-radius:4px; cursor:pointer; transition:all 0.18s;
+  display:flex; align-items:center; gap:5px; letter-spacing:0.3px;
+}
+.dbg-clear-btn:hover {
+  background: var(--dbg-err); color:#fff;
+  border-color: var(--dbg-err);
+  box-shadow: 0 2px 10px rgba(153,27,27,0.35);
+  transform: translateY(-1px);
+}
+.dbg-clear-btn:active { transform:scale(0.96); }
+.dbg-clear-btn.cleared {
+  background: rgba(22,101,52,0.1); color:var(--dbg-ok);
+  border-color: rgba(22,101,52,0.4);
+  pointer-events: none;
+}
 
 /* ─── DIVIDER ─── */
 .stage-divider {
@@ -433,6 +450,70 @@ textarea::placeholder { color: var(--muted); }
 .s2-sel-item.sel-rgt .s2-radio-dot { border-color:var(--stage2-accent); background:var(--stage2-accent); }
 .s2-sel-smp { font-size:10px; color:var(--muted); margin-left:auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100px; }
 .s2-eq-label { font-size:20px; color:var(--muted); text-align:center; padding-top:36px; }
+
+/* ─── RESET BUTTON ─── */
+.btn-reset {
+  background: #fff0f0;
+  color: #b91c1c;
+  border-color: #fca5a5;
+  box-shadow: 3px 3px 0 rgba(185,28,28,0.10);
+  margin-left: auto;
+}
+.btn-reset:not(:disabled):hover {
+  background: #b91c1c; color: #fff; border-color: #b91c1c;
+  transform: translate(-1px,-1px);
+  box-shadow: 4px 4px 0 rgba(185,28,28,0.25);
+}
+
+/* ─── CONFIRM MODAL ─── */
+#reset-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(30,10,60,0.55);
+  backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+  animation: fadeIn 0.15s ease;
+}
+#reset-overlay.open { display: flex; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+#reset-modal {
+  background: var(--white);
+  border: 2px solid #fca5a5;
+  border-radius: 12px;
+  padding: 32px 36px;
+  max-width: 420px; width: 90%;
+  box-shadow: 0 20px 60px rgba(185,28,28,0.2), 0 4px 20px rgba(0,0,0,0.15);
+  animation: popIn 0.2s cubic-bezier(0.34,1.56,0.64,1);
+  text-align: center;
+}
+@keyframes popIn { from{opacity:0;transform:scale(0.88)} to{opacity:1;transform:scale(1)} }
+#reset-modal .rm-icon { font-size: 44px; margin-bottom: 12px; line-height:1; }
+#reset-modal .rm-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px; font-weight: 800; color: #b91c1c;
+  margin-bottom: 10px; letter-spacing: -0.5px;
+}
+#reset-modal .rm-body {
+  font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 24px;
+}
+#reset-modal .rm-body strong { color: var(--ink); }
+#reset-modal .rm-btns { display: flex; gap: 10px; justify-content: center; }
+.rm-btn-cancel {
+  font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
+  padding: 10px 22px; border-radius: 6px; cursor: pointer;
+  background: var(--bg2); color: var(--ink2); border: 1.5px solid var(--border);
+  transition: all 0.15s;
+}
+.rm-btn-cancel:hover { background: var(--bg3); }
+.rm-btn-confirm {
+  font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700;
+  padding: 10px 26px; border-radius: 6px; cursor: pointer;
+  background: #b91c1c; color: #fff; border: 1.5px solid #b91c1c;
+  box-shadow: 0 2px 10px rgba(185,28,28,0.35);
+  transition: all 0.15s; display: flex; align-items: center; gap: 7px;
+}
+.rm-btn-confirm:hover { background: #991b1b; box-shadow: 0 4px 16px rgba(185,28,28,0.45); transform: translateY(-1px); }
+
 </style>
 </head>
 <body>
@@ -467,7 +548,7 @@ textarea::placeholder { color: var(--muted); }
       <button class="dbg-filter-btn"        id="ff-info" onclick="dbgFilter('info')">ℹ Інфо</button>
     </div>
     <div style="display:flex;gap:6px;">
-      <button class="dbg-clear-btn" onclick="clearLog()">Очистити</button>
+      <button class="dbg-clear-btn" id="dbg-clear-btn" onclick="clearLog()">🗑 Очистити лог</button>
       <button class="dbg-dl-btn"    onclick="downloadLog()">⬇ Зберегти .log</button>
     </div>
   </div>
@@ -513,6 +594,7 @@ textarea::placeholder { color: var(--muted); }
     <button class="btn btn-danger"  id="btn-dl-dup"   onclick="downloadDuplicates()"       disabled>📥 Дублі (CSV)</button>
     <button class="btn btn-success" id="btn-dl-clean" onclick="downloadWithoutDuplicates()" disabled>✨ Без дублів (CSV)</button>
     <button class="btn btn-warn"    id="btn-dl-inv"   onclick="downloadInvalid()"           disabled>⚠️ Невалідні (CSV)</button>
+    <button class="btn btn-reset"   id="btn-reset-all" onclick="confirmResetAll()">🗑 Скинути все</button>
   </div>
 </div>
 
@@ -670,6 +752,23 @@ textarea::placeholder { color: var(--muted); }
 </div>
 
 </div><!-- .wrap -->
+
+<!-- ══════ RESET CONFIRM MODAL ══════ -->
+<div id="reset-overlay" onclick="closeResetModal(event)">
+  <div id="reset-modal">
+    <div class="rm-icon">🗑️</div>
+    <div class="rm-title">Скинути всі дані?</div>
+    <div class="rm-body">
+      Буде очищено <strong>обидва файли</strong>, всі результати,<br>
+      маппінги колонок та налаштування.<br>
+      Цю дію <strong>неможливо скасувати</strong>.
+    </div>
+    <div class="rm-btns">
+      <button class="rm-btn-cancel" onclick="closeResetModal()">← Скасувати</button>
+      <button class="rm-btn-confirm" onclick="resetAll()">🗑 Так, скинути все</button>
+    </div>
+  </div>
+</div>
 <script>
 // ══════════════════════════════════════════════════════════
 // DEBUG LOGGER
@@ -739,9 +838,29 @@ function dbgFilter(f) {
 }
 
 function clearLog() {
-  LOG.length = 0; dbgHasErr = false;
+  // Повністю очищаємо — БЕЗ виклику logInfo всередині, бо він знову додасть запис
+  LOG.length = 0;
+  dbgHasErr = false;
   document.getElementById('dbg-body').innerHTML = '';
-  updateDbgHeader(); logInfo('Лог очищено вручну');
+  updateDbgHeader();
+
+  // Візуальне підтвердження на кнопці
+  const btn = document.getElementById('dbg-clear-btn');
+  if (btn) {
+    const prev = btn.innerHTML;
+    btn.innerHTML = '✓ Очищено!';
+    btn.classList.add('cleared');
+    setTimeout(() => {
+      btn.innerHTML = prev;
+      btn.classList.remove('cleared');
+    }, 1800);
+  }
+
+  // Додаємо новий перший запис вже ПІСЛЯ очищення
+  const entry = { ts: ts(), level: 'info', msg: 'Лог очищено вручну', data: undefined, date: new Date().toISOString() };
+  LOG.push(entry);
+  updateDbgHeader();
+  if (dbgOpen) appendLine(entry);
 }
 
 function downloadLog() {
@@ -1644,7 +1763,112 @@ function s2DownloadExtOnly() {
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function set(id,v){ const el=document.getElementById(id); if(el) el.textContent=v; }
 
-logInfo('Потужний шукач v5.0 ініціалізовано', {version:'5.0.0', features:'Внутрішня перевірка + Крос-перевірка між файлами', time: new Date().toLocaleString('uk-UA')});
+// ══════════════════════════════════════════════════════════
+// RESET ALL — скидає абсолютно всі дані
+// ══════════════════════════════════════════════════════════
+function confirmResetAll() {
+  document.getElementById('reset-overlay').classList.add('open');
+}
+
+function closeResetModal(e) {
+  // Закрити якщо клік по оверлею (не по самому модалу)
+  if (e && e.target !== document.getElementById('reset-overlay')) return;
+  document.getElementById('reset-overlay').classList.remove('open');
+}
+
+function resetAll() {
+  document.getElementById('reset-overlay').classList.remove('open');
+
+  // ── ЕТАП 1: скидаємо стан ──
+  S.rows = []; S.headers = []; S.sep = '\t';
+  S.colMap = []; S.syntheticHeader = false;
+  S.groups = {}; S.order = []; S.dupOrder = []; S.invalid = []; S.keyCol = 0;
+
+  // ── ЕТАП 2: скидаємо стан ──
+  S2.rows = []; S2.headers = []; S2.sep = '\t';
+  S2.colMap = []; S2.syntheticHeader = false;
+  S2.pairs = [];
+  S2.crossRows = []; S2.srcOnlyRows = []; S2.extOnlyRows = [];
+  S2._srcCols = []; S2._extCols = [];
+
+  // ── DOM: Етап 1 ──
+  document.getElementById('textarea').value = '';
+  document.getElementById('file-name').textContent = '';
+  document.getElementById('file-input').value = '';
+  document.getElementById('mapping-block').style.display = 'none';
+  document.getElementById('no-header-banner').classList.remove('visible');
+  document.getElementById('preview-wrap').innerHTML = '';
+  document.getElementById('col-select-list').innerHTML = '';
+  document.getElementById('results-block').style.display = 'none';
+  document.getElementById('dup-list').innerHTML = '';
+  document.getElementById('inv-thead').innerHTML = '';
+  document.getElementById('inv-tbody').innerHTML = '';
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-input').disabled = true;
+  document.getElementById('search-count').textContent = '';
+  document.getElementById('inv-search').value = '';
+  document.getElementById('inv-count').textContent = '';
+  ['s-total','s-unique','s-dup','s-rows','s-invalid','tc-dup','tc-inv'].forEach(id => set(id, '0'));
+  document.getElementById('btn-dl-dup').disabled   = true;
+  document.getElementById('btn-dl-clean').disabled = true;
+  document.getElementById('btn-dl-inv').disabled   = true;
+
+  // ── DOM: Скинути вкладки Етап 1 ──
+  document.querySelectorAll('#results-block .tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#results-block .tab-btn').forEach(b => b.classList.remove('active'));
+  const td = document.getElementById('tab-dup');
+  const tdb = document.getElementById('tab-dup-btn');
+  if (td) td.classList.add('active');
+  if (tdb) tdb.classList.add('active');
+
+  // ── DOM: Етап 2 ──
+  document.getElementById('s2-file-name').textContent = '';
+  document.getElementById('s2-file-input').value = '';
+  document.getElementById('s2-mapping-block').style.display = 'none';
+  document.getElementById('s2-actions-block').style.display = 'none';
+  document.getElementById('s2-results-block').style.display = 'none';
+  document.getElementById('s2-preview-wrap').innerHTML = '';
+  document.getElementById('s2-pairs-list').innerHTML = '';
+  document.getElementById('s2-cross-list').innerHTML = '';
+  document.getElementById('s2-srconly-list').innerHTML = '';
+  document.getElementById('s2-extonly-list').innerHTML = '';
+  document.getElementById('s2-search-cross').value = '';
+  document.getElementById('s2-search-src').value = '';
+  document.getElementById('s2-search-ext').value = '';
+  ['s2-s-src','s2-s-ext','s2-s-cross','s2-s-uniq','s2-s-extonly','tc-cross','tc-srconly','tc-extonly'].forEach(id => set(id, '0'));
+  document.getElementById('s2-btn-dl-cross').disabled   = true;
+  document.getElementById('s2-btn-dl-unique').disabled  = true;
+  document.getElementById('s2-btn-dl-extonly').disabled = true;
+
+  // ── DOM: Скинути вкладки Етап 2 ──
+  document.querySelectorAll('#s2-results-block .tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#s2-results-block .tab-btn').forEach(b => b.classList.remove('active'));
+  const tc = document.getElementById('tab-cross');
+  const tcb = document.getElementById('tab-cross-btn');
+  if (tc) tc.classList.add('active');
+  if (tcb) tcb.classList.add('active');
+
+  // ── Кнопка: анімація підтвердження ──
+  const btn = document.getElementById('btn-reset-all');
+  if (btn) {
+    const prev = btn.innerHTML;
+    btn.innerHTML = '✓ Скинуто!';
+    btn.style.background = 'rgba(22,101,52,0.1)';
+    btn.style.color = 'var(--accent2)';
+    btn.style.borderColor = 'rgba(22,101,52,0.4)';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = prev;
+      btn.style = '';
+      btn.disabled = false;
+    }, 2000);
+  }
+
+  logInfo('Всі дані скинуто');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+, {version:'5.0.0', features:'Внутрішня перевірка + Крос-перевірка між файлами', time: new Date().toLocaleString('uk-UA')});
 </script>
 </body>
 </html>
